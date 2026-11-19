@@ -12,7 +12,7 @@ project:
     - assets/js/walkaway.js
 
 website:
-  title: "Pay or Restore?"
+  title: "When Is a Ransom Worth Paying?"
   favicon: assets/images/favicon.svg
   search: false
   page-navigation: true

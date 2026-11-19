@@ -1,6 +1,6 @@
 ---
 title: "The Game"
-subtitle: "Pay or Restore? How a ransomware incident plays out as a bargaining game"
+subtitle: "How a ransomware incident plays out as a bargaining game"
 ---
 
 ```{r setup}

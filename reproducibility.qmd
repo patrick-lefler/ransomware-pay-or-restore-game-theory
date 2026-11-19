@@ -1,6 +1,6 @@
 ---
 title: "Reproducibility"
-subtitle: "Pay or Restore? How to rerun the analysis"
+subtitle: "How to rerun the analysis"
 knitr:
   opts_chunk:
     comment: "#>"
