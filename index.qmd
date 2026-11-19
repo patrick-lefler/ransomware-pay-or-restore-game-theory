@@ -1,5 +1,5 @@
 ---
-title: "Pay or Restore?"
+title: "Ransomware Pay or Restore Game Theory"
 subtitle: "A Ransomware Bargaining Game for the Board: Summary"
 author: Patrick Lefler
 date: November 19, 2026
