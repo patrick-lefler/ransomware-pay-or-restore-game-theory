@@ -1,6 +1,6 @@
 ---
 title: "Decision Map & Reputation"
-subtitle: "Pay or Restore? Where the pay line sits, and what each choice teaches the crew"
+subtitle: "Where the pay line sits, and what each choice teaches the crew"
 ---
 
 ```{r setup}

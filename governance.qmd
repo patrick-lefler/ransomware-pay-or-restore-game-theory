@@ -1,6 +1,6 @@
 ---
 title: "Governance"
-subtitle: "Pay or Restore? Assumptions, sensitivity, limitations and checks"
+subtitle: "Assumptions, sensitivity, limitations and checks"
 ---
 
 ```{r setup}

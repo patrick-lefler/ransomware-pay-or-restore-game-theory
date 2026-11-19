@@ -1,4 +1,4 @@
-# Pay or Restore? A Ransomware Bargaining Game for the Board
+# When Is a Ransom Worth Paying? A Game-Theory Guide for the Board
 
 A 500-person fintech firm (the same firm as the Defender–Attacker study) is hit by ransomware: its platform is encrypted and client data copied. Should it pay or restore from backups, and how should the board decide before it happens? The site derives the firm's **walk-away point** (the largest ransom worth paying), shows that restore time drives it far more than the size of the demand, and simulates a 10-year repeated game in which the crew learns from each payment or refusal.
 
