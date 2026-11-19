@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Reproducibility – Pay or Restore?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<link href="./governance.html" rel="prev">
+<link href="./assets/images/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-57b3e5c951b8cca08672c3d8f0d54c80.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./reproducibility.html">Reproducibility</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./assets/images/logo.svg" alt="Seeking Eureka" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./assets/images/logo.svg" alt="Seeking Eureka" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./game.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Game</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./map-reputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Map &amp; Reputation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./governance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Governance</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reproducibility.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Reproducibility</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">contents</h2>
+   
+  <ul>
+  <li><a href="#quick-start" id="toc-quick-start" class="nav-link active" data-scroll-target="#quick-start">Quick start</a></li>
+  <li><a href="#pipeline" id="toc-pipeline" class="nav-link" data-scroll-target="#pipeline">Pipeline</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters and seeds</a></li>
+  <li><a href="#tests" id="toc-tests" class="nav-link" data-scroll-target="#tests">Tests</a></li>
+  <li><a href="#caching" id="toc-caching" class="nav-link" data-scroll-target="#caching">Caching</a></li>
+  <li><a href="#licenses" id="toc-licenses" class="nav-link" data-scroll-target="#licenses">Licenses</a></li>
+  <li><a href="#environment" id="toc-environment" class="nav-link" data-scroll-target="#environment">Software environment</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Reproducibility</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">Pay or Restore? How to rerun the analysis</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Every number on this site comes from synthetic inputs in <code>params.yaml</code> and <code>data/</code>, and from results computed by the scripts in <code>R/</code>. Nothing is downloaded, and every random draw is seeded, so running the same commit with the same package versions gives the same results. The pages never compute the heavy results themselves: they read cached results from <code>data/results/</code>. The decision-map slider recomputes the closed-form walk-away point in the browser, using a JavaScript file that the pipeline checks against R. This page explains how to rebuild the results, lists the inputs with their checksums, shows the tests, and records the software environment.</p>
+<section id="quick-start" class="level2">
+<h2 class="anchored" data-anchor-id="quick-start">Quick start</h2>
+<ol type="1">
+<li>Clone the <a href="https://github.com/patrick-lefler/ransomware-pay-or-restore-game-theory">GitHub repository</a> and open the project folder in RStudio or Positron.</li>
+<li>Restore the packages with <code>renv::restore()</code> (see <a href="#environment">Software environment</a>). You need R 4.3 or later and Quarto 1.5 or later.</li>
+<li>From a terminal in the project root, rebuild the results, run the tests and render the site:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/run_all.R</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'testthat::test_dir("tests/testthat")'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The rendered site is written to <code>docs/</code>. Run <code>R/run_all.R</code> with <code>Rscript</code> from a terminal, not with <code>source()</code> in an R console: it ends with <code>quit()</code>, which would close your session. It exits with an error status if any diagnostic fails. The sliders need a web server: open the site through GitHub Pages or a local server (for example <code>python3 -m http.server -d docs</code>), not directly from disk.</p>
+</section>
+<section id="pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="pipeline">Pipeline</h2>
+<p><code>R/run_all.R</code> sources the scripts below in order, calls each script’s <code>main_*()</code> function, runs the diagnostics and saves every result to <code>data/results/</code>. Later scripts use functions from earlier ones, so sourcing a later script on its own in a fresh session fails.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 46%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Script</th>
+<th style="text-align: left;">What it does</th>
+<th style="text-align: left;">Main outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>R/00_params.R</code></td>
+<td style="text-align: left;">Reads <code>params.yaml</code> into constants, the base case and the three firm profiles; sets the project paths</td>
+<td style="text-align: left;"><code>BASE</code>, <code>PROFILES</code>, <code>INPUT_SPEC</code>, seeds</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>R/01_utils.R</code></td>
+<td style="text-align: left;">Closed-form costs and walk-away point, triangular and Beta samplers, formatters, result read/write helpers</td>
+<td style="text-align: left;">Shared functions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>R/20_walkaway.R</code></td>
+<td style="text-align: left;">Reference cases, decision-map boundaries, the two-paths cost components and firm profiles</td>
+<td style="text-align: left;"><code>walkaway.rds</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>R/30_mc_drivers.R</code></td>
+<td style="text-align: left;">Monte Carlo over all inputs; first-order variance shares for the walk-away point and the pay decision, on five seeds</td>
+<td style="text-align: left;"><code>mc_drivers.rds</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>R/31_bargaining.R</code></td>
+<td style="text-align: left;">The crew’s belief grid, its best demand and the Bayesian update after a payment or refusal</td>
+<td style="text-align: left;">Shared functions</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>R/32_reputation.R</code></td>
+<td style="text-align: left;">10-year repeated game for every attack rate on the slider, and the targeting-response sweep</td>
+<td style="text-align: left;"><code>reputation.rds</code>, <code>reputation_grid.rds</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>R/35_sensitivity.R</code></td>
+<td style="text-align: left;">One-at-a-time swings and the market-calibration run</td>
+<td style="text-align: left;"><code>sensitivity.rds</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>R/80_diagnostics.R</code></td>
+<td style="text-align: left;">The ten checks shown on the Governance page, including the JavaScript–R parity check</td>
+<td style="text-align: left;"><code>diagnostics.rds</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>R/run_all.R</code></td>
+<td style="text-align: left;">Runs all of the above</td>
+<td style="text-align: left;">All results</td>
+</tr>
+</tbody>
+</table>
+<p><code>assets/js/walkaway.js</code> holds the walk-away formula used by the decision-map slider; the parity diagnostic runs this same file in R through the <code>V8</code> package. Every page sources <code>R/00_params.R</code>, <code>R/01_utils.R</code> and <code>R/90_theme.R</code> (labels, colors and the plot and table styles) in a hidden first chunk. <code>R/99_wordcount.R</code> is an internal prose-length check whose output is printed to the terminal only.</p>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>All inputs are synthetic and illustrative, written for this project. <code>params.yaml</code> holds every number: base values, ranges, seeds and simulation settings (see <a href="#parameters">Parameters and seeds</a>). <code>data/inputs.csv</code> holds the labels, units and sources shown in the inputs table on <a href="./game.html#the-inputs">The Game</a> page; it contains no numbers. <code>data/assumptions_register.csv</code> holds the text of the register on the <a href="./governance.html#assumptions-register">Governance</a> page. The files in <code>data/results/</code> are generated by <code>R/run_all.R</code> and committed, so the site renders without rerunning the analysis.</p>
+<p>The checksums below identify the exact files used in this render. A different checksum means a different file.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Display code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>input_files <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"params.yaml"</span>, <span class="st">"data/inputs.csv"</span>, <span class="st">"data/assumptions_register.csv"</span>, <span class="st">"assets/js/walkaway.js"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>result_files <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"results"</span>, <span class="fu">c</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"walkaway.rds"</span>, <span class="st">"mc_drivers.rds"</span>, <span class="st">"reputation.rds"</span>, <span class="st">"reputation_grid.rds"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"sensitivity.rds"</span>, <span class="st">"diagnostics.rds"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Kind =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Input"</span>, <span class="fu">length</span>(input_files)), <span class="fu">rep</span>(<span class="st">"Cached result"</span>, <span class="fu">length</span>(result_files))),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">File =</span> <span class="fu">c</span>(input_files, result_files)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Size (KB)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">file.size</span>(<span class="fu">file.path</span>(PROJECT_ROOT, File)) <span class="sc">/</span> <span class="fl">1e3</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">MD5 =</span> <span class="fu">unname</span>(tools<span class="sc">::</span><span class="fu">md5sum</span>(<span class="fu">file.path</span>(PROJECT_ROOT, File)))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="fu">md</span>(<span class="st">"**Files used in this render**"</span>), <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">"Rendered "</span>, <span class="fu">Sys.Date</span>())) <span class="sc">|&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="st">`</span><span class="at">Size (KB)</span><span class="st">`</span>, <span class="at">decimals =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">columns =</span> <span class="fu">c</span>(Kind, File, MD5))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="tbl-checksums" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-checksums-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Input files and cached results used in this render.
+</figcaption>
+<div aria-describedby="tbl-checksums-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="raijrbuhfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#raijrbuhfu table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#raijrbuhfu thead, #raijrbuhfu tbody, #raijrbuhfu tfoot, #raijrbuhfu tr, #raijrbuhfu td, #raijrbuhfu th {
+  border-style: none;
+}
+
+#raijrbuhfu p {
+  margin: 0;
+  padding: 0;
+}
+
+#raijrbuhfu .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#raijrbuhfu .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#raijrbuhfu .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#raijrbuhfu .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_col_heading {
+  color: #333333;
+  background-color: #F2F2F2;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#raijrbuhfu .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F2F2F2;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#raijrbuhfu .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#raijrbuhfu .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#raijrbuhfu .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#raijrbuhfu .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#raijrbuhfu .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#raijrbuhfu .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#raijrbuhfu .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#raijrbuhfu .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#raijrbuhfu .gt_row {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#raijrbuhfu .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#raijrbuhfu .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#raijrbuhfu .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#raijrbuhfu .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#raijrbuhfu .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#raijrbuhfu .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#raijrbuhfu .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#raijrbuhfu .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#raijrbuhfu .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#raijrbuhfu .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#raijrbuhfu .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#raijrbuhfu .gt_left {
+  text-align: left;
+}
+
+#raijrbuhfu .gt_center {
+  text-align: center;
+}
+
+#raijrbuhfu .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#raijrbuhfu .gt_font_normal {
+  font-weight: normal;
+}
+
+#raijrbuhfu .gt_font_bold {
+  font-weight: bold;
+}
+
+#raijrbuhfu .gt_font_italic {
+  font-style: italic;
+}
+
+#raijrbuhfu .gt_super {
+  font-size: 65%;
+}
+
+#raijrbuhfu .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#raijrbuhfu .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#raijrbuhfu .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#raijrbuhfu .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#raijrbuhfu .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#raijrbuhfu .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#raijrbuhfu .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#raijrbuhfu .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#raijrbuhfu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_heading header">
+<td colspan="4" class="gt_heading gt_title gt_font_normal"><strong>Files used in this render</strong></td>
+</tr>
+<tr class="gt_heading even">
+<td colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border">Rendered 2026-11-19</td>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Kind" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Kind</th>
+<th id="File" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">File</th>
+<th id="Size-(KB)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Size (KB)</th>
+<th id="MD5" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">MD5</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Kind">Input</td>
+<td class="gt_row gt_left" headers="File">params.yaml</td>
+<td class="gt_row gt_right" headers="Size (KB)">2.7</td>
+<td class="gt_row gt_left" headers="MD5">8e292da7d1b6ce436b9a8b44ad182758</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Kind">Input</td>
+<td class="gt_row gt_left" headers="File">data/inputs.csv</td>
+<td class="gt_row gt_right" headers="Size (KB)">1.5</td>
+<td class="gt_row gt_left" headers="MD5">0ded661b6b8b1fcbfa16cc911373da42</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Kind">Input</td>
+<td class="gt_row gt_left" headers="File">data/assumptions_register.csv</td>
+<td class="gt_row gt_right" headers="Size (KB)">1.6</td>
+<td class="gt_row gt_left" headers="MD5">16baf00cfd92e8362f947e00c44aa880</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Kind">Input</td>
+<td class="gt_row gt_left" headers="File">assets/js/walkaway.js</td>
+<td class="gt_row gt_right" headers="Size (KB)">0.7</td>
+<td class="gt_row gt_left" headers="MD5">04f08ceb5b7ab91163e9da4dc95b1f1b</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Kind">Cached result</td>
+<td class="gt_row gt_left" headers="File">data/results/walkaway.rds</td>
+<td class="gt_row gt_right" headers="Size (KB)">2.9</td>
+<td class="gt_row gt_left" headers="MD5">9c2fd897540eda3eefee0aa148e5e4f5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Kind">Cached result</td>
+<td class="gt_row gt_left" headers="File">data/results/mc_drivers.rds</td>
+<td class="gt_row gt_right" headers="Size (KB)">1.6</td>
+<td class="gt_row gt_left" headers="MD5">ac50302d260c930fa277ef7d981215f3</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Kind">Cached result</td>
+<td class="gt_row gt_left" headers="File">data/results/reputation.rds</td>
+<td class="gt_row gt_right" headers="Size (KB)">6.5</td>
+<td class="gt_row gt_left" headers="MD5">944f74f30f2a9165b541dae966e7e01f</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Kind">Cached result</td>
+<td class="gt_row gt_left" headers="File">data/results/reputation_grid.rds</td>
+<td class="gt_row gt_right" headers="Size (KB)">2.7</td>
+<td class="gt_row gt_left" headers="MD5">8df4e6613e64337ecdf626288bdeff04</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Kind">Cached result</td>
+<td class="gt_row gt_left" headers="File">data/results/sensitivity.rds</td>
+<td class="gt_row gt_right" headers="Size (KB)">1.2</td>
+<td class="gt_row gt_left" headers="MD5">3abe40abd1019092058bb250a9c198ed</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Kind">Cached result</td>
+<td class="gt_row gt_left" headers="File">data/results/diagnostics.rds</td>
+<td class="gt_row gt_right" headers="Size (KB)">0.9</td>
+<td class="gt_row gt_left" headers="MD5">5d3e3578037818706b558143dc1e43cb</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="reader-note">
+<p><strong>How to read the table.</strong> Each row is one file the site depends on: 4 hand-written inputs and 6 cached results produced by the scripts. The size is in kilobytes. The MD5 column is a checksum, a short fingerprint computed from the file’s exact contents; changing even one character gives a completely different fingerprint. The subtitle gives the date this page was rendered.</p>
+<p><strong>What the table tells you.</strong> Anyone rerunning the analysis can compute the same fingerprints on their copies. Matching input fingerprints mean identical starting points, and the results should then match too. If a result fingerprint differs while the inputs match, check the package versions first, since a different version of R or a package can change random draws or rounding.</p>
+</div>
+</section>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters and seeds</h2>
+<p>Every setting lives in <code>params.yaml</code>, and each model input is labeled as an assumption, with its range. Every random stream is seeded explicitly: the Monte Carlo in <code>R/30_mc_drivers.R</code> uses seed 20261118, and the seed-stability check reruns it with the next 4 seeds. The reputation simulation in <code>R/32_reputation.R</code> uses seed 7. It draws one set of random numbers and reuses them for every attack rate, firm and policy, so the slider chart moves smoothly instead of jittering. The event-level check in <code>R/80_diagnostics.R</code> uses seed 20261120.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Display code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fmt_dist <span class="ot">&lt;-</span> \(s) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  par <span class="ot">&lt;-</span> <span class="fu">unlist</span>(s<span class="sc">$</span>par)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span>(s<span class="sc">$</span>dist, <span class="at">tri =</span> <span class="fu">sprintf</span>(<span class="st">"Triangular(%s)"</span>, <span class="fu">paste</span>(par, <span class="at">collapse =</span> <span class="st">", "</span>)),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">beta =</span> <span class="fu">sprintf</span>(<span class="st">"Beta(%s)"</span>, <span class="fu">paste</span>(par, <span class="at">collapse =</span> <span class="st">", "</span>)), <span class="at">fixed =</span> <span class="st">"Fixed"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">ratio_of_p_np =</span> <span class="fu">sprintf</span>(<span class="st">"p_np × Triangular(%s)"</span>, <span class="fu">paste</span>(par, <span class="at">collapse =</span> <span class="st">", "</span>)))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Name =</span> <span class="fu">names</span>(INPUT_SPEC),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Base =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(<span class="fu">names</span>(INPUT_SPEC), \(n) BASE[[n]]),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Distribution =</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(INPUT_SPEC, fmt_dist),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Status =</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(INPUT_SPEC, <span class="st">"status"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> Base, <span class="at">decimals =</span> <span class="dv">2</span>, <span class="at">drop_trailing_zeros =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">columns =</span> <span class="sc">-</span>Base)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="tbl-params" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Model inputs in params.yaml.
+</figcaption>
+<div aria-describedby="tbl-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="ymqqswhsll" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ymqqswhsll table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ymqqswhsll thead, #ymqqswhsll tbody, #ymqqswhsll tfoot, #ymqqswhsll tr, #ymqqswhsll td, #ymqqswhsll th {
+  border-style: none;
+}
+
+#ymqqswhsll p {
+  margin: 0;
+  padding: 0;
+}
+
+#ymqqswhsll .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ymqqswhsll .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ymqqswhsll .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ymqqswhsll .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_col_heading {
+  color: #333333;
+  background-color: #F2F2F2;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ymqqswhsll .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F2F2F2;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ymqqswhsll .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ymqqswhsll .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ymqqswhsll .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ymqqswhsll .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ymqqswhsll .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ymqqswhsll .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ymqqswhsll .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ymqqswhsll .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ymqqswhsll .gt_row {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ymqqswhsll .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ymqqswhsll .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ymqqswhsll .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ymqqswhsll .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ymqqswhsll .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ymqqswhsll .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ymqqswhsll .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ymqqswhsll .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ymqqswhsll .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ymqqswhsll .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ymqqswhsll .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ymqqswhsll .gt_left {
+  text-align: left;
+}
+
+#ymqqswhsll .gt_center {
+  text-align: center;
+}
+
+#ymqqswhsll .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ymqqswhsll .gt_font_normal {
+  font-weight: normal;
+}
+
+#ymqqswhsll .gt_font_bold {
+  font-weight: bold;
+}
+
+#ymqqswhsll .gt_font_italic {
+  font-style: italic;
+}
+
+#ymqqswhsll .gt_super {
+  font-size: 65%;
+}
+
+#ymqqswhsll .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ymqqswhsll .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ymqqswhsll .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ymqqswhsll .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ymqqswhsll .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ymqqswhsll .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ymqqswhsll .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ymqqswhsll .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ymqqswhsll div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="Name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Name</th>
+<th id="Base" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Base</th>
+<th id="Distribution" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Distribution</th>
+<th id="Status" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Status</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">c</td>
+<td class="gt_row gt_right" headers="Base">0.5</td>
+<td class="gt_row gt_left" headers="Distribution">Triangular(0.25, 0.5, 0.9)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">T_r</td>
+<td class="gt_row gt_right" headers="Base">10</td>
+<td class="gt_row gt_left" headers="Distribution">Triangular(3, 10, 30)</td>
+<td class="gt_row gt_left" headers="Status">assumption; context from Sophos State of Ransomware 2025</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">b</td>
+<td class="gt_row gt_right" headers="Base">0.8</td>
+<td class="gt_row gt_left" headers="Distribution">Beta(8, 2)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">T_fail</td>
+<td class="gt_row gt_right" headers="Base">35</td>
+<td class="gt_row gt_left" headers="Distribution">Triangular(20, 35, 60)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">q</td>
+<td class="gt_row gt_right" headers="Base">0.85</td>
+<td class="gt_row gt_left" headers="Distribution">Beta(17, 3)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">T_d</td>
+<td class="gt_row gt_right" headers="Base">6</td>
+<td class="gt_row gt_left" headers="Distribution">Triangular(3, 6, 12)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">d_pay</td>
+<td class="gt_row gt_right" headers="Base">3</td>
+<td class="gt_row gt_left" headers="Distribution">Triangular(1, 3, 6)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">s</td>
+<td class="gt_row gt_right" headers="Base">0.1</td>
+<td class="gt_row gt_left" headers="Distribution">Beta(2, 18)</td>
+<td class="gt_row gt_left" headers="Status">assumption; sanctions risk per OFAC 2021 advisory</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">kappa</td>
+<td class="gt_row gt_right" headers="Base">1</td>
+<td class="gt_row gt_left" headers="Distribution">Fixed</td>
+<td class="gt_row gt_left" headers="Status">assumption; OFAC liability is strict</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">K_pay</td>
+<td class="gt_row gt_right" headers="Base">0.5</td>
+<td class="gt_row gt_left" headers="Distribution">Triangular(0.2, 0.5, 1.5)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">K_leak</td>
+<td class="gt_row gt_right" headers="Base">4</td>
+<td class="gt_row gt_left" headers="Distribution">Triangular(1, 4, 10)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">p_np</td>
+<td class="gt_row gt_right" headers="Base">0.8</td>
+<td class="gt_row gt_left" headers="Distribution">Triangular(0.6, 0.8, 0.95)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Name">p_p</td>
+<td class="gt_row gt_right" headers="Base">0.6</td>
+<td class="gt_row gt_left" headers="Distribution">p_np × Triangular(0.5, 0.75, 0.95)</td>
+<td class="gt_row gt_left" headers="Status">assumption; re-extortion after payment is common</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="reader-note">
+<p><strong>How to read the table.</strong> Each row is one model input from <code>params.yaml</code>, the single file that sets every number in the analysis. The base column is the value used for the worked example and the firm profiles. The distribution is the range drawn from in the Monte Carlo: a triangular range lists its lowest, most likely and highest values, and a Beta range lists its two shape values. The status marks each input as an assumption and names any supporting source.</p>
+<p><strong>What the table tells you.</strong> To test a different view, change a value in <code>params.yaml</code> and rerun the pipeline; no code needs editing. Simulation settings such as the number of draws, the crew’s starting belief and the attack-rate grid sit in the same file, below the inputs. The seeds fix every random draw, so two people with the same file get the same numbers.</p>
+</div>
+</section>
+<section id="tests" class="level2">
+<h2 class="anchored" data-anchor-id="tests">Tests</h2>
+<p>Two layers of checks guard the results. Unit tests in <code>tests/testthat/</code> check the closed-form model against the seven reference cases and the worked example from the project outline, the indifference condition, the samplers, and the crew’s opening demand. They run again each time this page is rendered, and the table below shows the results. The ten pipeline diagnostics (10 of 10 passing in this build) are shown on the <a href="./governance.html#diagnostics">Governance</a> page.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Display code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tests <span class="ot">&lt;-</span> testthat<span class="sc">::</span><span class="fu">test_dir</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(PROJECT_ROOT, <span class="st">"tests"</span>, <span class="st">"testthat"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">reporter =</span> <span class="st">"silent"</span>, <span class="at">stop_on_failure =</span> <span class="cn">FALSE</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">File =</span> file, <span class="at">Test =</span> test, <span class="at">Expectations =</span> nb,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Result =</span> <span class="fu">if_else</span>(failed <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span>error <span class="sc">&amp;</span> <span class="sc">!</span>skipped, <span class="st">"Pass"</span>, <span class="st">"FAIL"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>tests <span class="sc">|&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">columns =</span> <span class="fu">c</span>(File, Test, Result))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="tbl-tests" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-tests-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Unit test results from rendering this page.
+</figcaption>
+<div aria-describedby="tbl-tests-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="acmpxaqxiq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#acmpxaqxiq table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#acmpxaqxiq thead, #acmpxaqxiq tbody, #acmpxaqxiq tfoot, #acmpxaqxiq tr, #acmpxaqxiq td, #acmpxaqxiq th {
+  border-style: none;
+}
+
+#acmpxaqxiq p {
+  margin: 0;
+  padding: 0;
+}
+
+#acmpxaqxiq .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#acmpxaqxiq .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#acmpxaqxiq .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#acmpxaqxiq .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_col_heading {
+  color: #333333;
+  background-color: #F2F2F2;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#acmpxaqxiq .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #F2F2F2;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#acmpxaqxiq .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#acmpxaqxiq .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#acmpxaqxiq .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#acmpxaqxiq .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#acmpxaqxiq .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#acmpxaqxiq .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#acmpxaqxiq .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#acmpxaqxiq .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#acmpxaqxiq .gt_row {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#acmpxaqxiq .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#acmpxaqxiq .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#acmpxaqxiq .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#acmpxaqxiq .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#acmpxaqxiq .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#acmpxaqxiq .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#acmpxaqxiq .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#acmpxaqxiq .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#acmpxaqxiq .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#acmpxaqxiq .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#acmpxaqxiq .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#acmpxaqxiq .gt_left {
+  text-align: left;
+}
+
+#acmpxaqxiq .gt_center {
+  text-align: center;
+}
+
+#acmpxaqxiq .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#acmpxaqxiq .gt_font_normal {
+  font-weight: normal;
+}
+
+#acmpxaqxiq .gt_font_bold {
+  font-weight: bold;
+}
+
+#acmpxaqxiq .gt_font_italic {
+  font-style: italic;
+}
+
+#acmpxaqxiq .gt_super {
+  font-size: 65%;
+}
+
+#acmpxaqxiq .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#acmpxaqxiq .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#acmpxaqxiq .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#acmpxaqxiq .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#acmpxaqxiq .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#acmpxaqxiq .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#acmpxaqxiq .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#acmpxaqxiq .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#acmpxaqxiq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="File" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">File</th>
+<th id="Test" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Test</th>
+<th id="Expectations" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Expectations</th>
+<th id="Result" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Result</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="File">test-walkaway.R</td>
+<td class="gt_row gt_left" headers="Test">walk-away point matches the outline's reference cases</td>
+<td class="gt_row gt_right" headers="Expectations">1</td>
+<td class="gt_row gt_left" headers="Result">Pass</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="File">test-walkaway.R</td>
+<td class="gt_row gt_left" headers="Test">worked example costs match at D = 2.5</td>
+<td class="gt_row gt_right" headers="Expectations">4</td>
+<td class="gt_row gt_left" headers="Result">Pass</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="File">test-walkaway.R</td>
+<td class="gt_row gt_left" headers="Test">indifference holds at the walk-away point</td>
+<td class="gt_row gt_right" headers="Expectations">1</td>
+<td class="gt_row gt_left" headers="Result">Pass</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="File">test-walkaway.R</td>
+<td class="gt_row gt_left" headers="Test">slope is about $0.31M per restore day and zero-crossing is consistent</td>
+<td class="gt_row gt_right" headers="Expectations">2</td>
+<td class="gt_row gt_left" headers="Result">Pass</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="File">test-walkaway.R</td>
+<td class="gt_row gt_left" headers="Test">triangular sampler has the right mean</td>
+<td class="gt_row gt_right" headers="Expectations">1</td>
+<td class="gt_row gt_left" headers="Result">Pass</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="File">test-walkaway.R</td>
+<td class="gt_row gt_left" headers="Test">crew's opening demand is about $2.5M and beliefs stay normalized</td>
+<td class="gt_row gt_right" headers="Expectations">4</td>
+<td class="gt_row gt_left" headers="Result">Pass</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="reader-note">
+<p><strong>How to read the table.</strong> Each row is one unit test. The expectations column counts the individual comparisons inside it, such as one computed walk-away point against its reference value. “Pass” means every comparison in the test held. Here 6 of 6 tests passed, covering 13 comparisons in total. Each test’s name says what it checks, and the file column shows where to find it in <code>tests/testthat/</code>.</p>
+<p><strong>What the table tells you.</strong> The formulas behind every page reproduce the reference values to within one hundredth of a million dollars, and the walk-away point is exactly where paying and refusing cost the same. A failure here would mean the code no longer matches the documented model, and the site’s numbers should not be used until it is fixed.</p>
+</div>
+</section>
+<section id="caching" class="level2">
+<h2 class="anchored" data-anchor-id="caching">Caching</h2>
+<ul>
+<li><strong>Results cache (<code>data/results/*.rds</code>).</strong> Written by <code>R/run_all.R</code> and read by every page. It is not invalidated automatically: after changing <code>params.yaml</code> or any script, rerun <code>Rscript R/run_all.R</code>. The files are committed to git so the site renders from a fresh clone.</li>
+<li><strong>Quarto freeze (<code>_freeze/</code>).</strong> <code>_quarto.yml</code> sets <code>freeze: auto</code>, so a full <code>quarto render</code> re-executes a page only when that page’s <code>.qmd</code> file changes. Edits to <code>R/</code> scripts or new results do not count as a change. After rerunning the pipeline, render each page explicitly (for example <code>quarto render governance.qmd</code>) or delete <code>_freeze/</code> first. <code>_freeze/</code> is not committed.</li>
+</ul>
+</section>
+<section id="licenses" class="level2">
+<h2 class="anchored" data-anchor-id="licenses">Licenses</h2>
+<p>The code on this site is released under the <a href="./license.html">MIT License</a>. The project redistributes no third-party data: every input is synthetic and written for this project. The publications cited on the <a href="./governance.html#references">Governance</a> page are quoted briefly and linked; they remain under their publishers’ terms.</p>
+</section>
+<section id="environment" class="level2">
+<h2 class="anchored" data-anchor-id="environment">Software environment</h2>
+<p>The site was built with R and Quarto. The pages load <code>dplyr</code>, <code>ggplot2</code> and <code>gt</code>, and the scripts also call <code>purrr</code>, <code>tibble</code>, <code>tidyr</code>, <code>readr</code>, <code>forcats</code>, <code>scales</code>, <code>yaml</code>, <code>V8</code>, <code>testthat</code> and <code>sessioninfo</code>. The two sliders use Observable JS, which is built into Quarto. Package versions are pinned in <code>renv.lock</code>; run <code>renv::restore()</code> to install them.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Full R session information
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&gt;  setting  value
+#&gt;  version  R version 4.5.2 (2025-10-31)
+#&gt;  os       macOS Tahoe 26.6.2
+#&gt;  system   aarch64, darwin20
+#&gt;  ui       X11
+#&gt;  language (EN)
+#&gt;  collate  C.UTF-8
+#&gt;  ctype    C.UTF-8
+#&gt;  tz       America/New_York
+#&gt;  date     2026-11-19
+#&gt;  pandoc   3.6.3 @ /Applications/quarto/bin/tools/ (via rmarkdown)
+#&gt;  quarto   1.8.26 @ /usr/local/bin/quarto
+#&gt; 
+#&gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&gt;  ! package      * version date (UTC) lib source
+#&gt;  P base64enc      0.1-6   2026-02-02 [?] CRAN (R 4.5.2)
+#&gt;  P brio           1.1.5   2024-04-24 [?] CRAN (R 4.5.0)
+#&gt;  P cli            3.6.6   2026-04-09 [?] CRAN (R 4.5.2)
+#&gt;  P commonmark     2.0.0   2025-07-07 [?] CRAN (R 4.5.0)
+#&gt;  P desc           1.4.3   2023-12-10 [?] CRAN (R 4.5.0)
+#&gt;  P digest         0.6.39  2025-11-19 [?] CRAN (R 4.5.2)
+#&gt;  P dplyr        * 1.2.1   2026-04-03 [?] CRAN (R 4.5.2)
+#&gt;  P evaluate       1.0.5   2025-08-27 [?] CRAN (R 4.5.0)
+#&gt;  P farver         2.1.2   2024-05-13 [?] CRAN (R 4.5.0)
+#&gt;  P fastmap        1.2.0   2024-05-15 [?] CRAN (R 4.5.0)
+#&gt;  P fs             2.1.0   2026-04-18 [?] CRAN (R 4.5.2)
+#&gt;  P generics       0.1.4   2025-05-09 [?] CRAN (R 4.5.0)
+#&gt;  P ggplot2      * 4.0.3   2026-04-22 [?] CRAN (R 4.5.2)
+#&gt;  P glue           1.8.1   2026-04-17 [?] CRAN (R 4.5.2)
+#&gt;  P gt           * 1.3.0   2026-01-22 [?] CRAN (R 4.5.2)
+#&gt;  P gtable         0.3.6   2024-10-25 [?] CRAN (R 4.5.0)
+#&gt;  P htmltools      0.5.9   2025-12-04 [?] CRAN (R 4.5.2)
+#&gt;  P htmlwidgets    1.6.4   2023-12-06 [?] CRAN (R 4.5.0)
+#&gt;  P jsonlite       2.0.0   2025-03-27 [?] CRAN (R 4.5.0)
+#&gt;  P knitr          1.50    2025-03-16 [?] CRAN (R 4.5.0)
+#&gt;  P lifecycle      1.0.5   2026-01-08 [?] CRAN (R 4.5.2)
+#&gt;  P litedown       0.8     2025-11-02 [?] CRAN (R 4.5.0)
+#&gt;  P magrittr       2.0.5   2026-04-04 [?] CRAN (R 4.5.2)
+#&gt;  P markdown       2.0     2025-03-23 [?] CRAN (R 4.5.0)
+#&gt;  P otel           0.2.0   2025-08-29 [?] CRAN (R 4.5.0)
+#&gt;  P pillar         1.11.1  2025-09-17 [?] CRAN (R 4.5.0)
+#&gt;  P pkgconfig      2.0.3   2019-09-22 [?] CRAN (R 4.5.0)
+#&gt;  P pkgload        1.5.3   2026-06-15 [?] CRAN (R 4.5.2)
+#&gt;  P purrr          1.2.2   2026-04-10 [?] CRAN (R 4.5.2)
+#&gt;  P R6             2.6.1   2025-02-15 [?] CRAN (R 4.5.0)
+#&gt;  P RColorBrewer   1.1-3   2022-04-03 [?] CRAN (R 4.5.0)
+#&gt;    renv           1.1.5   2025-07-24 [1] CRAN (R 4.5.0)
+#&gt;  P rlang          1.3.0   2026-07-05 [?] CRAN (R 4.5.2)
+#&gt;  P rmarkdown      2.30    2025-09-28 [?] CRAN (R 4.5.0)
+#&gt;  P rprojroot      2.1.1   2025-08-26 [?] CRAN (R 4.5.0)
+#&gt;  P S7             0.2.2   2026-04-22 [?] CRAN (R 4.5.2)
+#&gt;  P sass           0.4.10  2025-04-11 [?] CRAN (R 4.5.0)
+#&gt;  P scales         1.4.0   2025-04-24 [?] CRAN (R 4.5.0)
+#&gt;  P sessioninfo    1.2.3   2025-02-05 [?] CRAN (R 4.5.2)
+#&gt;  P testthat     * 3.3.2   2026-01-11 [?] CRAN (R 4.5.2)
+#&gt;  P tibble         3.3.1   2026-01-11 [?] CRAN (R 4.5.2)
+#&gt;  P tidyselect     1.2.1   2024-03-11 [?] CRAN (R 4.5.0)
+#&gt;  P vctrs          0.7.3   2026-04-11 [?] CRAN (R 4.5.2)
+#&gt;  P waldo          0.6.2   2025-07-11 [?] CRAN (R 4.5.0)
+#&gt;  P withr          3.0.3   2026-06-19 [?] CRAN (R 4.5.2)
+#&gt;  P xfun           0.54    2025-10-30 [?] CRAN (R 4.5.0)
+#&gt;  P xml2           1.4.1   2025-10-27 [?] CRAN (R 4.5.0)
+#&gt;  P yaml           2.3.10  2024-07-26 [?] CRAN (R 4.5.0)
+#&gt; 
+#&gt;  [1] /Users/patricklefler/Claude/r/2026-11-19_rQuarto_ransomware-pay-or-restore-game-theory/renv/library/macos/R-4.5/aarch64-apple-darwin20
+#&gt;  [2] /Users/patricklefler/Library/Caches/org.R-project.R/R/renv/sandbox/macos/R-4.5/aarch64-apple-darwin20/4cd76b74
+#&gt; 
+#&gt;  * ── Packages attached to the search path.
+#&gt;  P ── Loaded and on-disk path mismatch.
+#&gt; 
+#&gt; ──────────────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="./governance.html" class="pagination-link" aria-label="Governance">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Governance</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Reproducibility"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Pay or Restore? How to rerun the analysis"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">knitr:</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">  opts_chunk:</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">    comment: "#&gt;"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r load}</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/00_params.R"</span>); <span class="fu">source</span>(<span class="st">"R/01_utils.R"</span>); <span class="fu">source</span>(<span class="st">"R/90_theme.R"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr); <span class="fu">library</span>(ggplot2); <span class="fu">library</span>(gt)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>diag <span class="ot">&lt;-</span> <span class="fu">read_result</span>(<span class="st">"diagnostics"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>Every number on this site comes from synthetic inputs in <span class="in">`params.yaml`</span> and <span class="in">`data/`</span>, and from results computed by the scripts in <span class="in">`R/`</span>. Nothing is downloaded, and every random draw is seeded, so running the same commit with the same package versions gives the same results. The pages never compute the heavy results themselves: they read cached results from <span class="in">`data/results/`</span>. The decision-map slider recomputes the closed-form walk-away point in the browser, using a JavaScript file that the pipeline checks against R. This page explains how to rebuild the results, lists the inputs with their checksums, shows the tests, and records the software environment.</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quick start {#quick-start}</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Clone the <span class="co">[</span><span class="ot">GitHub repository</span><span class="co">](https://github.com/patrick-lefler/ransomware-pay-or-restore-game-theory)</span> and open the project folder in RStudio or Positron.</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Restore the packages with <span class="in">`renv::restore()`</span> (see <span class="co">[</span><span class="ot">Software environment</span><span class="co">](#environment)</span>). You need R 4.3 or later and Quarto 1.5 or later.</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>From a terminal in the project root, rebuild the results, run the tests and render the site:</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="in">``` bash</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/run_all.R</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'testthat::test_dir("tests/testthat")'</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>The rendered site is written to <span class="in">`docs/`</span>. Run <span class="in">`R/run_all.R`</span> with <span class="in">`Rscript`</span> from a terminal, not with <span class="in">`source()`</span> in an R console: it ends with <span class="in">`quit()`</span>, which would close your session. It exits with an error status if any diagnostic fails. The sliders need a web server: open the site through GitHub Pages or a local server (for example <span class="in">`python3 -m http.server -d docs`</span>), not directly from disk.</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pipeline {#pipeline}</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="in">`R/run_all.R`</span> sources the scripts below in order, calls each script's <span class="in">`main_*()`</span> function, runs the diagnostics and saves every result to <span class="in">`data/results/`</span>. Later scripts use functions from earlier ones, so sourcing a later script on its own in a fresh session fails.</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Script <span class="pp">|</span> What it does <span class="pp">|</span> Main outputs <span class="pp">|</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-----------------|:-----------------------------------|:-----------------------|</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/00_params.R`</span> <span class="pp">|</span> Reads <span class="in">`params.yaml`</span> into constants, the base case and the three firm profiles; sets the project paths <span class="pp">|</span> <span class="in">`BASE`</span>, <span class="in">`PROFILES`</span>, <span class="in">`INPUT_SPEC`</span>, seeds <span class="pp">|</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/01_utils.R`</span> <span class="pp">|</span> Closed-form costs and walk-away point, triangular and Beta samplers, formatters, result read/write helpers <span class="pp">|</span> Shared functions <span class="pp">|</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/20_walkaway.R`</span> <span class="pp">|</span> Reference cases, decision-map boundaries, the two-paths cost components and firm profiles <span class="pp">|</span> <span class="in">`walkaway.rds`</span> <span class="pp">|</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/30_mc_drivers.R`</span> <span class="pp">|</span> Monte Carlo over all inputs; first-order variance shares for the walk-away point and the pay decision, on five seeds <span class="pp">|</span> <span class="in">`mc_drivers.rds`</span> <span class="pp">|</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/31_bargaining.R`</span> <span class="pp">|</span> The crew's belief grid, its best demand and the Bayesian update after a payment or refusal <span class="pp">|</span> Shared functions <span class="pp">|</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/32_reputation.R`</span> <span class="pp">|</span> 10-year repeated game for every attack rate on the slider, and the targeting-response sweep <span class="pp">|</span> <span class="in">`reputation.rds`</span>, <span class="in">`reputation_grid.rds`</span> <span class="pp">|</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/35_sensitivity.R`</span> <span class="pp">|</span> One-at-a-time swings and the market-calibration run <span class="pp">|</span> <span class="in">`sensitivity.rds`</span> <span class="pp">|</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/80_diagnostics.R`</span> <span class="pp">|</span> The ten checks shown on the Governance page, including the JavaScript–R parity check <span class="pp">|</span> <span class="in">`diagnostics.rds`</span> <span class="pp">|</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/run_all.R`</span> <span class="pp">|</span> Runs all of the above <span class="pp">|</span> All results <span class="pp">|</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="in">`assets/js/walkaway.js`</span> holds the walk-away formula used by the decision-map slider; the parity diagnostic runs this same file in R through the <span class="in">`V8`</span> package. Every page sources <span class="in">`R/00_params.R`</span>, <span class="in">`R/01_utils.R`</span> and <span class="in">`R/90_theme.R`</span> (labels, colors and the plot and table styles) in a hidden first chunk. <span class="in">`R/99_wordcount.R`</span> is an internal prose-length check whose output is printed to the terminal only.</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data {#data}</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>All inputs are synthetic and illustrative, written for this project. <span class="in">`params.yaml`</span> holds every number: base values, ranges, seeds and simulation settings (see <span class="co">[</span><span class="ot">Parameters and seeds</span><span class="co">](#parameters)</span>). <span class="in">`data/inputs.csv`</span> holds the labels, units and sources shown in the inputs table on <span class="co">[</span><span class="ot">The Game</span><span class="co">](game.qmd#the-inputs)</span> page; it contains no numbers. <span class="in">`data/assumptions_register.csv`</span> holds the text of the register on the <span class="co">[</span><span class="ot">Governance</span><span class="co">](governance.qmd#assumptions-register)</span> page. The files in <span class="in">`data/results/`</span> are generated by <span class="in">`R/run_all.R`</span> and committed, so the site renders without rerunning the analysis.</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>The checksums below identify the exact files used in this render. A different checksum means a different file.</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-checksums</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Input files and cached results used in this render."</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>input_files <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"params.yaml"</span>, <span class="st">"data/inputs.csv"</span>, <span class="st">"data/assumptions_register.csv"</span>, <span class="st">"assets/js/walkaway.js"</span>)</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>result_files <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"results"</span>, <span class="fu">c</span>(</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>  <span class="st">"walkaway.rds"</span>, <span class="st">"mc_drivers.rds"</span>, <span class="st">"reputation.rds"</span>, <span class="st">"reputation_grid.rds"</span>,</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>  <span class="st">"sensitivity.rds"</span>, <span class="st">"diagnostics.rds"</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>  <span class="at">Kind =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Input"</span>, <span class="fu">length</span>(input_files)), <span class="fu">rep</span>(<span class="st">"Cached result"</span>, <span class="fu">length</span>(result_files))),</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>  <span class="at">File =</span> <span class="fu">c</span>(input_files, result_files)</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Size (KB)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">file.size</span>(<span class="fu">file.path</span>(PROJECT_ROOT, File)) <span class="sc">/</span> <span class="fl">1e3</span>,</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">MD5 =</span> <span class="fu">unname</span>(tools<span class="sc">::</span><span class="fu">md5sum</span>(<span class="fu">file.path</span>(PROJECT_ROOT, File)))</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="fu">md</span>(<span class="st">"**Files used in this render**"</span>), <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="st">"Rendered "</span>, <span class="fu">Sys.Date</span>())) <span class="sc">|&gt;</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="st">`</span><span class="at">Size (KB)</span><span class="st">`</span>, <span class="at">decimals =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">columns =</span> <span class="fu">c</span>(Kind, File, MD5))</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>**How to read the table.** Each row is one file the site depends on: <span class="in">`r length(input_files)`</span> hand-written inputs and <span class="in">`r length(result_files)`</span> cached results produced by the scripts. The size is in kilobytes. The MD5 column is a checksum, a short fingerprint computed from the file's exact contents; changing even one character gives a completely different fingerprint. The subtitle gives the date this page was rendered.</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>**What the table tells you.** Anyone rerunning the analysis can compute the same fingerprints on their copies. Matching input fingerprints mean identical starting points, and the results should then match too. If a result fingerprint differs while the inputs match, check the package versions first, since a different version of R or a package can change random draws or rounding.</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## Parameters and seeds {#parameters}</span></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>Every setting lives in <span class="in">`params.yaml`</span>, and each model input is labeled as an assumption, with its range. Every random stream is seeded explicitly: the Monte Carlo in <span class="in">`R/30_mc_drivers.R`</span> uses seed <span class="in">`r SEED_MC`</span>, and the seed-stability check reruns it with the next <span class="in">`r P$monte_carlo$stability_seeds - 1`</span> seeds. The reputation simulation in <span class="in">`R/32_reputation.R`</span> uses seed <span class="in">`r SEED_REP`</span>. It draws one set of random numbers and reuses them for every attack rate, firm and policy, so the slider chart moves smoothly instead of jittering. The event-level check in <span class="in">`R/80_diagnostics.R`</span> uses seed <span class="in">`r format(SEED_MC + 2, scientific = FALSE)`</span>.</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-params</span></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Model inputs in params.yaml."</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>fmt_dist <span class="ot">&lt;-</span> \(s) {</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>  par <span class="ot">&lt;-</span> <span class="fu">unlist</span>(s<span class="sc">$</span>par)</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span>(s<span class="sc">$</span>dist, <span class="at">tri =</span> <span class="fu">sprintf</span>(<span class="st">"Triangular(%s)"</span>, <span class="fu">paste</span>(par, <span class="at">collapse =</span> <span class="st">", "</span>)),</span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>         <span class="at">beta =</span> <span class="fu">sprintf</span>(<span class="st">"Beta(%s)"</span>, <span class="fu">paste</span>(par, <span class="at">collapse =</span> <span class="st">", "</span>)), <span class="at">fixed =</span> <span class="st">"Fixed"</span>,</span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>         <span class="at">ratio_of_p_np =</span> <span class="fu">sprintf</span>(<span class="st">"p_np × Triangular(%s)"</span>, <span class="fu">paste</span>(par, <span class="at">collapse =</span> <span class="st">", "</span>)))</span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>  <span class="at">Name =</span> <span class="fu">names</span>(INPUT_SPEC),</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>  <span class="at">Base =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(<span class="fu">names</span>(INPUT_SPEC), \(n) BASE[[n]]),</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>  <span class="at">Distribution =</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(INPUT_SPEC, fmt_dist),</span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>  <span class="at">Status =</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(INPUT_SPEC, <span class="st">"status"</span>)</span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> Base, <span class="at">decimals =</span> <span class="dv">2</span>, <span class="at">drop_trailing_zeros =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">columns =</span> <span class="sc">-</span>Base)</span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>**How to read the table.** Each row is one model input from <span class="in">`params.yaml`</span>, the single file that sets every number in the analysis. The base column is the value used for the worked example and the firm profiles. The distribution is the range drawn from in the Monte Carlo: a triangular range lists its lowest, most likely and highest values, and a Beta range lists its two shape values. The status marks each input as an assumption and names any supporting source.</span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>**What the table tells you.** To test a different view, change a value in <span class="in">`params.yaml`</span> and rerun the pipeline; no code needs editing. Simulation settings such as the number of draws, the crew's starting belief and the attack-rate grid sit in the same file, below the inputs. The seeds fix every random draw, so two people with the same file get the same numbers.</span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tests {#tests}</span></span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>Two layers of checks guard the results. Unit tests in <span class="in">`tests/testthat/`</span> check the closed-form model against the seven reference cases and the worked example from the project outline, the indifference condition, the samplers, and the crew's opening demand. They run again each time this page is rendered, and the table below shows the results. The ten pipeline diagnostics (<span class="in">`r sum(diag$result == "Pass")`</span> of <span class="in">`r nrow(diag)`</span> passing in this build) are shown on the <span class="co">[</span><span class="ot">Governance</span><span class="co">](governance.qmd#diagnostics)</span> page.</span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-tests</span></span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Unit test results from rendering this page."</span></span>
+<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a>tests <span class="ot">&lt;-</span> testthat<span class="sc">::</span><span class="fu">test_dir</span>(</span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(PROJECT_ROOT, <span class="st">"tests"</span>, <span class="st">"testthat"</span>),</span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a>  <span class="at">reporter =</span> <span class="st">"silent"</span>, <span class="at">stop_on_failure =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>    <span class="at">File =</span> file, <span class="at">Test =</span> test, <span class="at">Expectations =</span> nb,</span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>    <span class="at">Result =</span> <span class="fu">if_else</span>(failed <span class="sc">==</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span>error <span class="sc">&amp;</span> <span class="sc">!</span>skipped, <span class="st">"Pass"</span>, <span class="st">"FAIL"</span>)</span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>tests <span class="sc">|&gt;</span></span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">columns =</span> <span class="fu">c</span>(File, Test, Result))</span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>**How to read the table.** Each row is one unit test. The expectations column counts the individual comparisons inside it, such as one computed walk-away point against its reference value. "Pass" means every comparison in the test held. Here <span class="in">`r sum(tests$Result == "Pass")`</span> of <span class="in">`r nrow(tests)`</span> tests passed, covering <span class="in">`r sum(tests$Expectations)`</span> comparisons in total. Each test's name says what it checks, and the file column shows where to find it in <span class="in">`tests/testthat/`</span>.</span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>**What the table tells you.** The formulas behind every page reproduce the reference values to within one hundredth of a million dollars, and the walk-away point is exactly where paying and refusing cost the same. A failure here would mean the code no longer matches the documented model, and the site's numbers should not be used until it is fixed.</span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## Caching {#caching}</span></span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Results cache (`data/results/*.rds`).** Written by <span class="in">`R/run_all.R`</span> and read by every page. It is not invalidated automatically: after changing <span class="in">`params.yaml`</span> or any script, rerun <span class="in">`Rscript R/run_all.R`</span>. The files are committed to git so the site renders from a fresh clone.</span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Quarto freeze (`_freeze/`).** <span class="in">`_quarto.yml`</span> sets <span class="in">`freeze: auto`</span>, so a full <span class="in">`quarto render`</span> re-executes a page only when that page's <span class="in">`.qmd`</span> file changes. Edits to <span class="in">`R/`</span> scripts or new results do not count as a change. After rerunning the pipeline, render each page explicitly (for example <span class="in">`quarto render governance.qmd`</span>) or delete <span class="in">`_freeze/`</span> first. <span class="in">`_freeze/`</span> is not committed.</span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a><span class="fu">## Licenses {#licenses}</span></span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>The code on this site is released under the <span class="co">[</span><span class="ot">MIT License</span><span class="co">](license.qmd)</span>. The project redistributes no third-party data: every input is synthetic and written for this project. The publications cited on the <span class="co">[</span><span class="ot">Governance</span><span class="co">](governance.qmd#references)</span> page are quoted briefly and linked; they remain under their publishers' terms.</span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="fu">## Software environment {#environment}</span></span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a>The site was built with R and Quarto. The pages load <span class="in">`dplyr`</span>, <span class="in">`ggplot2`</span> and <span class="in">`gt`</span>, and the scripts also call <span class="in">`purrr`</span>, <span class="in">`tibble`</span>, <span class="in">`tidyr`</span>, <span class="in">`readr`</span>, <span class="in">`forcats`</span>, <span class="in">`scales`</span>, <span class="in">`yaml`</span>, <span class="in">`V8`</span>, <span class="in">`testthat`</span> and <span class="in">`sessioninfo`</span>. The two sliders use Observable JS, which is built into Quarto. Package versions are pinned in <span class="in">`renv.lock`</span>; run <span class="in">`renv::restore()`</span> to install them.</span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false collapse="true"}</span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a><span class="fu">## Full R session information</span></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: session-information</span></span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>© 2026 Patrick Lefler ⦁ <a href="./license.html">MIT License</a> ⦁ Built with R &amp; Quarto</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,61 @@
+# Every value is an ASSUMPTION for a synthetic 500-person fintech firm unless a source is named.
+# Money in $M, time in days. Display metadata (meaning, grounding, links) is in data/inputs.csv.
+# Distributions: tri = triangular(min, mode, max); beta = Beta(shape1, shape2); fixed = no uncertainty.
+
+inputs:
+  c:      {base: 0.50, dist: tri,   par: [0.25, 0.50, 0.90], status: "assumption"}
+  T_r:    {base: 10,   dist: tri,   par: [3, 10, 30],        status: "assumption; context from Sophos State of Ransomware 2025"}
+  b:      {base: 0.80, dist: beta,  par: [8, 2],             status: "assumption"}
+  T_fail: {base: 35,   dist: tri,   par: [20, 35, 60],       status: "assumption"}
+  q:      {base: 0.85, dist: beta,  par: [17, 3],            status: "assumption"}
+  T_d:    {base: 6,    dist: tri,   par: [3, 6, 12],         status: "assumption"}
+  d_pay:  {base: 3,    dist: tri,   par: [1, 3, 6],          status: "assumption"}
+  s:      {base: 0.10, dist: beta,  par: [2, 18],            status: "assumption; sanctions risk per OFAC 2021 advisory"}
+  kappa:  {base: 1.0,  dist: fixed, par: [1.0],              status: "assumption; OFAC liability is strict"}
+  K_pay:  {base: 0.50, dist: tri,   par: [0.2, 0.5, 1.5],    status: "assumption"}
+  K_leak: {base: 4,    dist: tri,   par: [1, 4, 10],         status: "assumption"}
+  p_np:   {base: 0.80, dist: tri,   par: [0.60, 0.80, 0.95], status: "assumption"}
+  # p_p is drawn as p_np x ratio; base p_p = 0.80 x 0.75 = 0.60
+  p_p:    {base: 0.60, dist: ratio_of_p_np, par: [0.50, 0.75, 0.95], status: "assumption; re-extortion after payment is common"}
+
+monte_carlo:
+  seed: 20261118
+  n_draws: 200000
+  n_bins: 50
+  stability_seeds: 5
+  demand_median: 2.0      # pay decision: D ~ lognormal(log median, sdlog)
+  demand_sdlog: 0.6
+  # Market calibration row: restore-time range rescaled so its median is this many days; b ~ Beta(9, 1)
+  market_T_r_median: 5
+  market_b_par: [9, 1]
+
+worked_example:
+  demand: 2.5             # demand used on page 2 and for "our firm today" on the map
+
+bargaining:
+  prior_median: 2.5       # crew prior: log Rbar ~ Normal(log prior_median, prior_sdlog)
+  prior_sdlog: 0.7
+  incident_sdlog: 0.4     # log R*_t = log Rbar + eps, eps ~ Normal(0, incident_sdlog)
+  grid_n: 400
+  grid_sd_span: 5         # grid covers prior mean +/- 5 prior sd
+
+reputation:
+  seed: 7
+  n_paths: 4000
+  years: 10
+  p0_base: 0.15
+  p0_grid: {from: 0.05, to: 0.25, by: 0.01}
+  p_cap: 0.80
+  eta_base: 1.0
+  eta_table: [0, 0.25, 0.5, 1.0]
+  eta_fine: {from: 0, to: 1.5, by: 0.05}
+
+profiles:
+  resilient: {T_r: 4,  b: 0.90}
+  typical:   {T_r: 10, b: 0.80}
+  fragile:   {T_r: 21, b: 0.60}
+
+map:
+  T_r_range: [1, 30]
+  D_range: [0, 8]
+  b_levels: [0.60, 0.80, 0.95]

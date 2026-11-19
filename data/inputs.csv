@@ -1,0 +1,14 @@
+symbol,label,meaning,unit,grounding,url
+c,c,"Outage cost per day (revenue, client SLA credits, overtime, churn)",$M/day,Firm assumption,
+T_r,T<sub>r</sub>,Restore time from backups,days,Sophos State of Ransomware 2025,https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf
+b,b,Backup credibility: probability that backups restore cleanly,probability,Firm assumption,
+T_fail,T<sub>fail</sub>,Rebuild time if backups fail,days,Firm assumption,
+q,q,Probability the crew's decryptor works,probability,Firm assumption,
+T_d,T<sub>d</sub>,Time to decrypt and validate after payment,days,Firm assumption,
+d_pay,d<sub>pay</sub>,"Payment delay (sanctions diligence, obtaining crypto, negotiation)",days,Firm assumption,
+s,s,Probability of a sanctions nexus,probability,OFAC advisory (2021),https://ofac.treasury.gov/media/912981/download
+kappa,κ,Sanctions penalty as a multiple of the ransom,multiple,OFAC liability is strict (Hunton summary),https://www.hunton.com/insights/legal/ofacs-updated-advisory-on-ransomware-payments
+K_pay,K<sub>pay</sub>,"Fixed cost of paying (counsel, regulatory filing, reputation)",$M,Firm assumption,
+K_leak,K<sub>leak</sub>,Cost of a public data leak,$M,Firm assumption,
+p_np,p<sub>np</sub>,Probability of a leak if we don't pay,probability,Firm assumption,
+p_p,p<sub>p</sub>,Probability of a leak if we pay,probability,Re-extortion after payment (The Register),https://www.theregister.com/security/2026/07/22/over-a-third-of-ransomware-victims-re-extorted-after-paying/5276218
