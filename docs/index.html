@@ -221,8 +221,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The answer, in three sentences:</p>
 <ol type="1">
 <li>Every firm has a <strong>walk-away point</strong>: the largest ransom worth paying, after allowing for a decryptor that may fail, sanctions exposure, the costs of paying, and the leak risk that remains either way.</li>
-<li>That point is set mostly by <strong>how long it takes to restore</strong>, not by the size of the demand: each day cut from restore time lowers it by about $0.31M.</li>
-<li>Resilience therefore does two jobs: it lowers the cost of an outage, and it makes a “we don’t pay” policy <strong>credible</strong>, which crews learn over repeated incidents.</li>
+<li>That point is set by <strong>how long it takes to restore</strong>; the size of the demand only tests it. Each day cut from restore time lowers it by about $0.31M.</li>
+<li>Resilience therefore does two jobs: it lowers the cost of an outage, and it makes a “we don’t pay” policy <strong>credible</strong>, so crews that learn over repeated incidents attack less often.</li>
 </ol>
 <div class="cell">
 <details class="code-fold">
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>lab_x <span class="ot">&lt;-</span> <span class="dv">15</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>labs_df <span class="ot">&lt;-</span> wa<span class="sc">$</span>boundaries <span class="sc">|&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(T_r <span class="sc">-</span> lab_x) <span class="sc">&lt;</span> <span class="fl">1e-9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">c</span>(<span class="st">"Weak backups (0.60)"</span>, <span class="st">"Typical backups (0.80)"</span>, <span class="st">"Strong backups (0.95)"</span>)[<span class="fu">match</span>(b, <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">0.95</span>))])</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">c</span>(<span class="st">"Weak backups (0.60)"</span>, <span class="st">"Our backups (0.80)"</span>, <span class="st">"Strong backups (0.95)"</span>)[<span class="fu">match</span>(b, <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">0.95</span>))])</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">decision_map</span>(wa<span class="sc">$</span>boundaries, <span class="fl">0.8</span>) <span class="sc">+</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> wa<span class="sc">$</span>boundaries, <span class="fu">aes</span>(T_r, R_star, <span class="at">group =</span> b, <span class="at">linewidth =</span> b <span class="sc">==</span> <span class="fl">0.8</span>), <span class="at">color =</span> COL_LINE) <span class="sc">+</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linewidth_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">1.3</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.6</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
@@ -241,32 +241,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">9.4</span>, <span class="at">y =</span> D_BASE <span class="sc">+</span> <span class="fl">0.45</span>, <span class="at">label =</span> <span class="st">"Our firm today"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">29</span>, <span class="at">y =</span> <span class="fl">0.4</span>, <span class="at">label =</span> <span class="st">"Pay"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"#7a5a12"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fl">7.5</span>, <span class="at">label =</span> <span class="st">"Don't pay"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> COL_NOPAY, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Restore time, not ransom size, decides whether paying makes sense"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Restore time sets the most we should ever pay"</span>,</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Walk-away point by restore time, for three levels of backup credibility"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-hero" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A chart with restore time from 1 to 30 days across and ransom demand from 0 to 8 million dollars up. Three rising lines mark the walk-away point for weak, typical and strong backups. Weak backups sit highest. Our firm, at a 10-day restore and a 2.5 million dollar demand, sits just above the typical line, in the don't-pay region.">
+<div id="fig-hero" class="quarto-float quarto-figure quarto-figure-center anchored" alt="A chart with restore time from 1 to 30 days across and ransom demand from 0 to 8 million dollars up. Three rising lines mark the walk-away point for weak, our own and strong backups; weak backups sit highest. Our firm, at a 10-day restore and a $2.5M demand, sits just above its line, in the don't-pay region at the most likely input values.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hero-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/fig-hero-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Decision map. Below a line, paying is cheaper than restoring; above it, restoring is cheaper. The shading shows the typical case. The three lines are three levels of backup credibility, the probability that backups restore cleanly."><img src="index_files/figure-html/fig-hero-1.png" class="img-fluid figure-img" alt="A chart with restore time from 1 to 30 days across and ransom demand from 0 to 8 million dollars up. Three rising lines mark the walk-away point for weak, typical and strong backups. Weak backups sit highest. Our firm, at a 10-day restore and a 2.5 million dollar demand, sits just above the typical line, in the don't-pay region." width="960"></a>
+<a href="index_files/figure-html/fig-hero-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Decision map for the day-one choice. Below a line, paying on day one is cheaper than restoring; above it, restoring is cheaper. The shading shows our firm’s backups. The three lines are three levels of backup credibility, the probability that backups restore cleanly."><img src="index_files/figure-html/fig-hero-1.png" class="img-fluid figure-img" alt="A chart with restore time from 1 to 30 days across and ransom demand from 0 to 8 million dollars up. Three rising lines mark the walk-away point for weak, our own and strong backups; weak backups sit highest. Our firm, at a 10-day restore and a $2.5M demand, sits just above its line, in the don't-pay region at the most likely input values." width="960"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hero-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Decision map. Below a line, paying is cheaper than restoring; above it, restoring is cheaper. The shading shows the typical case. The three lines are three levels of backup credibility, the probability that backups restore cleanly.
+Figure&nbsp;1: Decision map for the day-one choice. Below a line, paying on day one is cheaper than restoring; above it, restoring is cheaper. The shading shows our firm’s backups. The three lines are three levels of backup credibility, the probability that backups restore cleanly.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="reader-note">
-<p><strong>How to read the plot.</strong> Restore time runs across the bottom and the crew’s demand runs up the side. Each line is our walk-away point at one level of backup credibility. A demand below the line is worth paying; a demand above it is not. The shaded areas show the pay (amber) and don’t-pay (blue) regions for typical backups. The black dot is our firm today: a 10-day restore and a $2.5M demand.</p>
-<p><strong>What the plot tells you.</strong> All three lines climb steeply with restore time, so the restore time decides more than the demand does. Our firm sits just above its line: the walk-away point is $2.39M, so it should narrowly refuse. With weak backups the same firm would pay up to $4.32M, and with strong ones only up to $0.94M. Moving the dot left, by restoring faster, does more than any negotiation over the demand.</p>
+<p><strong>How to read the plot.</strong> Restore time runs across the bottom and the crew’s demand runs up the side. Each line is our walk-away point at one level of backup credibility. A demand below the line is worth paying; a demand above it is not. The shaded areas show the pay (amber) and don’t-pay (blue) regions for our own backups. The black dot is our firm today: a 10-day restore and a $2.5M demand.</p>
+<p><strong>What the plot tells you.</strong> Restore time sets where the line sits; the demand only decides which side of it we fall. At the most likely values our firm sits just above its line, with a walk-away point of $2.39M. Allowing for uncertainty in every input, paying a $2.5M demand on day one is cheaper in 64% of simulated incidents: with today’s restore times, this firm is often a rational payer. Weak backups raise the line to $4.32M at a 10-day restore.</p>
 </div>
 </section>
 <section id="three-findings" class="level2">
 <h2 class="anchored" data-anchor-id="three-findings">Three findings</h2>
-<p><strong>Restore time drives the decision.</strong> Across 200,000 simulated incidents, expected outage time explains 69% of the variation in the walk-away point. In the yes-or-no pay decision, it explains 39%, against 15% for the size of the demand. Cutting restore from 10 to 5 days lowers the walk-away point from $2.39M to $0.84M.</p>
-<p><strong>Paying is a poor fallback.</strong> The decryptor may fail, decryption itself takes days, the stolen data may leak anyway, a sanctions link can surface after payment, and regulators must be told either way. At base, paying a $2.5M demand costs $10.83M in expectation, against $10.70M for restoring. The ransom buys a shorter outage, not an end to the incident.</p>
-<p><strong>A credible refusal lowers future demands, and credibility requires resilience.</strong> Crews learn from what we do. Over 10 years at a 15% annual attack rate, never paying costs the typical firm $13.2M against $15.6M for paying case by case. But a fragile firm with a 21-day restore saves $4.8M by paying the first demand, so its “never pay” policy is unlikely to survive the first incident. Only a firm that can restore quickly can keep that promise. This result depends on crews favoring firms that have paid before, which is the model’s most important assumption.</p>
+<p><strong>Restore time sets the threshold.</strong> The walk-away point does not depend on the demand at all: restore time sets it, and the demand only tests it. Across 200,000 simulated incidents, expected outage time (restore time, backup credibility and rebuild time combined) explains 69% of the variation in the walk-away point. When demands vary over a moderate range, it also explains more of the pay decision (39%) than the demand does (15%); if demands vary as widely as published payments, the demand comes first (<a href="./governance.html#sensitivity">sensitivity table</a>). Cutting restore from 10 to 5 days lowers the walk-away point from $2.39M to $0.84M.</p>
+<p><strong>Paying is a poor first move.</strong> The decryptor may fail, decryption itself takes days, the stolen data may leak anyway, a sanctions link can surface after payment, and regulators must be told either way. At the most likely values, paying a $2.5M demand on day one costs $10.83M in expectation, against $10.70M for restoring: within about 1% of each other, so the answer depends on the inputs. Restoring first and paying only if backups fail costs $9.23M, less than either.</p>
+<p><strong>A credible refusal means fewer attacks, and credibility requires resilience.</strong> Crews learn from what we do, and a crew that expects less attacks less often. Over 10 years at a 15% annual attack rate, never paying costs our firm $13.2M against $15.6M for paying case by case. The test comes at the first incident, when a fragile firm with a 21-day restore would save $4.8M by paying. In the model, the extra attacks that one payment invites cost it more (present value $16.2M against $14.0M), so the policy holds, but only if crews favor firms that have paid before. Without that, paying once is cheaper, and only resilience removes the temptation.</p>
 </section>
 <section id="decide-before-it-happens" class="level2">
 <h2 class="anchored" data-anchor-id="decide-before-it-happens">Decide before it happens</h2>
@@ -280,9 +280,9 @@ Figure&nbsp;1: Decision map. Below a line, paying is cheaper than restoring; abo
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2. Restore-time target"</span>, <span class="st">"A target for the platform, for example under 5 days, tested at least yearly"</span>,</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">"Each restore day is worth about "</span>, <span class="fu">fmt_m</span>(wa<span class="sc">$</span>slope, <span class="dv">2</span>), <span class="st">" of walk-away point; below about "</span>, <span class="fu">fmt_num</span>(wa<span class="sc">$</span>T0, <span class="dv">1</span>), <span class="st">" days no demand is worth paying."</span>),</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3. Pre-cleared steps"</span>, <span class="st">"Sanctions screening, law-enforcement contact, and the 24-hour NYDFS payment notice"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Payment delay and sanctions risk raise the cost of paying; preparation shortens both."</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Payment delay and sanctions risk raise the cost of paying; preparation shortens both. As an NYDFS-covered firm, we must report any payment within 24 hours."</span>,</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4. Default policy"</span>, <span class="st">"An internal default of </span><span class="sc">\"</span><span class="st">we don't pay</span><span class="sc">\"</span><span class="st">, with the narrow exceptions written down"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A refusal lowers the next demand, but only a policy the firm can afford to keep is believed."</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A known refusal means fewer attacks later, but only a policy the firm can afford to keep is believed."</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_width</span>(Decision <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">180</span>)) <span class="sc">|&gt;</span></span>
@@ -296,23 +296,23 @@ Table&nbsp;1: Four decisions the board can make before an incident.
 </figcaption>
 <div aria-describedby="tbl-policy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="gxgrrjottg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gxgrrjottg table {
+<div id="gckwyvqfcc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gckwyvqfcc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gxgrrjottg thead, #gxgrrjottg tbody, #gxgrrjottg tfoot, #gxgrrjottg tr, #gxgrrjottg td, #gxgrrjottg th {
+#gckwyvqfcc thead, #gckwyvqfcc tbody, #gckwyvqfcc tfoot, #gckwyvqfcc tr, #gckwyvqfcc td, #gckwyvqfcc th {
   border-style: none;
 }
 
-#gxgrrjottg p {
+#gckwyvqfcc p {
   margin: 0;
   padding: 0;
 }
 
-#gxgrrjottg .gt_table {
+#gckwyvqfcc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -338,12 +338,12 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-left-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_caption {
+#gckwyvqfcc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gxgrrjottg .gt_title {
+#gckwyvqfcc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -355,7 +355,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-bottom-width: 0;
 }
 
-#gxgrrjottg .gt_subtitle {
+#gckwyvqfcc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -367,7 +367,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-top-width: 0;
 }
 
-#gxgrrjottg .gt_heading {
+#gckwyvqfcc .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -379,13 +379,13 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-right-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_bottom_border {
+#gckwyvqfcc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_col_headings {
+#gckwyvqfcc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -400,7 +400,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-right-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_col_heading {
+#gckwyvqfcc .gt_col_heading {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -420,7 +420,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   overflow-x: hidden;
 }
 
-#gxgrrjottg .gt_column_spanner_outer {
+#gckwyvqfcc .gt_column_spanner_outer {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -432,15 +432,15 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   padding-right: 4px;
 }
 
-#gxgrrjottg .gt_column_spanner_outer:first-child {
+#gckwyvqfcc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gxgrrjottg .gt_column_spanner_outer:last-child {
+#gckwyvqfcc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gxgrrjottg .gt_column_spanner {
+#gckwyvqfcc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -452,11 +452,11 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   width: 100%;
 }
 
-#gxgrrjottg .gt_spanner_row {
+#gckwyvqfcc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gxgrrjottg .gt_group_heading {
+#gckwyvqfcc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -482,7 +482,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   text-align: left;
 }
 
-#gxgrrjottg .gt_empty_group_heading {
+#gckwyvqfcc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -497,15 +497,15 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   vertical-align: middle;
 }
 
-#gxgrrjottg .gt_from_md > :first-child {
+#gckwyvqfcc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gxgrrjottg .gt_from_md > :last-child {
+#gckwyvqfcc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gxgrrjottg .gt_row {
+#gckwyvqfcc .gt_row {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -524,7 +524,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   overflow-x: hidden;
 }
 
-#gxgrrjottg .gt_stub {
+#gckwyvqfcc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -537,7 +537,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   padding-right: 5px;
 }
 
-#gxgrrjottg .gt_stub_row_group {
+#gckwyvqfcc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -551,15 +551,15 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   vertical-align: top;
 }
 
-#gxgrrjottg .gt_row_group_first td {
+#gckwyvqfcc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gxgrrjottg .gt_row_group_first th {
+#gckwyvqfcc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gxgrrjottg .gt_summary_row {
+#gckwyvqfcc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -569,16 +569,16 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   padding-right: 5px;
 }
 
-#gxgrrjottg .gt_first_summary_row {
+#gckwyvqfcc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_first_summary_row.thick {
+#gckwyvqfcc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gxgrrjottg .gt_last_summary_row {
+#gckwyvqfcc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -588,7 +588,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-bottom-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_grand_summary_row {
+#gckwyvqfcc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -598,7 +598,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   padding-right: 5px;
 }
 
-#gxgrrjottg .gt_first_grand_summary_row {
+#gckwyvqfcc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -608,7 +608,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-top-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_last_grand_summary_row_top {
+#gckwyvqfcc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -618,11 +618,11 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-bottom-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_striped {
+#gckwyvqfcc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gxgrrjottg .gt_table_body {
+#gckwyvqfcc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -631,7 +631,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-bottom-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_footnotes {
+#gckwyvqfcc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -645,7 +645,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-right-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_footnote {
+#gckwyvqfcc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -654,7 +654,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   padding-right: 5px;
 }
 
-#gxgrrjottg .gt_sourcenotes {
+#gckwyvqfcc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -668,7 +668,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   border-right-color: #D3D3D3;
 }
 
-#gxgrrjottg .gt_sourcenote {
+#gckwyvqfcc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -676,72 +676,72 @@ Table&nbsp;1: Four decisions the board can make before an incident.
   padding-right: 5px;
 }
 
-#gxgrrjottg .gt_left {
+#gckwyvqfcc .gt_left {
   text-align: left;
 }
 
-#gxgrrjottg .gt_center {
+#gckwyvqfcc .gt_center {
   text-align: center;
 }
 
-#gxgrrjottg .gt_right {
+#gckwyvqfcc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gxgrrjottg .gt_font_normal {
+#gckwyvqfcc .gt_font_normal {
   font-weight: normal;
 }
 
-#gxgrrjottg .gt_font_bold {
+#gckwyvqfcc .gt_font_bold {
   font-weight: bold;
 }
 
-#gxgrrjottg .gt_font_italic {
+#gckwyvqfcc .gt_font_italic {
   font-style: italic;
 }
 
-#gxgrrjottg .gt_super {
+#gckwyvqfcc .gt_super {
   font-size: 65%;
 }
 
-#gxgrrjottg .gt_footnote_marks {
+#gckwyvqfcc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gxgrrjottg .gt_asterisk {
+#gckwyvqfcc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gxgrrjottg .gt_indent_1 {
+#gckwyvqfcc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gxgrrjottg .gt_indent_2 {
+#gckwyvqfcc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gxgrrjottg .gt_indent_3 {
+#gckwyvqfcc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gxgrrjottg .gt_indent_4 {
+#gckwyvqfcc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gxgrrjottg .gt_indent_5 {
+#gckwyvqfcc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#gxgrrjottg .katex-display {
+#gckwyvqfcc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#gxgrrjottg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gckwyvqfcc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -768,12 +768,12 @@ Table&nbsp;1: Four decisions the board can make before an incident.
 <tr class="odd">
 <td class="gt_row gt_left" headers="Decision" style="font-weight: bold">3. Pre-cleared steps</td>
 <td class="gt_row gt_left" headers="What to set">Sanctions screening, law-enforcement contact, and the 24-hour NYDFS payment notice</td>
-<td class="gt_row gt_left" headers="Why it matters">Payment delay and sanctions risk raise the cost of paying; preparation shortens both.</td>
+<td class="gt_row gt_left" headers="Why it matters">Payment delay and sanctions risk raise the cost of paying; preparation shortens both. As an NYDFS-covered firm, we must report any payment within 24 hours.</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Decision" style="font-weight: bold">4. Default policy</td>
 <td class="gt_row gt_left" headers="What to set">An internal default of "we don't pay", with the narrow exceptions written down</td>
-<td class="gt_row gt_left" headers="Why it matters">A refusal lowers the next demand, but only a policy the firm can afford to keep is believed.</td>
+<td class="gt_row gt_left" headers="Why it matters">A known refusal means fewer attacks later, but only a policy the firm can afford to keep is believed.</td>
 </tr>
 </tbody>
 </table>
@@ -789,7 +789,7 @@ Table&nbsp;1: Four decisions the board can make before an incident.
 <p><strong>What the table tells you.</strong> The most important decision is the restore-time target, because it moves the walk-away point more than anything else and makes the no-pay default believable. The other three turn a decision made under pressure into one made in advance. None of them requires predicting the size of the next demand. Each can be rehearsed in a tabletop exercise, so the board can check that the decisions hold before a real incident tests them.</p>
 </div>
 <div class="side-note">
-<p><strong>Related work.</strong> This study pairs with two others on the same firm. The <a href="https://patrick-lefler.com/rQuarto_defender_attacker_game_theory_2026-11-05/">Defender–Attacker study</a> shows how a crew chooses which asset to attack. The ransomware fund-operations study covers the cost of an outage in more detail. Outage cost here is set at $0.5M per day for this study alone.</p>
+<p><strong>Related work.</strong> This study pairs with a related study of the same firm: the <a href="https://patrick-lefler.com/defender-attacker-game-theory/">Defender–Attacker study</a> shows how a crew chooses which asset to attack. Outage cost here is set at $0.5M per day for this study alone.</p>
 </div>
 
 
@@ -1279,92 +1279,95 @@ Table&nbsp;1: Four decisions the board can make before an incident.
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>fr <span class="ot">&lt;-</span> wa<span class="sc">$</span>profiles <span class="sc">|&gt;</span> <span class="fu">filter</span>(profile <span class="sc">==</span> <span class="st">"fragile"</span>)</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>ref <span class="ot">&lt;-</span> wa<span class="sc">$</span>ref</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>R_of <span class="ot">&lt;-</span> \(cs) ref<span class="sc">$</span>R_star[ref<span class="sc">$</span>case <span class="sc">==</span> cs]</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>*All money is in $M and all values are illustrative. The firm is synthetic.*</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>::: {.board-question}</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "If we're hit, should we pay, and how do we decide before it happens?"</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>This site works through that question for a 500-person fintech software firm, the same firm as our Defender–Attacker study. A ransomware crew has encrypted the firm's production platform and copied its client data. The firm must choose between paying the crew's demand and restoring from backups. We model that choice as a bargaining game in which the crew does not know how badly we need to pay, and learns from what we do.</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>The answer, in three sentences:</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Every firm has a **walk-away point**: the largest ransom worth paying, after allowing for a decryptor that may fail, sanctions exposure, the costs of paying, and the leak risk that remains either way.</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>That point is set mostly by **how long it takes to restore**, not by the size of the demand: each day cut from restore time lowers it by about <span class="in">`r fmt_m(wa$slope, 2)`</span>.</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Resilience therefore does two jobs: it lowers the cost of an outage, and it makes a "we don't pay" policy **credible**, which crews learn over repeated incidents.</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-hero</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Decision map. Below a line, paying is cheaper than restoring; above it, restoring is cheaper. The shading shows the typical case. The three lines are three levels of backup credibility, the probability that backups restore cleanly."</span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "A chart with restore time from 1 to 30 days across and ransom demand from 0 to 8 million dollars up. Three rising lines mark the walk-away point for weak, typical and strong backups. Weak backups sit highest. Our firm, at a 10-day restore and a 2.5 million dollar demand, sits just above the typical line, in the don't-pay region."</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5.6</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>lab_x <span class="ot">&lt;-</span> <span class="dv">15</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>labs_df <span class="ot">&lt;-</span> wa<span class="sc">$</span>boundaries <span class="sc">|&gt;</span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(T_r <span class="sc">-</span> lab_x) <span class="sc">&lt;</span> <span class="fl">1e-9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">c</span>(<span class="st">"Weak backups (0.60)"</span>, <span class="st">"Typical backups (0.80)"</span>, <span class="st">"Strong backups (0.95)"</span>)[<span class="fu">match</span>(b, <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">0.95</span>))])</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">decision_map</span>(wa<span class="sc">$</span>boundaries, <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> wa<span class="sc">$</span>boundaries, <span class="fu">aes</span>(T_r, R_star, <span class="at">group =</span> b, <span class="at">linewidth =</span> b <span class="sc">==</span> <span class="fl">0.8</span>), <span class="at">color =</span> COL_LINE) <span class="sc">+</span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linewidth_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">1.3</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.6</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> labs_df, <span class="fu">aes</span>(T_r, R_star, <span class="at">label =</span> label), <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">label.size =</span> <span class="dv">0</span>,</span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">3.7</span>, <span class="at">label.padding =</span> <span class="fu">unit</span>(<span class="fl">0.15</span>, <span class="st">"lines"</span>)) <span class="sc">+</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"point"</span>, <span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> D_BASE, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"point"</span>, <span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> D_BASE, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">9.4</span>, <span class="at">y =</span> D_BASE <span class="sc">+</span> <span class="fl">0.45</span>, <span class="at">label =</span> <span class="st">"Our firm today"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">29</span>, <span class="at">y =</span> <span class="fl">0.4</span>, <span class="at">label =</span> <span class="st">"Pay"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"#7a5a12"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fl">7.5</span>, <span class="at">label =</span> <span class="st">"Don't pay"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> COL_NOPAY, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Restore time, not ransom size, decides whether paying makes sense"</span>,</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Walk-away point by restore time, for three levels of backup credibility"</span>)</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>**How to read the plot.** Restore time runs across the bottom and the crew's demand runs up the side. Each line is our walk-away point at one level of backup credibility. A demand below the line is worth paying; a demand above it is not. The shaded areas show the pay (amber) and don't-pay (blue) regions for typical backups. The black dot is our firm today: a 10-day restore and a <span class="in">`r fmt_m(D_BASE)`</span> demand.</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>dv <span class="ot">&lt;-</span> rep<span class="sc">$</span>deviation</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>pv_of <span class="ot">&lt;-</span> \(e, f, pol) dv<span class="sc">$</span>cost_10y_pv[dv<span class="sc">$</span>eta <span class="sc">==</span> e <span class="sc">&amp;</span> dv<span class="sc">$</span>firm <span class="sc">==</span> f <span class="sc">&amp;</span> dv<span class="sc">$</span>policy <span class="sc">==</span> pol]</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>eta_b <span class="ot">&lt;-</span> P<span class="sc">$</span>reputation<span class="sc">$</span>eta_base</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>*All money is in $M and all values are illustrative. The firm is synthetic.*</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>::: {.board-question}</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "If we're hit, should we pay, and how do we decide before it happens?"</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="at">:::</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>This site works through that question for a 500-person fintech software firm, the same firm as our Defender–Attacker study. A ransomware crew has encrypted the firm's production platform and copied its client data. The firm must choose between paying the crew's demand and restoring from backups. We model that choice as a bargaining game in which the crew does not know how badly we need to pay, and learns from what we do.</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>The answer, in three sentences:</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Every firm has a **walk-away point**: the largest ransom worth paying, after allowing for a decryptor that may fail, sanctions exposure, the costs of paying, and the leak risk that remains either way.</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>That point is set by **how long it takes to restore**; the size of the demand only tests it. Each day cut from restore time lowers it by about <span class="in">`r fmt_m(wa$slope, 2)`</span>.</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Resilience therefore does two jobs: it lowers the cost of an outage, and it makes a "we don't pay" policy **credible**, so crews that learn over repeated incidents attack less often.</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-hero</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Decision map for the day-one choice. Below a line, paying on day one is cheaper than restoring; above it, restoring is cheaper. The shading shows our firm's backups. The three lines are three levels of backup credibility, the probability that backups restore cleanly."</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: !expr paste0("A chart with restore time from 1 to 30 days across and ransom demand from 0 to 8 million dollars up. Three rising lines mark the walk-away point for weak, our own and strong backups; weak backups sit highest. Our firm, at a 10-day restore and a ", fmt_m(D_BASE), " demand, sits just above its line, in the don't-pay region at the most likely input values.")</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5.6</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>lab_x <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>labs_df <span class="ot">&lt;-</span> wa<span class="sc">$</span>boundaries <span class="sc">|&gt;</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(T_r <span class="sc">-</span> lab_x) <span class="sc">&lt;</span> <span class="fl">1e-9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">c</span>(<span class="st">"Weak backups (0.60)"</span>, <span class="st">"Our backups (0.80)"</span>, <span class="st">"Strong backups (0.95)"</span>)[<span class="fu">match</span>(b, <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">0.95</span>))])</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="fu">decision_map</span>(wa<span class="sc">$</span>boundaries, <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> wa<span class="sc">$</span>boundaries, <span class="fu">aes</span>(T_r, R_star, <span class="at">group =</span> b, <span class="at">linewidth =</span> b <span class="sc">==</span> <span class="fl">0.8</span>), <span class="at">color =</span> COL_LINE) <span class="sc">+</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linewidth_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">1.3</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">0.6</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="at">data =</span> labs_df, <span class="fu">aes</span>(T_r, R_star, <span class="at">label =</span> label), <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">label.size =</span> <span class="dv">0</span>,</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">3.7</span>, <span class="at">label.padding =</span> <span class="fu">unit</span>(<span class="fl">0.15</span>, <span class="st">"lines"</span>)) <span class="sc">+</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"point"</span>, <span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> D_BASE, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"point"</span>, <span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> D_BASE, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">9.4</span>, <span class="at">y =</span> D_BASE <span class="sc">+</span> <span class="fl">0.45</span>, <span class="at">label =</span> <span class="st">"Our firm today"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">29</span>, <span class="at">y =</span> <span class="fl">0.4</span>, <span class="at">label =</span> <span class="st">"Pay"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"#7a5a12"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="fl">7.5</span>, <span class="at">label =</span> <span class="st">"Don't pay"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> COL_NOPAY, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Restore time sets the most we should ever pay"</span>,</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Walk-away point by restore time, for three levels of backup credibility"</span>)</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>**What the plot tells you.** All three lines climb steeply with restore time, so the restore time decides more than the demand does. Our firm sits just above its line: the walk-away point is <span class="in">`r fmt_m(wa$R_base, 2)`</span>, so it should narrowly refuse. With weak backups the same firm would pay up to <span class="in">`r fmt_m(R_of("Base, weak backups"), 2)`</span>, and with strong ones only up to <span class="in">`r fmt_m(R_of("Base, strong backups"), 2)`</span>. Moving the dot left, by restoring faster, does more than any negotiation over the demand.</span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>**How to read the plot.** Restore time runs across the bottom and the crew's demand runs up the side. Each line is our walk-away point at one level of backup credibility. A demand below the line is worth paying; a demand above it is not. The shaded areas show the pay (amber) and don't-pay (blue) regions for our own backups. The black dot is our firm today: a 10-day restore and a <span class="in">`r fmt_m(D_BASE)`</span> demand.</span>
 <span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## Three findings</span></span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>**Restore time drives the decision.** Across <span class="in">`r fmt_num(N_MC, 0)`</span> simulated incidents, expected outage time explains <span class="in">`r fmt_pct(share_of("R_star", "E_T"))`</span> of the variation in the walk-away point. In the yes-or-no pay decision, it explains <span class="in">`r fmt_pct(share_of("pay", "E_T"))`</span>, against <span class="in">`r fmt_pct(share_of("pay", "D"))`</span> for the size of the demand. Cutting restore from 10 to 5 days lowers the walk-away point from <span class="in">`r fmt_m(wa$R_base, 2)`</span> to <span class="in">`r fmt_m(R_of("Fast restore"), 2)`</span>.</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>**Paying is a poor fallback.** The decryptor may fail, decryption itself takes days, the stolen data may leak anyway, a sanctions link can surface after payment, and regulators must be told either way. At base, paying a <span class="in">`r fmt_m(D_BASE)`</span> demand costs <span class="in">`r fmt_m(wa$C_pay, 2)`</span> in expectation, against <span class="in">`r fmt_m(wa$C_refuse, 2)`</span> for restoring. The ransom buys a shorter outage, not an end to the incident.</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>**A credible refusal lowers future demands, and credibility requires resilience.** Crews learn from what we do. Over 10 years at a <span class="in">`r fmt_pct(P$reputation$p0_base)`</span> annual attack rate, never paying costs the typical firm <span class="in">`r fmt_m(cost_of("typical", "never"))`</span> against <span class="in">`r fmt_m(cost_of("typical", "rational"))`</span> for paying case by case. But a fragile firm with a 21-day restore saves <span class="in">`r fmt_m(fr$in_moment_saving)`</span> by paying the first demand, so its "never pay" policy is unlikely to survive the first incident. Only a firm that can restore quickly can keep that promise. This result depends on crews favoring firms that have paid before, which is the model's most important assumption.</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decide before it happens</span></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-policy</span></span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Four decisions the board can make before an incident."</span></span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>Decision, <span class="sc">~</span><span class="st">`</span><span class="at">What to set</span><span class="st">`</span>, <span class="sc">~</span><span class="st">`</span><span class="at">Why it matters</span><span class="st">`</span>,</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1. Walk-away rule"</span>, <span class="st">"Who can invoke a payment, and the walk-away point they must test the demand against"</span>,</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The walk-away point, not the size of the demand, decides whether paying is rational."</span>,</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2. Restore-time target"</span>, <span class="st">"A target for the platform, for example under 5 days, tested at least yearly"</span>,</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">"Each restore day is worth about "</span>, <span class="fu">fmt_m</span>(wa<span class="sc">$</span>slope, <span class="dv">2</span>), <span class="st">" of walk-away point; below about "</span>, <span class="fu">fmt_num</span>(wa<span class="sc">$</span>T0, <span class="dv">1</span>), <span class="st">" days no demand is worth paying."</span>),</span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3. Pre-cleared steps"</span>, <span class="st">"Sanctions screening, law-enforcement contact, and the 24-hour NYDFS payment notice"</span>,</span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Payment delay and sanctions risk raise the cost of paying; preparation shortens both."</span>,</span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4. Default policy"</span>, <span class="st">"An internal default of </span><span class="sc">\"</span><span class="st">we don't pay</span><span class="sc">\"</span><span class="st">, with the narrow exceptions written down"</span>,</span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A refusal lowers the next demand, but only a policy the firm can afford to keep is believed."</span></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_width</span>(Decision <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">180</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(<span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>), <span class="fu">cells_body</span>(<span class="at">columns =</span> Decision)) <span class="sc">|&gt;</span></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>()</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>**How to read the table.** Each row is one decision the board can take now, before any incident. The middle column says what to set, and the last column links it to a finding from this analysis. The four rows follow the order of an incident: who decides, how fast we can recover, what must already be cleared with regulators and law enforcement, and what the firm's default answer is.</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>**What the plot tells you.** Restore time sets where the line sits; the demand only decides which side of it we fall. At the most likely values our firm sits just above its line, with a walk-away point of <span class="in">`r fmt_m(wa$R_base, 2)`</span>. Allowing for uncertainty in every input, paying a <span class="in">`r fmt_m(D_BASE)`</span> demand on day one is cheaper in <span class="in">`r fmt_pct(mc$summary$p_pay_at_base_demand)`</span> of simulated incidents: with today's restore times, this firm is often a rational payer. Weak backups raise the line to <span class="in">`r fmt_m(R_of("Base, weak backups"), 2)`</span> at a 10-day restore.</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="fu">## Three findings</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>**Restore time sets the threshold.** The walk-away point does not depend on the demand at all: restore time sets it, and the demand only tests it. Across <span class="in">`r fmt_num(N_MC, 0)`</span> simulated incidents, expected outage time (restore time, backup credibility and rebuild time combined) explains <span class="in">`r fmt_pct(share_of("R_star", "E_T"))`</span> of the variation in the walk-away point. When demands vary over a moderate range, it also explains more of the pay decision (<span class="in">`r fmt_pct(share_of("pay", "E_T"))`</span>) than the demand does (<span class="in">`r fmt_pct(share_of("pay", "D"))`</span>); if demands vary as widely as published payments, the demand comes first (<span class="co">[</span><span class="ot">sensitivity table</span><span class="co">](governance.qmd#sensitivity)</span>). Cutting restore from 10 to 5 days lowers the walk-away point from <span class="in">`r fmt_m(wa$R_base, 2)`</span> to <span class="in">`r fmt_m(R_of("Fast restore"), 2)`</span>.</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>**Paying is a poor first move.** The decryptor may fail, decryption itself takes days, the stolen data may leak anyway, a sanctions link can surface after payment, and regulators must be told either way. At the most likely values, paying a <span class="in">`r fmt_m(D_BASE)`</span> demand on day one costs <span class="in">`r fmt_m(wa$C_pay, 2)`</span> in expectation, against <span class="in">`r fmt_m(wa$C_refuse, 2)`</span> for restoring: within about <span class="in">`r fmt_pct(abs(wa$C_pay / wa$C_refuse - 1))`</span> of each other, so the answer depends on the inputs. Restoring first and paying only if backups fail costs <span class="in">`r fmt_m(wa$C_staged, 2)`</span>, less than either.</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>**A credible refusal means fewer attacks, and credibility requires resilience.** Crews learn from what we do, and a crew that expects less attacks less often. Over 10 years at a <span class="in">`r fmt_pct(P$reputation$p0_base)`</span> annual attack rate, never paying costs our firm <span class="in">`r fmt_m(cost_of("typical", "never"))`</span> against <span class="in">`r fmt_m(cost_of("typical", "rational"))`</span> for paying case by case. The test comes at the first incident, when a fragile firm with a 21-day restore would save <span class="in">`r fmt_m(fr$in_moment_saving)`</span> by paying. In the model, the extra attacks that one payment invites cost it more (present value <span class="in">`r fmt_m(pv_of(eta_b, "fragile", "deviate_once"))`</span> against <span class="in">`r fmt_m(pv_of(eta_b, "fragile", "never"))`</span>), so the policy holds, but only if crews favor firms that have paid before. Without that, paying once is cheaper, and only resilience removes the temptation.</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Decide before it happens</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-policy</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Four decisions the board can make before an incident."</span></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>Decision, <span class="sc">~</span><span class="st">`</span><span class="at">What to set</span><span class="st">`</span>, <span class="sc">~</span><span class="st">`</span><span class="at">Why it matters</span><span class="st">`</span>,</span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1. Walk-away rule"</span>, <span class="st">"Who can invoke a payment, and the walk-away point they must test the demand against"</span>,</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The walk-away point, not the size of the demand, decides whether paying is rational."</span>,</span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2. Restore-time target"</span>, <span class="st">"A target for the platform, for example under 5 days, tested at least yearly"</span>,</span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">"Each restore day is worth about "</span>, <span class="fu">fmt_m</span>(wa<span class="sc">$</span>slope, <span class="dv">2</span>), <span class="st">" of walk-away point; below about "</span>, <span class="fu">fmt_num</span>(wa<span class="sc">$</span>T0, <span class="dv">1</span>), <span class="st">" days no demand is worth paying."</span>),</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3. Pre-cleared steps"</span>, <span class="st">"Sanctions screening, law-enforcement contact, and the 24-hour NYDFS payment notice"</span>,</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Payment delay and sanctions risk raise the cost of paying; preparation shortens both. As an NYDFS-covered firm, we must report any payment within 24 hours."</span>,</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4. Default policy"</span>, <span class="st">"An internal default of </span><span class="sc">\"</span><span class="st">we don't pay</span><span class="sc">\"</span><span class="st">, with the narrow exceptions written down"</span>,</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>    <span class="st">"A known refusal means fewer attacks later, but only a policy the firm can afford to keep is believed."</span></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_width</span>(Decision <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">180</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(<span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>), <span class="fu">cells_body</span>(<span class="at">columns =</span> Decision)) <span class="sc">|&gt;</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>()</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>**What the table tells you.** The most important decision is the restore-time target, because it moves the walk-away point more than anything else and makes the no-pay default believable. The other three turn a decision made under pressure into one made in advance. None of them requires predicting the size of the next demand. Each can be rehearsed in a tabletop exercise, so the board can check that the decisions hold before a real incident tests them.</span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>**How to read the table.** Each row is one decision the board can take now, before any incident. The middle column says what to set, and the last column links it to a finding from this analysis. The four rows follow the order of an incident: who decides, how fast we can recover, what must already be cleared with regulators and law enforcement, and what the firm's default answer is.</span>
 <span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>::: {.side-note}</span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>**Related work.** This study pairs with two others on the same firm. The <span class="co">[</span><span class="ot">Defender–Attacker study</span><span class="co">](https://patrick-lefler.com/rQuarto_defender_attacker_game_theory_2026-11-05/)</span> shows how a crew chooses which asset to attack. The ransomware fund-operations study covers the cost of an outage in more detail. Outage cost here is set at <span class="in">`r fmt_m(BASE$c)`</span> per day for this study alone.</span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>**What the table tells you.** The most important decision is the restore-time target, because it moves the walk-away point more than anything else and makes the no-pay default believable. The other three turn a decision made under pressure into one made in advance. None of them requires predicting the size of the next demand. Each can be rehearsed in a tabletop exercise, so the board can check that the decisions hold before a real incident tests them.</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>::: {.side-note}</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>**Related work.** This study pairs with a related study of the same firm: the <span class="co">[</span><span class="ot">Defender–Attacker study</span><span class="co">](https://patrick-lefler.com/defender-attacker-game-theory/)</span> shows how a crew chooses which asset to attack. Outage cost here is set at <span class="in">`r fmt_m(BASE$c)`</span> per day for this study alone.</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

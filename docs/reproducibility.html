@@ -208,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> R/run_all.R</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'testthat::test_dir("tests/testthat")'</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The rendered site is written to <code>docs/</code>. Run <code>R/run_all.R</code> with <code>Rscript</code> from a terminal, not with <code>source()</code> in an R console: it ends with <code>quit()</code>, which would close your session. It exits with an error status if any diagnostic fails. The sliders need a web server: open the site through GitHub Pages or a local server (for example <code>python3 -m http.server -d docs</code>), not directly from disk.</p>
+<p>The rendered site is written to <code>docs/</code>. Run <code>R/run_all.R</code> with <code>Rscript</code> from a terminal, not with <code>source()</code> in an R console: it ends with <code>quit()</code>, which would close your session. It exits with an error status if any diagnostic fails. To look at the site locally, run <code>quarto preview</code>, which renders it and opens it in your browser. The sliders need a web server, so they don’t work when a page is opened straight from disk; on GitHub Pages they work as is.</p>
 </section>
 <section id="pipeline" class="level2">
 <h2 class="anchored" data-anchor-id="pipeline">Pipeline</h2>
@@ -239,12 +239,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>R/20_walkaway.R</code></td>
-<td style="text-align: left;">Reference cases, decision-map boundaries, the two-paths cost components and firm profiles</td>
+<td style="text-align: left;">Reference cases, decision-map boundaries, the cost components of the three paths, the leak-term sensitivity and firm profiles</td>
 <td style="text-align: left;"><code>walkaway.rds</code></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>R/30_mc_drivers.R</code></td>
-<td style="text-align: left;">Monte Carlo over all inputs; first-order variance shares for the walk-away point and the pay decision, on five seeds</td>
+<td style="text-align: left;">Monte Carlo over all inputs; first-order variance shares for the walk-away point and the pay decision, on five seeds and at three demand spreads</td>
 <td style="text-align: left;"><code>mc_drivers.rds</code></td>
 </tr>
 <tr class="odd">
@@ -254,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>R/32_reputation.R</code></td>
-<td style="text-align: left;">10-year repeated game for every attack rate on the slider, and the targeting-response sweep</td>
+<td style="text-align: left;">10-year repeated game for every attack rate on the slider, the targeting-response sweep and the pay-once credibility test in present value</td>
 <td style="text-align: left;"><code>reputation.rds</code>, <code>reputation_grid.rds</code></td>
 </tr>
 <tr class="odd">
@@ -264,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>R/80_diagnostics.R</code></td>
-<td style="text-align: left;">The ten checks shown on the Governance page, including the JavaScript–R parity check</td>
+<td style="text-align: left;">The checks shown on the Governance page, including the JavaScript–R parity check and the discounting and deviate-once checks</td>
 <td style="text-align: left;"><code>diagnostics.rds</code></td>
 </tr>
 <tr class="odd">
@@ -309,23 +309,23 @@ Table&nbsp;1: Input files and cached results used in this render.
 </figcaption>
 <div aria-describedby="tbl-checksums-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="raijrbuhfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#raijrbuhfu table {
+<div id="darrujaztk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#darrujaztk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#raijrbuhfu thead, #raijrbuhfu tbody, #raijrbuhfu tfoot, #raijrbuhfu tr, #raijrbuhfu td, #raijrbuhfu th {
+#darrujaztk thead, #darrujaztk tbody, #darrujaztk tfoot, #darrujaztk tr, #darrujaztk td, #darrujaztk th {
   border-style: none;
 }
 
-#raijrbuhfu p {
+#darrujaztk p {
   margin: 0;
   padding: 0;
 }
 
-#raijrbuhfu .gt_table {
+#darrujaztk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -351,12 +351,12 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-left-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_caption {
+#darrujaztk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#raijrbuhfu .gt_title {
+#darrujaztk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -368,7 +368,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-bottom-width: 0;
 }
 
-#raijrbuhfu .gt_subtitle {
+#darrujaztk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -380,7 +380,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-top-width: 0;
 }
 
-#raijrbuhfu .gt_heading {
+#darrujaztk .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -392,13 +392,13 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-right-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_bottom_border {
+#darrujaztk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_col_headings {
+#darrujaztk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -413,7 +413,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-right-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_col_heading {
+#darrujaztk .gt_col_heading {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -433,7 +433,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   overflow-x: hidden;
 }
 
-#raijrbuhfu .gt_column_spanner_outer {
+#darrujaztk .gt_column_spanner_outer {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -445,15 +445,15 @@ Table&nbsp;1: Input files and cached results used in this render.
   padding-right: 4px;
 }
 
-#raijrbuhfu .gt_column_spanner_outer:first-child {
+#darrujaztk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#raijrbuhfu .gt_column_spanner_outer:last-child {
+#darrujaztk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#raijrbuhfu .gt_column_spanner {
+#darrujaztk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -465,11 +465,11 @@ Table&nbsp;1: Input files and cached results used in this render.
   width: 100%;
 }
 
-#raijrbuhfu .gt_spanner_row {
+#darrujaztk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#raijrbuhfu .gt_group_heading {
+#darrujaztk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -495,7 +495,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   text-align: left;
 }
 
-#raijrbuhfu .gt_empty_group_heading {
+#darrujaztk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -510,15 +510,15 @@ Table&nbsp;1: Input files and cached results used in this render.
   vertical-align: middle;
 }
 
-#raijrbuhfu .gt_from_md > :first-child {
+#darrujaztk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#raijrbuhfu .gt_from_md > :last-child {
+#darrujaztk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#raijrbuhfu .gt_row {
+#darrujaztk .gt_row {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -537,7 +537,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   overflow-x: hidden;
 }
 
-#raijrbuhfu .gt_stub {
+#darrujaztk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -550,7 +550,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   padding-right: 5px;
 }
 
-#raijrbuhfu .gt_stub_row_group {
+#darrujaztk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -564,15 +564,15 @@ Table&nbsp;1: Input files and cached results used in this render.
   vertical-align: top;
 }
 
-#raijrbuhfu .gt_row_group_first td {
+#darrujaztk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#raijrbuhfu .gt_row_group_first th {
+#darrujaztk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#raijrbuhfu .gt_summary_row {
+#darrujaztk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -582,16 +582,16 @@ Table&nbsp;1: Input files and cached results used in this render.
   padding-right: 5px;
 }
 
-#raijrbuhfu .gt_first_summary_row {
+#darrujaztk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_first_summary_row.thick {
+#darrujaztk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#raijrbuhfu .gt_last_summary_row {
+#darrujaztk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -601,7 +601,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-bottom-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_grand_summary_row {
+#darrujaztk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -611,7 +611,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   padding-right: 5px;
 }
 
-#raijrbuhfu .gt_first_grand_summary_row {
+#darrujaztk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -621,7 +621,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-top-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_last_grand_summary_row_top {
+#darrujaztk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -631,11 +631,11 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-bottom-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_striped {
+#darrujaztk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#raijrbuhfu .gt_table_body {
+#darrujaztk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -644,7 +644,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-bottom-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_footnotes {
+#darrujaztk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -658,7 +658,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-right-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_footnote {
+#darrujaztk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -667,7 +667,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   padding-right: 5px;
 }
 
-#raijrbuhfu .gt_sourcenotes {
+#darrujaztk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -681,7 +681,7 @@ Table&nbsp;1: Input files and cached results used in this render.
   border-right-color: #D3D3D3;
 }
 
-#raijrbuhfu .gt_sourcenote {
+#darrujaztk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -689,72 +689,72 @@ Table&nbsp;1: Input files and cached results used in this render.
   padding-right: 5px;
 }
 
-#raijrbuhfu .gt_left {
+#darrujaztk .gt_left {
   text-align: left;
 }
 
-#raijrbuhfu .gt_center {
+#darrujaztk .gt_center {
   text-align: center;
 }
 
-#raijrbuhfu .gt_right {
+#darrujaztk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#raijrbuhfu .gt_font_normal {
+#darrujaztk .gt_font_normal {
   font-weight: normal;
 }
 
-#raijrbuhfu .gt_font_bold {
+#darrujaztk .gt_font_bold {
   font-weight: bold;
 }
 
-#raijrbuhfu .gt_font_italic {
+#darrujaztk .gt_font_italic {
   font-style: italic;
 }
 
-#raijrbuhfu .gt_super {
+#darrujaztk .gt_super {
   font-size: 65%;
 }
 
-#raijrbuhfu .gt_footnote_marks {
+#darrujaztk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#raijrbuhfu .gt_asterisk {
+#darrujaztk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#raijrbuhfu .gt_indent_1 {
+#darrujaztk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#raijrbuhfu .gt_indent_2 {
+#darrujaztk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#raijrbuhfu .gt_indent_3 {
+#darrujaztk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#raijrbuhfu .gt_indent_4 {
+#darrujaztk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#raijrbuhfu .gt_indent_5 {
+#darrujaztk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#raijrbuhfu .katex-display {
+#darrujaztk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#raijrbuhfu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#darrujaztk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -778,20 +778,20 @@ Table&nbsp;1: Input files and cached results used in this render.
 <tr class="odd">
 <td class="gt_row gt_left" headers="Kind">Input</td>
 <td class="gt_row gt_left" headers="File">params.yaml</td>
-<td class="gt_row gt_right" headers="Size (KB)">2.7</td>
-<td class="gt_row gt_left" headers="MD5">8e292da7d1b6ce436b9a8b44ad182758</td>
+<td class="gt_row gt_right" headers="Size (KB)">3.1</td>
+<td class="gt_row gt_left" headers="MD5">fcb6291dfa9700b1b4faf2f5128c0c8f</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Kind">Input</td>
 <td class="gt_row gt_left" headers="File">data/inputs.csv</td>
-<td class="gt_row gt_right" headers="Size (KB)">1.5</td>
-<td class="gt_row gt_left" headers="MD5">0ded661b6b8b1fcbfa16cc911373da42</td>
+<td class="gt_row gt_right" headers="Size (KB)">1.7</td>
+<td class="gt_row gt_left" headers="MD5">9466e052b0b8789a586a8885c25e3e23</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Kind">Input</td>
 <td class="gt_row gt_left" headers="File">data/assumptions_register.csv</td>
 <td class="gt_row gt_right" headers="Size (KB)">1.6</td>
-<td class="gt_row gt_left" headers="MD5">16baf00cfd92e8362f947e00c44aa880</td>
+<td class="gt_row gt_left" headers="MD5">1efb783f5710efa32a59d60e56535f16</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Kind">Input</td>
@@ -802,20 +802,20 @@ Table&nbsp;1: Input files and cached results used in this render.
 <tr class="odd">
 <td class="gt_row gt_left" headers="Kind">Cached result</td>
 <td class="gt_row gt_left" headers="File">data/results/walkaway.rds</td>
-<td class="gt_row gt_right" headers="Size (KB)">2.9</td>
-<td class="gt_row gt_left" headers="MD5">9c2fd897540eda3eefee0aa148e5e4f5</td>
+<td class="gt_row gt_right" headers="Size (KB)">3.0</td>
+<td class="gt_row gt_left" headers="MD5">a84d23bc5d3ef0850e841986d6991bd5</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Kind">Cached result</td>
 <td class="gt_row gt_left" headers="File">data/results/mc_drivers.rds</td>
-<td class="gt_row gt_right" headers="Size (KB)">1.6</td>
-<td class="gt_row gt_left" headers="MD5">ac50302d260c930fa277ef7d981215f3</td>
+<td class="gt_row gt_right" headers="Size (KB)">2.0</td>
+<td class="gt_row gt_left" headers="MD5">a8e532b8cc383510a2119959de60a4a3</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Kind">Cached result</td>
 <td class="gt_row gt_left" headers="File">data/results/reputation.rds</td>
-<td class="gt_row gt_right" headers="Size (KB)">6.5</td>
-<td class="gt_row gt_left" headers="MD5">944f74f30f2a9165b541dae966e7e01f</td>
+<td class="gt_row gt_right" headers="Size (KB)">8.5</td>
+<td class="gt_row gt_left" headers="MD5">8c75024427ae28ae326f7de5cef1bd60</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Kind">Cached result</td>
@@ -832,8 +832,8 @@ Table&nbsp;1: Input files and cached results used in this render.
 <tr class="even">
 <td class="gt_row gt_left" headers="Kind">Cached result</td>
 <td class="gt_row gt_left" headers="File">data/results/diagnostics.rds</td>
-<td class="gt_row gt_right" headers="Size (KB)">0.9</td>
-<td class="gt_row gt_left" headers="MD5">5d3e3578037818706b558143dc1e43cb</td>
+<td class="gt_row gt_right" headers="Size (KB)">1.0</td>
+<td class="gt_row gt_left" headers="MD5">ef01c1277568eb41cbdf5146c133f808</td>
 </tr>
 </tbody>
 </table>
@@ -879,23 +879,23 @@ Table&nbsp;2: Model inputs in params.yaml.
 </figcaption>
 <div aria-describedby="tbl-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="ymqqswhsll" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ymqqswhsll table {
+<div id="ixghwbplkq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ixghwbplkq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ymqqswhsll thead, #ymqqswhsll tbody, #ymqqswhsll tfoot, #ymqqswhsll tr, #ymqqswhsll td, #ymqqswhsll th {
+#ixghwbplkq thead, #ixghwbplkq tbody, #ixghwbplkq tfoot, #ixghwbplkq tr, #ixghwbplkq td, #ixghwbplkq th {
   border-style: none;
 }
 
-#ymqqswhsll p {
+#ixghwbplkq p {
   margin: 0;
   padding: 0;
 }
 
-#ymqqswhsll .gt_table {
+#ixghwbplkq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -921,12 +921,12 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-left-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_caption {
+#ixghwbplkq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ymqqswhsll .gt_title {
+#ixghwbplkq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -938,7 +938,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-bottom-width: 0;
 }
 
-#ymqqswhsll .gt_subtitle {
+#ixghwbplkq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -950,7 +950,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-top-width: 0;
 }
 
-#ymqqswhsll .gt_heading {
+#ixghwbplkq .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -962,13 +962,13 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-right-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_bottom_border {
+#ixghwbplkq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_col_headings {
+#ixghwbplkq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -983,7 +983,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-right-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_col_heading {
+#ixghwbplkq .gt_col_heading {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -1003,7 +1003,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   overflow-x: hidden;
 }
 
-#ymqqswhsll .gt_column_spanner_outer {
+#ixghwbplkq .gt_column_spanner_outer {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -1015,15 +1015,15 @@ Table&nbsp;2: Model inputs in params.yaml.
   padding-right: 4px;
 }
 
-#ymqqswhsll .gt_column_spanner_outer:first-child {
+#ixghwbplkq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ymqqswhsll .gt_column_spanner_outer:last-child {
+#ixghwbplkq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ymqqswhsll .gt_column_spanner {
+#ixghwbplkq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1035,11 +1035,11 @@ Table&nbsp;2: Model inputs in params.yaml.
   width: 100%;
 }
 
-#ymqqswhsll .gt_spanner_row {
+#ixghwbplkq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ymqqswhsll .gt_group_heading {
+#ixghwbplkq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1065,7 +1065,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   text-align: left;
 }
 
-#ymqqswhsll .gt_empty_group_heading {
+#ixghwbplkq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1080,15 +1080,15 @@ Table&nbsp;2: Model inputs in params.yaml.
   vertical-align: middle;
 }
 
-#ymqqswhsll .gt_from_md > :first-child {
+#ixghwbplkq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ymqqswhsll .gt_from_md > :last-child {
+#ixghwbplkq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ymqqswhsll .gt_row {
+#ixghwbplkq .gt_row {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -1107,7 +1107,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   overflow-x: hidden;
 }
 
-#ymqqswhsll .gt_stub {
+#ixghwbplkq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1120,7 +1120,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   padding-right: 5px;
 }
 
-#ymqqswhsll .gt_stub_row_group {
+#ixghwbplkq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1134,15 +1134,15 @@ Table&nbsp;2: Model inputs in params.yaml.
   vertical-align: top;
 }
 
-#ymqqswhsll .gt_row_group_first td {
+#ixghwbplkq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ymqqswhsll .gt_row_group_first th {
+#ixghwbplkq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ymqqswhsll .gt_summary_row {
+#ixghwbplkq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1152,16 +1152,16 @@ Table&nbsp;2: Model inputs in params.yaml.
   padding-right: 5px;
 }
 
-#ymqqswhsll .gt_first_summary_row {
+#ixghwbplkq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_first_summary_row.thick {
+#ixghwbplkq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ymqqswhsll .gt_last_summary_row {
+#ixghwbplkq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1171,7 +1171,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-bottom-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_grand_summary_row {
+#ixghwbplkq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1181,7 +1181,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   padding-right: 5px;
 }
 
-#ymqqswhsll .gt_first_grand_summary_row {
+#ixghwbplkq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1191,7 +1191,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-top-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_last_grand_summary_row_top {
+#ixghwbplkq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1201,11 +1201,11 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-bottom-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_striped {
+#ixghwbplkq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ymqqswhsll .gt_table_body {
+#ixghwbplkq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1214,7 +1214,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-bottom-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_footnotes {
+#ixghwbplkq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1228,7 +1228,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-right-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_footnote {
+#ixghwbplkq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1237,7 +1237,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   padding-right: 5px;
 }
 
-#ymqqswhsll .gt_sourcenotes {
+#ixghwbplkq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1251,7 +1251,7 @@ Table&nbsp;2: Model inputs in params.yaml.
   border-right-color: #D3D3D3;
 }
 
-#ymqqswhsll .gt_sourcenote {
+#ixghwbplkq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1259,72 +1259,72 @@ Table&nbsp;2: Model inputs in params.yaml.
   padding-right: 5px;
 }
 
-#ymqqswhsll .gt_left {
+#ixghwbplkq .gt_left {
   text-align: left;
 }
 
-#ymqqswhsll .gt_center {
+#ixghwbplkq .gt_center {
   text-align: center;
 }
 
-#ymqqswhsll .gt_right {
+#ixghwbplkq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ymqqswhsll .gt_font_normal {
+#ixghwbplkq .gt_font_normal {
   font-weight: normal;
 }
 
-#ymqqswhsll .gt_font_bold {
+#ixghwbplkq .gt_font_bold {
   font-weight: bold;
 }
 
-#ymqqswhsll .gt_font_italic {
+#ixghwbplkq .gt_font_italic {
   font-style: italic;
 }
 
-#ymqqswhsll .gt_super {
+#ixghwbplkq .gt_super {
   font-size: 65%;
 }
 
-#ymqqswhsll .gt_footnote_marks {
+#ixghwbplkq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ymqqswhsll .gt_asterisk {
+#ixghwbplkq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ymqqswhsll .gt_indent_1 {
+#ixghwbplkq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ymqqswhsll .gt_indent_2 {
+#ixghwbplkq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ymqqswhsll .gt_indent_3 {
+#ixghwbplkq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ymqqswhsll .gt_indent_4 {
+#ixghwbplkq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ymqqswhsll .gt_indent_5 {
+#ixghwbplkq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ymqqswhsll .katex-display {
+#ixghwbplkq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ymqqswhsll div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ixghwbplkq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1391,7 +1391,7 @@ Table&nbsp;2: Model inputs in params.yaml.
 <td class="gt_row gt_left" headers="Name">kappa</td>
 <td class="gt_row gt_right" headers="Base">1</td>
 <td class="gt_row gt_left" headers="Distribution">Fixed</td>
-<td class="gt_row gt_left" headers="Status">assumption; OFAC liability is strict</td>
+<td class="gt_row gt_left" headers="Status">illustrative simplification; OFAC liability is strict</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Name">K_pay</td>
@@ -1415,7 +1415,13 @@ Table&nbsp;2: Model inputs in params.yaml.
 <td class="gt_row gt_left" headers="Name">p_p</td>
 <td class="gt_row gt_right" headers="Base">0.6</td>
 <td class="gt_row gt_left" headers="Distribution">p_np × Triangular(0.5, 0.75, 0.95)</td>
-<td class="gt_row gt_left" headers="Status">assumption; re-extortion after payment is common</td>
+<td class="gt_row gt_left" headers="Status">assumption; re-extortion data as directional support only</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Name">t_detect</td>
+<td class="gt_row gt_right" headers="Base">2</td>
+<td class="gt_row gt_left" headers="Distribution">Triangular(1, 2, 7)</td>
+<td class="gt_row gt_left" headers="Status">assumption</td>
 </tr>
 </tbody>
 </table>
@@ -1433,7 +1439,7 @@ Table&nbsp;2: Model inputs in params.yaml.
 </section>
 <section id="tests" class="level2">
 <h2 class="anchored" data-anchor-id="tests">Tests</h2>
-<p>Two layers of checks guard the results. Unit tests in <code>tests/testthat/</code> check the closed-form model against the seven reference cases and the worked example from the project outline, the indifference condition, the samplers, and the crew’s opening demand. They run again each time this page is rendered, and the table below shows the results. The ten pipeline diagnostics (10 of 10 passing in this build) are shown on the <a href="./governance.html#diagnostics">Governance</a> page.</p>
+<p>Two layers of checks guard the results. Unit tests in <code>tests/testthat/</code> check the closed-form model against the seven reference cases and the worked example from the project outline, the indifference condition, the staged-path reference values, the samplers, the crew’s opening demand and the share of incidents in which paying the base demand is cheaper. They run again each time this page is rendered, and the table below shows the results. The pipeline diagnostics (12 of 12 passing in this build) are shown on the <a href="./governance.html#diagnostics">Governance</a> page.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Display code</summary>
@@ -1458,23 +1464,23 @@ Table&nbsp;3: Unit test results from rendering this page.
 </figcaption>
 <div aria-describedby="tbl-tests-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="acmpxaqxiq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#acmpxaqxiq table {
+<div id="ppnnviqhtc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ppnnviqhtc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#acmpxaqxiq thead, #acmpxaqxiq tbody, #acmpxaqxiq tfoot, #acmpxaqxiq tr, #acmpxaqxiq td, #acmpxaqxiq th {
+#ppnnviqhtc thead, #ppnnviqhtc tbody, #ppnnviqhtc tfoot, #ppnnviqhtc tr, #ppnnviqhtc td, #ppnnviqhtc th {
   border-style: none;
 }
 
-#acmpxaqxiq p {
+#ppnnviqhtc p {
   margin: 0;
   padding: 0;
 }
 
-#acmpxaqxiq .gt_table {
+#ppnnviqhtc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1500,12 +1506,12 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-left-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_caption {
+#ppnnviqhtc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#acmpxaqxiq .gt_title {
+#ppnnviqhtc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1517,7 +1523,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-bottom-width: 0;
 }
 
-#acmpxaqxiq .gt_subtitle {
+#ppnnviqhtc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1529,7 +1535,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-top-width: 0;
 }
 
-#acmpxaqxiq .gt_heading {
+#ppnnviqhtc .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -1541,13 +1547,13 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-right-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_bottom_border {
+#ppnnviqhtc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_col_headings {
+#ppnnviqhtc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1562,7 +1568,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-right-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_col_heading {
+#ppnnviqhtc .gt_col_heading {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -1582,7 +1588,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   overflow-x: hidden;
 }
 
-#acmpxaqxiq .gt_column_spanner_outer {
+#ppnnviqhtc .gt_column_spanner_outer {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -1594,15 +1600,15 @@ Table&nbsp;3: Unit test results from rendering this page.
   padding-right: 4px;
 }
 
-#acmpxaqxiq .gt_column_spanner_outer:first-child {
+#ppnnviqhtc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#acmpxaqxiq .gt_column_spanner_outer:last-child {
+#ppnnviqhtc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#acmpxaqxiq .gt_column_spanner {
+#ppnnviqhtc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1614,11 +1620,11 @@ Table&nbsp;3: Unit test results from rendering this page.
   width: 100%;
 }
 
-#acmpxaqxiq .gt_spanner_row {
+#ppnnviqhtc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#acmpxaqxiq .gt_group_heading {
+#ppnnviqhtc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1644,7 +1650,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   text-align: left;
 }
 
-#acmpxaqxiq .gt_empty_group_heading {
+#ppnnviqhtc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1659,15 +1665,15 @@ Table&nbsp;3: Unit test results from rendering this page.
   vertical-align: middle;
 }
 
-#acmpxaqxiq .gt_from_md > :first-child {
+#ppnnviqhtc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#acmpxaqxiq .gt_from_md > :last-child {
+#ppnnviqhtc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#acmpxaqxiq .gt_row {
+#ppnnviqhtc .gt_row {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -1686,7 +1692,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   overflow-x: hidden;
 }
 
-#acmpxaqxiq .gt_stub {
+#ppnnviqhtc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1699,7 +1705,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   padding-right: 5px;
 }
 
-#acmpxaqxiq .gt_stub_row_group {
+#ppnnviqhtc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1713,15 +1719,15 @@ Table&nbsp;3: Unit test results from rendering this page.
   vertical-align: top;
 }
 
-#acmpxaqxiq .gt_row_group_first td {
+#ppnnviqhtc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#acmpxaqxiq .gt_row_group_first th {
+#ppnnviqhtc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#acmpxaqxiq .gt_summary_row {
+#ppnnviqhtc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1731,16 +1737,16 @@ Table&nbsp;3: Unit test results from rendering this page.
   padding-right: 5px;
 }
 
-#acmpxaqxiq .gt_first_summary_row {
+#ppnnviqhtc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_first_summary_row.thick {
+#ppnnviqhtc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#acmpxaqxiq .gt_last_summary_row {
+#ppnnviqhtc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1750,7 +1756,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-bottom-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_grand_summary_row {
+#ppnnviqhtc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1760,7 +1766,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   padding-right: 5px;
 }
 
-#acmpxaqxiq .gt_first_grand_summary_row {
+#ppnnviqhtc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1770,7 +1776,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-top-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_last_grand_summary_row_top {
+#ppnnviqhtc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1780,11 +1786,11 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-bottom-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_striped {
+#ppnnviqhtc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#acmpxaqxiq .gt_table_body {
+#ppnnviqhtc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1793,7 +1799,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-bottom-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_footnotes {
+#ppnnviqhtc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1807,7 +1813,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-right-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_footnote {
+#ppnnviqhtc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1816,7 +1822,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   padding-right: 5px;
 }
 
-#acmpxaqxiq .gt_sourcenotes {
+#ppnnviqhtc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1830,7 +1836,7 @@ Table&nbsp;3: Unit test results from rendering this page.
   border-right-color: #D3D3D3;
 }
 
-#acmpxaqxiq .gt_sourcenote {
+#ppnnviqhtc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1838,72 +1844,72 @@ Table&nbsp;3: Unit test results from rendering this page.
   padding-right: 5px;
 }
 
-#acmpxaqxiq .gt_left {
+#ppnnviqhtc .gt_left {
   text-align: left;
 }
 
-#acmpxaqxiq .gt_center {
+#ppnnviqhtc .gt_center {
   text-align: center;
 }
 
-#acmpxaqxiq .gt_right {
+#ppnnviqhtc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#acmpxaqxiq .gt_font_normal {
+#ppnnviqhtc .gt_font_normal {
   font-weight: normal;
 }
 
-#acmpxaqxiq .gt_font_bold {
+#ppnnviqhtc .gt_font_bold {
   font-weight: bold;
 }
 
-#acmpxaqxiq .gt_font_italic {
+#ppnnviqhtc .gt_font_italic {
   font-style: italic;
 }
 
-#acmpxaqxiq .gt_super {
+#ppnnviqhtc .gt_super {
   font-size: 65%;
 }
 
-#acmpxaqxiq .gt_footnote_marks {
+#ppnnviqhtc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#acmpxaqxiq .gt_asterisk {
+#ppnnviqhtc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#acmpxaqxiq .gt_indent_1 {
+#ppnnviqhtc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#acmpxaqxiq .gt_indent_2 {
+#ppnnviqhtc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#acmpxaqxiq .gt_indent_3 {
+#ppnnviqhtc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#acmpxaqxiq .gt_indent_4 {
+#ppnnviqhtc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#acmpxaqxiq .gt_indent_5 {
+#ppnnviqhtc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#acmpxaqxiq .katex-display {
+#ppnnviqhtc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#acmpxaqxiq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ppnnviqhtc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1954,6 +1960,18 @@ Table&nbsp;3: Unit test results from rendering this page.
 <td class="gt_row gt_right" headers="Expectations">4</td>
 <td class="gt_row gt_left" headers="Result">Pass</td>
 </tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="File">test-walkaway.R</td>
+<td class="gt_row gt_left" headers="Test">staged path matches reference values and is never worse with instant detection</td>
+<td class="gt_row gt_right" headers="Expectations">7</td>
+<td class="gt_row gt_left" headers="Result">Pass</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="File">test-walkaway.R</td>
+<td class="gt_row gt_left" headers="Test">paying the base demand is cheaper in most simulated incidents</td>
+<td class="gt_row gt_right" headers="Expectations">2</td>
+<td class="gt_row gt_left" headers="Result">Pass</td>
+</tr>
 </tbody>
 </table>
 
@@ -1964,7 +1982,7 @@ Table&nbsp;3: Unit test results from rendering this page.
 </div>
 </div>
 <div class="reader-note">
-<p><strong>How to read the table.</strong> Each row is one unit test. The expectations column counts the individual comparisons inside it, such as one computed walk-away point against its reference value. “Pass” means every comparison in the test held. Here 6 of 6 tests passed, covering 13 comparisons in total. Each test’s name says what it checks, and the file column shows where to find it in <code>tests/testthat/</code>.</p>
+<p><strong>How to read the table.</strong> Each row is one unit test. The expectations column counts the individual comparisons inside it, such as one computed walk-away point against its reference value. “Pass” means every comparison in the test held. Here 8 of 8 tests passed, covering 22 comparisons in total. Each test’s name says what it checks, and the file column shows where to find it in <code>tests/testthat/</code>.</p>
 <p><strong>What the table tells you.</strong> The formulas behind every page reproduce the reference values to within one hundredth of a million dollars, and the walk-away point is exactly where paying and refusing cost the same. A failure here would mean the code no longer matches the documented model, and the site’s numbers should not be used until it is fixed.</p>
 </div>
 </section>
@@ -1981,7 +1999,7 @@ Table&nbsp;3: Unit test results from rendering this page.
 </section>
 <section id="environment" class="level2">
 <h2 class="anchored" data-anchor-id="environment">Software environment</h2>
-<p>The site was built with R and Quarto. The pages load <code>dplyr</code>, <code>ggplot2</code> and <code>gt</code>, and the scripts also call <code>purrr</code>, <code>tibble</code>, <code>tidyr</code>, <code>readr</code>, <code>forcats</code>, <code>scales</code>, <code>yaml</code>, <code>V8</code>, <code>testthat</code> and <code>sessioninfo</code>. The two sliders use Observable JS, which is built into Quarto. Package versions are pinned in <code>renv.lock</code>; run <code>renv::restore()</code> to install them.</p>
+<p>The site was built with R and Quarto. The pages load <code>dplyr</code>, <code>ggplot2</code> and <code>gt</code>, and the scripts also call <code>purrr</code>, <code>tibble</code>, <code>tidyr</code>, <code>readr</code>, <code>scales</code>, <code>yaml</code>, <code>V8</code>, <code>testthat</code> and <code>sessioninfo</code>. The two sliders use Observable JS, which is built into Quarto. Package versions are pinned in <code>renv.lock</code>; run <code>renv::restore()</code> to install them.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -2569,7 +2587,7 @@ Table&nbsp;3: Unit test results from rendering this page.
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span>
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>The rendered site is written to <span class="in">`docs/`</span>. Run <span class="in">`R/run_all.R`</span> with <span class="in">`Rscript`</span> from a terminal, not with <span class="in">`source()`</span> in an R console: it ends with <span class="in">`quit()`</span>, which would close your session. It exits with an error status if any diagnostic fails. The sliders need a web server: open the site through GitHub Pages or a local server (for example <span class="in">`python3 -m http.server -d docs`</span>), not directly from disk.</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>The rendered site is written to <span class="in">`docs/`</span>. Run <span class="in">`R/run_all.R`</span> with <span class="in">`Rscript`</span> from a terminal, not with <span class="in">`source()`</span> in an R console: it ends with <span class="in">`quit()`</span>, which would close your session. It exits with an error status if any diagnostic fails. To look at the site locally, run <span class="in">`quarto preview`</span>, which renders it and opens it in your browser. The sliders need a web server, so they don't work when a page is opened straight from disk; on GitHub Pages they work as is.</span>
 <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pipeline {#pipeline}</span></span>
 <span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
@@ -2579,12 +2597,12 @@ Table&nbsp;3: Unit test results from rendering this page.
 <span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="pp">|:-----------------|:-----------------------------------|:-----------------------|</span></span>
 <span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/00_params.R`</span> <span class="pp">|</span> Reads <span class="in">`params.yaml`</span> into constants, the base case and the three firm profiles; sets the project paths <span class="pp">|</span> <span class="in">`BASE`</span>, <span class="in">`PROFILES`</span>, <span class="in">`INPUT_SPEC`</span>, seeds <span class="pp">|</span></span>
 <span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/01_utils.R`</span> <span class="pp">|</span> Closed-form costs and walk-away point, triangular and Beta samplers, formatters, result read/write helpers <span class="pp">|</span> Shared functions <span class="pp">|</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/20_walkaway.R`</span> <span class="pp">|</span> Reference cases, decision-map boundaries, the two-paths cost components and firm profiles <span class="pp">|</span> <span class="in">`walkaway.rds`</span> <span class="pp">|</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/30_mc_drivers.R`</span> <span class="pp">|</span> Monte Carlo over all inputs; first-order variance shares for the walk-away point and the pay decision, on five seeds <span class="pp">|</span> <span class="in">`mc_drivers.rds`</span> <span class="pp">|</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/20_walkaway.R`</span> <span class="pp">|</span> Reference cases, decision-map boundaries, the cost components of the three paths, the leak-term sensitivity and firm profiles <span class="pp">|</span> <span class="in">`walkaway.rds`</span> <span class="pp">|</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/30_mc_drivers.R`</span> <span class="pp">|</span> Monte Carlo over all inputs; first-order variance shares for the walk-away point and the pay decision, on five seeds and at three demand spreads <span class="pp">|</span> <span class="in">`mc_drivers.rds`</span> <span class="pp">|</span></span>
 <span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/31_bargaining.R`</span> <span class="pp">|</span> The crew's belief grid, its best demand and the Bayesian update after a payment or refusal <span class="pp">|</span> Shared functions <span class="pp">|</span></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/32_reputation.R`</span> <span class="pp">|</span> 10-year repeated game for every attack rate on the slider, and the targeting-response sweep <span class="pp">|</span> <span class="in">`reputation.rds`</span>, <span class="in">`reputation_grid.rds`</span> <span class="pp">|</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/32_reputation.R`</span> <span class="pp">|</span> 10-year repeated game for every attack rate on the slider, the targeting-response sweep and the pay-once credibility test in present value <span class="pp">|</span> <span class="in">`reputation.rds`</span>, <span class="in">`reputation_grid.rds`</span> <span class="pp">|</span></span>
 <span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/35_sensitivity.R`</span> <span class="pp">|</span> One-at-a-time swings and the market-calibration run <span class="pp">|</span> <span class="in">`sensitivity.rds`</span> <span class="pp">|</span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/80_diagnostics.R`</span> <span class="pp">|</span> The ten checks shown on the Governance page, including the JavaScript–R parity check <span class="pp">|</span> <span class="in">`diagnostics.rds`</span> <span class="pp">|</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/80_diagnostics.R`</span> <span class="pp">|</span> The checks shown on the Governance page, including the JavaScript–R parity check and the discounting and deviate-once checks <span class="pp">|</span> <span class="in">`diagnostics.rds`</span> <span class="pp">|</span></span>
 <span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`R/run_all.R`</span> <span class="pp">|</span> Runs all of the above <span class="pp">|</span> All results <span class="pp">|</span></span>
 <span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="in">`assets/js/walkaway.js`</span> holds the walk-away formula used by the decision-map slider; the parity diagnostic runs this same file in R through the <span class="in">`V8`</span> package. Every page sources <span class="in">`R/00_params.R`</span>, <span class="in">`R/01_utils.R`</span> and <span class="in">`R/90_theme.R`</span> (labels, colors and the plot and table styles) in a hidden first chunk. <span class="in">`R/99_wordcount.R`</span> is an internal prose-length check whose output is printed to the terminal only.</span>
@@ -2657,7 +2675,7 @@ Table&nbsp;3: Unit test results from rendering this page.
 <span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tests {#tests}</span></span>
 <span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>Two layers of checks guard the results. Unit tests in <span class="in">`tests/testthat/`</span> check the closed-form model against the seven reference cases and the worked example from the project outline, the indifference condition, the samplers, and the crew's opening demand. They run again each time this page is rendered, and the table below shows the results. The ten pipeline diagnostics (<span class="in">`r sum(diag$result == "Pass")`</span> of <span class="in">`r nrow(diag)`</span> passing in this build) are shown on the <span class="co">[</span><span class="ot">Governance</span><span class="co">](governance.qmd#diagnostics)</span> page.</span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>Two layers of checks guard the results. Unit tests in <span class="in">`tests/testthat/`</span> check the closed-form model against the seven reference cases and the worked example from the project outline, the indifference condition, the staged-path reference values, the samplers, the crew's opening demand and the share of incidents in which paying the base demand is cheaper. They run again each time this page is rendered, and the table below shows the results. The pipeline diagnostics (<span class="in">`r sum(diag$result == "Pass")`</span> of <span class="in">`r nrow(diag)`</span> passing in this build) are shown on the <span class="co">[</span><span class="ot">Governance</span><span class="co">](governance.qmd#diagnostics)</span> page.</span>
 <span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-tests</span></span>
@@ -2694,7 +2712,7 @@ Table&nbsp;3: Unit test results from rendering this page.
 <span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="fu">## Software environment {#environment}</span></span>
 <span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a>The site was built with R and Quarto. The pages load <span class="in">`dplyr`</span>, <span class="in">`ggplot2`</span> and <span class="in">`gt`</span>, and the scripts also call <span class="in">`purrr`</span>, <span class="in">`tibble`</span>, <span class="in">`tidyr`</span>, <span class="in">`readr`</span>, <span class="in">`forcats`</span>, <span class="in">`scales`</span>, <span class="in">`yaml`</span>, <span class="in">`V8`</span>, <span class="in">`testthat`</span> and <span class="in">`sessioninfo`</span>. The two sliders use Observable JS, which is built into Quarto. Package versions are pinned in <span class="in">`renv.lock`</span>; run <span class="in">`renv::restore()`</span> to install them.</span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a>The site was built with R and Quarto. The pages load <span class="in">`dplyr`</span>, <span class="in">`ggplot2`</span> and <span class="in">`gt`</span>, and the scripts also call <span class="in">`purrr`</span>, <span class="in">`tibble`</span>, <span class="in">`tidyr`</span>, <span class="in">`readr`</span>, <span class="in">`scales`</span>, <span class="in">`yaml`</span>, <span class="in">`V8`</span>, <span class="in">`testthat`</span> and <span class="in">`sessioninfo`</span>. The two sliders use Observable JS, which is built into Quarto. Package versions are pinned in <span class="in">`renv.lock`</span>; run <span class="in">`renv::restore()`</span> to install them.</span>
 <span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false collapse="true"}</span>
 <span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a><span class="fu">## Full R session information</span></span>

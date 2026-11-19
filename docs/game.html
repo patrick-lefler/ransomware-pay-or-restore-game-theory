@@ -197,7 +197,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#the-setup" id="toc-the-setup" class="nav-link active" data-scroll-target="#the-setup">The setup</a></li>
-  <li><a href="#two-paths-nearly-the-same-price" id="toc-two-paths-nearly-the-same-price" class="nav-link" data-scroll-target="#two-paths-nearly-the-same-price">Two paths, nearly the same price</a></li>
+  <li><a href="#three-paths" id="toc-three-paths" class="nav-link" data-scroll-target="#three-paths">Three paths</a></li>
   <li><a href="#the-inputs" id="toc-the-inputs" class="nav-link" data-scroll-target="#the-inputs">The inputs</a></li>
   <li><a href="#what-the-crew-knows" id="toc-what-the-crew-knows" class="nav-link" data-scroll-target="#what-the-crew-knows">What the crew knows</a></li>
   <li><a href="#what-moves-the-decision" id="toc-what-moves-the-decision" class="nav-link" data-scroll-target="#what-moves-the-decision">What moves the decision</a></li>
@@ -231,12 +231,12 @@ window.Quarto = {
 <p><em>All money is in $M and all values are illustrative. The firm is synthetic.</em></p>
 <section id="the-setup" class="level2">
 <h2 class="anchored" data-anchor-id="the-setup">The setup</h2>
-<p>A ransomware crew has encrypted the production platform of a 500-person fintech software firm and copied its client data. The crew posts a single demand. The firm then chooses between two paths: pay the demand, or refuse and restore from backups.</p>
+<p>A ransomware crew has encrypted the production platform of a 500-person fintech software firm and copied its client data. The crew posts a single demand. The firm can pay the demand, refuse and restore from backups, or combine the two: start restoring at once and pay only if the backups fail. The firm is a privately held company licensed by New York’s Department of Financial Services (NYDFS), and several of its clients are listed companies.</p>
 <p>Each side knows different things. The firm knows its own restore time and how much it trusts its backups. The crew doesn’t; it can only guess from what it has seen of firms like ours. The crew wants the largest payment it can get, and the firm wants the cheaper path.</p>
 <p>The data theft is treated separately from the encryption, because paying does not reliably buy silence. Coveware puts it bluntly: “threat actors’ promises to delete stolen data cannot be verified” (<a href="https://coveware.com/2026/10/the-silent-ransom-group-leak-shows-why-paying-for-silence-fails/">Coveware, October 2026</a>). Whichever path we choose, some chance of a public leak remains.</p>
 </section>
-<section id="two-paths-nearly-the-same-price" class="level2">
-<h2 class="anchored" data-anchor-id="two-paths-nearly-the-same-price">Two paths, nearly the same price</h2>
+<section id="three-paths" class="level2">
+<h2 class="anchored" data-anchor-id="three-paths">Three paths</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Display code</summary>
@@ -255,28 +255,30 @@ window.Quarto = {
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">4.2</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> COMPONENT_COLS, <span class="at">breaks =</span> comp_order, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Expected cost ($M)"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">12.5</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">2.5</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"At a $2.5M demand, paying and restoring cost almost the same"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Expected cost of each path at base inputs ($M)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_wrap</span>(<span class="dv">22</span>)) <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Restoring first and paying only if backups fail is cheapest"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Expected cost of each path at base inputs ($M)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-two-paths" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two horizontal stacked bars. Restore costs about 10.7 million dollars, made of 7.5 million outage and 3.2 million data leak. Paying 2.5 million costs about 10.8 million, made of 5.2 million outage, 2.4 million leak, 2.5 million ransom, 0.25 million sanctions exposure and 0.5 million payment costs.">
+<div id="fig-two-paths" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Three horizontal stacked bars of expected cost. Restoring costs $10.70M, paying on day one costs $10.83M, and restoring first while paying only if backups fail costs $9.23M. Outage is the largest component of every path.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-two-paths-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="game_files/figure-html/fig-two-paths-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Expected cost of restoring versus paying a $2.5M demand, at base inputs."><img src="game_files/figure-html/fig-two-paths-1.png" class="img-fluid figure-img" alt="Two horizontal stacked bars. Restore costs about 10.7 million dollars, made of 7.5 million outage and 3.2 million data leak. Paying 2.5 million costs about 10.8 million, made of 5.2 million outage, 2.4 million leak, 2.5 million ransom, 0.25 million sanctions exposure and 0.5 million payment costs." width="960"></a>
+<a href="game_files/figure-html/fig-two-paths-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Expected cost of three paths at base inputs and a $2.5M demand. The staged path assumes a failed restore is discovered after 2 days."><img src="game_files/figure-html/fig-two-paths-1.png" class="img-fluid figure-img" alt="Three horizontal stacked bars of expected cost. Restoring costs $10.70M, paying on day one costs $10.83M, and restoring first while paying only if backups fail costs $9.23M. Outage is the largest component of every path." width="960"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-two-paths-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Expected cost of restoring versus paying a $2.5M demand, at base inputs.
+Figure&nbsp;1: Expected cost of three paths at base inputs and a $2.5M demand. The staged path assumes a failed restore is discovered after 2 days.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="reader-note">
-<p><strong>How to read the plot.</strong> Each bar is one path, built from the costs we expect along it. The colored segments show where the money goes: lost operations while systems are down, a possible public leak of client data and, if we pay, the ransom itself, the sanctions penalty risk and the legal and filing costs of paying. The number at the end of each bar is the total. All figures are averages over what could go wrong.</p>
-<p><strong>What the plot tells you.</strong> Refusing costs $10.70M and paying $2.5M costs $10.83M, so the two are only $0.13M apart. Paying shortens the outage, but it does not remove it: the crew’s decryptor sometimes fails, and decryption itself takes days. Because the totals are so close, the right answer depends on the inputs, especially restore time, rather than on any rule of thumb.</p>
+<p><strong>How to read the plot.</strong> Each bar is one path, built from the costs we expect along it. The colored segments show where the money goes: lost operations while systems are down, a possible public leak of client data and, where a payment is made, the ransom, the sanctions penalty risk and the legal and filing costs of paying. The bottom bar starts restoring at once and pays only if the backups turn out to have failed, so its payment costs are small.</p>
+<p><strong>What the plot tells you.</strong> Restoring costs $10.70M and paying on day one $10.83M, about 1% apart, well inside the model’s uncertainty. Restoring first and paying only if backups fail costs $9.23M, less than either. Paying on day one shortens the outage but does not end it: the decryptor sometimes fails, and decryption itself takes days. The staged path wins because the ransom is paid only in the minority of incidents where backups fail.</p>
 </div>
-<p>The firm’s <strong>walk-away point</strong> is the largest demand that is still worth paying. At base inputs it is $2.39M, just below the $2.5M demand, so the firm should narrowly refuse. Each day cut from restore time lowers the walk-away point by about $0.31M.</p>
+<p>The staged path wins because it turns a payment into a fallback for backup failure. With backup credibility of 0.80, a payment comes into question in only 20% of incidents, so backup credibility decides whether a payment is ever needed. The path stays cheapest even if a failed restore takes 7 days to discover ($9.73M), and is the cheapest of the three in 59% of simulated incidents. It assumes the firm can negotiate while restoring; leak deadlines or rising demands can remove that option.</p>
+<p>The firm’s <strong>walk-away point</strong> is the largest demand worth paying on day one, before any restore has been tried; the decision maps on this site describe that day-one choice. At the most likely values it is $2.39M, just below the $2.5M demand, so the firm is close to indifferent. Allowing for uncertainty in every input, paying a $2.5M demand on day one is cheaper than restoring in 64% of simulated incidents: with today’s restore times, this firm is often a rational payer. Each day cut from restore time lowers the walk-away point by about $0.31M. About $0.73M of it assumes that paying lowers the chance of a leak; if it does not, the walk-away point falls to $1.66M.</p>
 </section>
 <section id="the-inputs" class="level2">
 <h2 class="anchored" data-anchor-id="the-inputs">The inputs</h2>
@@ -315,23 +317,23 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
 </figcaption>
 <div aria-describedby="tbl-inputs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="kskgttqoeg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kskgttqoeg table {
+<div id="rxqnzqtnog" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rxqnzqtnog table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kskgttqoeg thead, #kskgttqoeg tbody, #kskgttqoeg tfoot, #kskgttqoeg tr, #kskgttqoeg td, #kskgttqoeg th {
+#rxqnzqtnog thead, #rxqnzqtnog tbody, #rxqnzqtnog tfoot, #rxqnzqtnog tr, #rxqnzqtnog td, #rxqnzqtnog th {
   border-style: none;
 }
 
-#kskgttqoeg p {
+#rxqnzqtnog p {
   margin: 0;
   padding: 0;
 }
 
-#kskgttqoeg .gt_table {
+#rxqnzqtnog .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -357,12 +359,12 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-left-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_caption {
+#rxqnzqtnog .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kskgttqoeg .gt_title {
+#rxqnzqtnog .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -374,7 +376,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-bottom-width: 0;
 }
 
-#kskgttqoeg .gt_subtitle {
+#rxqnzqtnog .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -386,7 +388,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-top-width: 0;
 }
 
-#kskgttqoeg .gt_heading {
+#rxqnzqtnog .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -398,13 +400,13 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-right-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_bottom_border {
+#rxqnzqtnog .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_col_headings {
+#rxqnzqtnog .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -419,7 +421,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-right-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_col_heading {
+#rxqnzqtnog .gt_col_heading {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -439,7 +441,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   overflow-x: hidden;
 }
 
-#kskgttqoeg .gt_column_spanner_outer {
+#rxqnzqtnog .gt_column_spanner_outer {
   color: #333333;
   background-color: #F2F2F2;
   font-size: 100%;
@@ -451,15 +453,15 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   padding-right: 4px;
 }
 
-#kskgttqoeg .gt_column_spanner_outer:first-child {
+#rxqnzqtnog .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kskgttqoeg .gt_column_spanner_outer:last-child {
+#rxqnzqtnog .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kskgttqoeg .gt_column_spanner {
+#rxqnzqtnog .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -471,11 +473,11 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   width: 100%;
 }
 
-#kskgttqoeg .gt_spanner_row {
+#rxqnzqtnog .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kskgttqoeg .gt_group_heading {
+#rxqnzqtnog .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -501,7 +503,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   text-align: left;
 }
 
-#kskgttqoeg .gt_empty_group_heading {
+#rxqnzqtnog .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -516,15 +518,15 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   vertical-align: middle;
 }
 
-#kskgttqoeg .gt_from_md > :first-child {
+#rxqnzqtnog .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kskgttqoeg .gt_from_md > :last-child {
+#rxqnzqtnog .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kskgttqoeg .gt_row {
+#rxqnzqtnog .gt_row {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -543,7 +545,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   overflow-x: hidden;
 }
 
-#kskgttqoeg .gt_stub {
+#rxqnzqtnog .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -556,7 +558,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   padding-right: 5px;
 }
 
-#kskgttqoeg .gt_stub_row_group {
+#rxqnzqtnog .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -570,15 +572,15 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   vertical-align: top;
 }
 
-#kskgttqoeg .gt_row_group_first td {
+#rxqnzqtnog .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kskgttqoeg .gt_row_group_first th {
+#rxqnzqtnog .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kskgttqoeg .gt_summary_row {
+#rxqnzqtnog .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -588,16 +590,16 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   padding-right: 5px;
 }
 
-#kskgttqoeg .gt_first_summary_row {
+#rxqnzqtnog .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_first_summary_row.thick {
+#rxqnzqtnog .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kskgttqoeg .gt_last_summary_row {
+#rxqnzqtnog .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -607,7 +609,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-bottom-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_grand_summary_row {
+#rxqnzqtnog .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -617,7 +619,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   padding-right: 5px;
 }
 
-#kskgttqoeg .gt_first_grand_summary_row {
+#rxqnzqtnog .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -627,7 +629,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-top-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_last_grand_summary_row_top {
+#rxqnzqtnog .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -637,11 +639,11 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-bottom-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_striped {
+#rxqnzqtnog .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kskgttqoeg .gt_table_body {
+#rxqnzqtnog .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -650,7 +652,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-bottom-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_footnotes {
+#rxqnzqtnog .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -664,7 +666,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-right-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_footnote {
+#rxqnzqtnog .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -673,7 +675,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   padding-right: 5px;
 }
 
-#kskgttqoeg .gt_sourcenotes {
+#rxqnzqtnog .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -687,7 +689,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   border-right-color: #D3D3D3;
 }
 
-#kskgttqoeg .gt_sourcenote {
+#rxqnzqtnog .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -695,72 +697,72 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
   padding-right: 5px;
 }
 
-#kskgttqoeg .gt_left {
+#rxqnzqtnog .gt_left {
   text-align: left;
 }
 
-#kskgttqoeg .gt_center {
+#rxqnzqtnog .gt_center {
   text-align: center;
 }
 
-#kskgttqoeg .gt_right {
+#rxqnzqtnog .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kskgttqoeg .gt_font_normal {
+#rxqnzqtnog .gt_font_normal {
   font-weight: normal;
 }
 
-#kskgttqoeg .gt_font_bold {
+#rxqnzqtnog .gt_font_bold {
   font-weight: bold;
 }
 
-#kskgttqoeg .gt_font_italic {
+#rxqnzqtnog .gt_font_italic {
   font-style: italic;
 }
 
-#kskgttqoeg .gt_super {
+#rxqnzqtnog .gt_super {
   font-size: 65%;
 }
 
-#kskgttqoeg .gt_footnote_marks {
+#rxqnzqtnog .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kskgttqoeg .gt_asterisk {
+#rxqnzqtnog .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kskgttqoeg .gt_indent_1 {
+#rxqnzqtnog .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kskgttqoeg .gt_indent_2 {
+#rxqnzqtnog .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kskgttqoeg .gt_indent_3 {
+#rxqnzqtnog .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kskgttqoeg .gt_indent_4 {
+#rxqnzqtnog .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kskgttqoeg .gt_indent_5 {
+#rxqnzqtnog .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kskgttqoeg .katex-display {
+#rxqnzqtnog .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kskgttqoeg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rxqnzqtnog div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -847,7 +849,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
 <td class="gt_row gt_left" headers="unit">multiple</td>
 <td class="gt_row gt_right" headers="base">1</td>
 <td class="gt_row gt_left" headers="range">Fixed</td>
-<td class="gt_row gt_left" headers="source"><a href="https://www.hunton.com/insights/legal/ofacs-updated-advisory-on-ransomware-payments">OFAC liability is strict (Hunton summary)</a></td>
+<td class="gt_row gt_left" headers="source"><a href="https://www.hunton.com/insights/legal/ofacs-updated-advisory-on-ransomware-payments">Illustrative simplification; OFAC liability is strict (Hunton summary)</a></td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="label">K<sub>pay</sub></td>
@@ -879,7 +881,15 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
 <td class="gt_row gt_left" headers="unit">probability</td>
 <td class="gt_row gt_right" headers="base">0.6</td>
 <td class="gt_row gt_left" headers="range">p<sub>np</sub> × triangular(0.5, 0.75, 0.95)</td>
-<td class="gt_row gt_left" headers="source"><a href="https://www.theregister.com/security/2026/07/22/over-a-third-of-ransomware-victims-re-extorted-after-paying/5276218">Re-extortion after payment (The Register)</a></td>
+<td class="gt_row gt_left" headers="source"><a href="https://www.theregister.com/security/2026/07/22/over-a-third-of-ransomware-victims-re-extorted-after-paying/5276218">Firm assumption; re-extortion after payment (The Register) as directional support</a></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">t<sub>detect</sub></td>
+<td class="gt_row gt_left" headers="meaning">Days before a failed restore is discovered (staged path only)</td>
+<td class="gt_row gt_left" headers="unit">days</td>
+<td class="gt_row gt_right" headers="base">2</td>
+<td class="gt_row gt_left" headers="range">Triangular: 1 to 7, most likely 2</td>
+<td class="gt_row gt_left" headers="source">Firm assumption</td>
 </tr>
 </tbody>
 </table>
@@ -917,7 +927,7 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
 </section>
 <section id="what-the-crew-knows" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-crew-knows">What the crew knows</h2>
-<p>The crew doesn’t know our walk-away point, so it sets its demand from what it believes about firms like ours, mainly how long they take to restore. It picks the demand that maximizes its expected take: a higher demand earns more when paid but is refused more often. With the belief used here, its opening demand is $2.53M, in line with a median demand of $1.32M across all victims, who paid on average 85% of the initial demand (<a href="https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf">Sophos, State of Ransomware 2025</a>), scaled up for a fintech holding client data.</p>
+<p>The crew doesn’t know our walk-away point, so it sets its demand from what it believes about firms like ours, mainly how long they take to restore. It picks the demand that maximizes its expected take: a higher demand earns more when paid but is refused more often. With the belief used here, its opening demand is $2.53M. We set the crew’s starting belief as a firm assumption at the high end of published figures: the median demand across all victims was $1.32M (<a href="https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf">Sophos, State of Ransomware 2025</a>), and Coveware’s median payment in Q3 2026 was $400K (<a href="https://coveware.com/2026/10/the-silent-ransom-group-leak-shows-why-paying-for-silence-fails/">Coveware, October 2026</a>).</p>
 <p>The demand reflects what the crew believes about our restore time, not what our data is worth. Visible resilience lowers the opening number.</p>
 </section>
 <section id="what-moves-the-decision" class="level2">
@@ -926,47 +936,51 @@ Table&nbsp;1: Model inputs: base values and the ranges used in the Monte Carlo.
 <details class="code-fold">
 <summary>Display code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>facet_lab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">R_star =</span> <span class="st">"Walk-away point"</span>, <span class="at">pay =</span> <span class="st">"Pay-or-not decision"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> sh <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(share, <span class="at">n =</span> <span class="dv">6</span>, <span class="at">by =</span> target) <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">facet =</span> <span class="fu">factor</span>(facet_lab[target], <span class="at">levels =</span> facet_lab),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(<span class="fu">paste</span>(DRIVER_LABELS[input], target, <span class="at">sep =</span> <span class="st">"___"</span>), share),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">hl =</span> input <span class="sc">==</span> <span class="st">"E_T"</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(share, key, <span class="at">fill =</span> hl)) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.65</span>) <span class="sc">+</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">fmt_pct</span>(share)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">3.8</span>) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>facet, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> \(x) <span class="fu">sub</span>(<span class="st">"___.*"</span>, <span class="st">""</span>, x)) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#0166CC"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#B8B8B8"</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Share of variation explained"</span>, <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.85</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Restore time, not the ransom demand, moves the decision most"</span>,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"What moves the walk-away point, and whether we pay"</span>) <span class="sc">+</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"lines"</span>), <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>comps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"T_r"</span>, <span class="st">"b"</span>, <span class="st">"T_fail"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(<span class="fu">names</span>(facet_lab), \(tg) {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> sh <span class="sc">|&gt;</span> <span class="fu">filter</span>(target <span class="sc">==</span> tg)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  others <span class="ot">&lt;-</span> x <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span>input <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"E_T"</span>, comps)) <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(share, <span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">filter</span>(x, input <span class="sc">==</span> <span class="st">"E_T"</span>), <span class="fu">filter</span>(x, input <span class="sc">%in%</span> comps) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(share)), others) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">role =</span> <span class="fu">c</span>(<span class="st">"total"</span>, <span class="fu">rep</span>(<span class="st">"component"</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">"other"</span>, <span class="dv">3</span>)),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab =</span> <span class="fu">if_else</span>(role <span class="sc">==</span> <span class="st">"component"</span>, <span class="fu">paste0</span>(<span class="st">"\u00b7 "</span>, DRIVER_LABELS[input]), DRIVER_LABELS[input]),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">key =</span> <span class="fu">paste</span>(lab, tg, <span class="at">sep =</span> <span class="st">"___"</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> purrr<span class="sc">::</span><span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">facet =</span> <span class="fu">factor</span>(facet_lab[target], <span class="at">levels =</span> facet_lab),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">key =</span> <span class="fu">factor</span>(key, <span class="at">levels =</span> <span class="fu">rev</span>(key)))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(share, key, <span class="at">fill =</span> role)) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.65</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">fmt_pct</span>(share)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">3.8</span>) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>facet, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> \(x) <span class="fu">sub</span>(<span class="st">"___.*"</span>, <span class="st">""</span>, x)) <span class="sc">+</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"#0166CC"</span>, <span class="at">component =</span> <span class="st">"#9CC3EE"</span>, <span class="at">other =</span> <span class="st">"#B8B8B8"</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Share of variation explained"</span>, <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.85</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Expected outage time moves the decision most when demands vary moderately"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Components of expected outage time shown in light blue"</span>) <span class="sc">+</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"lines"</span>), <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="fig-drivers" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two panels of horizontal bars. For the walk-away point, expected outage time explains 69 percent, restore time 43 percent, backup credibility 17 percent, and outage cost, decryption time and rebuild time 8 percent or less. For the pay decision, expected outage time explains 39 percent, restore time 23 percent, the ransom demand 15 percent and backup credibility 9 percent.">
+<div id="fig-drivers" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two panels of horizontal bars. Expected outage time explains 69% of the walk-away point and 39% of the pay decision. Its components, restore time, backup credibility and rebuild time, are shown beneath it in light blue. The ransom demand explains 15% of the pay decision.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-drivers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="game_files/figure-html/fig-drivers-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Share of the variation in the walk-away point, and in the pay-or-not decision, explained by each input on its own. Top six inputs in each panel; 200,000 simulated incidents."><img src="game_files/figure-html/fig-drivers-1.png" class="img-fluid figure-img" alt="Two panels of horizontal bars. For the walk-away point, expected outage time explains 69 percent, restore time 43 percent, backup credibility 17 percent, and outage cost, decryption time and rebuild time 8 percent or less. For the pay decision, expected outage time explains 39 percent, restore time 23 percent, the ransom demand 15 percent and backup credibility 9 percent." width="960"></a>
+<a href="game_files/figure-html/fig-drivers-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Share of the variation in the walk-away point, and in the pay-or-not decision, explained by each input on its own; 200,000 simulated incidents. First-order shares show ranking only; interactions are not shown."><img src="game_files/figure-html/fig-drivers-1.png" class="img-fluid figure-img" alt="Two panels of horizontal bars. Expected outage time explains 69% of the walk-away point and 39% of the pay decision. Its components, restore time, backup credibility and rebuild time, are shown beneath it in light blue. The ransom demand explains 15% of the pay decision." width="960"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-drivers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Share of the variation in the walk-away point, and in the pay-or-not decision, explained by each input on its own. Top six inputs in each panel; 200,000 simulated incidents.
+Figure&nbsp;2: Share of the variation in the walk-away point, and in the pay-or-not decision, explained by each input on its own; 200,000 simulated incidents. First-order shares show ranking only; interactions are not shown.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="reader-note">
-<p><strong>How to read the plot.</strong> We simulated 200,000 incidents, drawing every input from its range. Each bar shows how much of the spread in the result one input explains on its own. The left panel is the walk-away point; the right is the yes-or-no pay decision against a randomly drawn demand. Expected outage time (blue) combines restore time, backup credibility and rebuild time, so the bars overlap and do not add to 100%.</p>
-<p><strong>What the plot tells you.</strong> Expected outage time explains 69% of the variation in the walk-away point; no other single cost input explains more than 8%. For the pay decision itself, the demand explains 15%, well behind expected outage time at 39%. Restore time, not the size of the demand, is the lever that matters most. Better restore estimates would sharpen the decision more than better intelligence on the crew’s demand.</p>
+<p><strong>How to read the plot.</strong> We simulated 200,000 incidents, drawing every input from its range and the demand from a moderate spread. Each bar shows how much of the spread in the result one input explains on its own. The left panel is the walk-away point; the right is the yes-or-no pay decision. Expected outage time (dark blue) combines the three light-blue inputs beneath it, so those bars overlap it; read the chart as a ranking, not as parts of a whole.</p>
+<p><strong>What the plot tells you.</strong> Expected outage time explains 69% of the variation in the walk-away point, and restore time alone 43%. In the pay decision, expected outage time explains 39% and the demand 15%. That ranking depends on how widely demands vary: if they vary as much as published payments do, the demand comes first (see the <a href="./governance.html#sensitivity">Governance</a> page). Either way, restore time sets the threshold the demand is tested against.</p>
 </div>
 </section>
 <section id="the-regulatory-clock" class="level2">
 <h2 class="anchored" data-anchor-id="the-regulatory-clock">The regulatory clock</h2>
-<p>Paying adds legal exposure; it never removes disclosure. OFAC can impose civil penalties “based on strict liability”, so a sanctions link that surfaces after payment is still a violation (<a href="https://ofac.treasury.gov/media/912981/download">OFAC, 2021</a>). Firms regulated by New York’s financial regulator, the Department of Financial Services (NYDFS), must report an extortion payment within 24 hours. Within 30 days they must explain in writing why it was necessary, which alternatives were considered and what sanctions diligence was done (<a href="https://complianceforge.com/ny-dfs-23-nycrr-500/23-nycrr-500-17-notices-to-superintendent">23 NYCRR 500.17(c), ComplianceForge summary</a>; <a href="https://www.dfs.ny.gov/system/files/documents/2026/07/Reporting-an-Extortion-Payment_1.pdf">DFS filing instructions</a>). A public company’s Form 8-K, Item 1.05, is due “within four business days” of deciding an incident is material, whether or not it pays (<a href="https://www.sec.gov/corpfin/cybersecurity">SEC</a>).</p>
+<p>Paying adds legal exposure; it never removes disclosure. OFAC can impose civil penalties “based on strict liability”, so a sanctions link that surfaces after payment is still a violation (<a href="https://ofac.treasury.gov/media/912981/download">OFAC, 2021</a>). As an NYDFS-covered entity, the firm must report an extortion payment within 24 hours. Within 30 days it must explain in writing why it was necessary, which alternatives were considered and what sanctions diligence was done (<a href="https://complianceforge.com/ny-dfs-23-nycrr-500/23-nycrr-500-17-notices-to-superintendent">23 NYCRR 500.17(c), ComplianceForge summary</a>; <a href="https://www.dfs.ny.gov/system/files/documents/2026/07/Reporting-an-Extortion-Payment_1.pdf">DFS filing instructions</a>). The firm is not listed, but its listed clients run their own clock: if a client judges the incident material to it, that client’s Form 8-K, Item 1.05, is due “within four business days” of the determination, whether or not anyone pays (<a href="https://www.sec.gov/corpfin/cybersecurity">SEC</a>).</p>
 
 
 <!-- -->
@@ -1453,152 +1467,161 @@ Figure&nbsp;2: Share of the variation in the walk-away point, and in the pay-or-
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>share_of <span class="ot">&lt;-</span> \(tgt, v) sh<span class="sc">$</span>share[sh<span class="sc">$</span>target <span class="sc">==</span> tgt <span class="sc">&amp;</span> sh<span class="sc">$</span>input <span class="sc">==</span> v]</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>pay_parts <span class="ot">&lt;-</span> <span class="fu">cost_pay_parts</span>(BASE, D_BASE)</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>ref_parts <span class="ot">&lt;-</span> <span class="fu">cost_refuse_parts</span>(BASE)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>*All money is in $M and all values are illustrative. The firm is synthetic.*</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>sbd <span class="ot">&lt;-</span> wa<span class="sc">$</span>staged_by_detect</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>tp_tot <span class="ot">&lt;-</span> wa<span class="sc">$</span>two_paths <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(cost), <span class="at">.by =</span> path)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## The setup</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>*All money is in $M and all values are illustrative. The firm is synthetic.*</span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>A ransomware crew has encrypted the production platform of a 500-person fintech software firm and copied its client data. The crew posts a single demand. The firm then chooses between two paths: pay the demand, or refuse and restore from backups.</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## The setup</span></span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>Each side knows different things. The firm knows its own restore time and how much it trusts its backups. The crew doesn't; it can only guess from what it has seen of firms like ours. The crew wants the largest payment it can get, and the firm wants the cheaper path.</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>A ransomware crew has encrypted the production platform of a 500-person fintech software firm and copied its client data. The crew posts a single demand. The firm can pay the demand, refuse and restore from backups, or combine the two: start restoring at once and pay only if the backups fail. The firm is a privately held company licensed by New York's Department of Financial Services (NYDFS), and several of its clients are listed companies.</span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>The data theft is treated separately from the encryption, because paying does not reliably buy silence. Coveware puts it bluntly: "threat actors' promises to delete stolen data cannot be verified" (<span class="co">[</span><span class="ot">Coveware, October 2026</span><span class="co">](https://coveware.com/2026/10/the-silent-ransom-group-leak-shows-why-paying-for-silence-fails/)</span>). Whichever path we choose, some chance of a public leak remains.</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>Each side knows different things. The firm knows its own restore time and how much it trusts its backups. The crew doesn't; it can only guess from what it has seen of firms like ours. The crew wants the largest payment it can get, and the firm wants the cheaper path.</span>
 <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Two paths, nearly the same price</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>The data theft is treated separately from the encryption, because paying does not reliably buy silence. Coveware puts it bluntly: "threat actors' promises to delete stolen data cannot be verified" (<span class="co">[</span><span class="ot">Coveware, October 2026</span><span class="co">](https://coveware.com/2026/10/the-silent-ransom-group-leak-shows-why-paying-for-silence-fails/)</span>). Whichever path we choose, some chance of a public leak remains.</span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-two-paths</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Expected cost of restoring versus paying a $2.5M demand, at base inputs."</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "Two horizontal stacked bars. Restore costs about 10.7 million dollars, made of 7.5 million outage and 3.2 million data leak. Paying 2.5 million costs about 10.8 million, made of 5.2 million outage, 2.4 million leak, 2.5 million ransom, 0.25 million sanctions exposure and 0.5 million payment costs."</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 3.6</span></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>comp_order <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Outage"</span>, <span class="st">"Data leak"</span>, <span class="st">"Ransom"</span>, <span class="st">"Sanctions exposure"</span>, <span class="st">"Payment costs"</span>)</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>tp <span class="ot">&lt;-</span> wa<span class="sc">$</span>two_paths <span class="sc">|&gt;</span></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">component =</span> <span class="fu">factor</span>(COMPONENT_LABELS[component], <span class="at">levels =</span> <span class="fu">rev</span>(comp_order)),</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">path =</span> <span class="fu">factor</span>(path, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">unique</span>(path)))</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>totals <span class="ot">&lt;-</span> tp <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(cost), <span class="at">.by =</span> path)</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tp, <span class="fu">aes</span>(cost, path, <span class="at">fill =</span> component)) <span class="sc">+</span></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">if_else</span>(cost <span class="sc">&gt;=</span> <span class="fl">0.9</span>, <span class="fu">fmt_num</span>(cost, <span class="dv">1</span>), <span class="st">""</span>)),</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="fl">3.8</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> totals, <span class="fu">aes</span>(total, path, <span class="at">label =</span> <span class="fu">fmt_m</span>(total, <span class="dv">2</span>)), <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">4.2</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> COMPONENT_COLS, <span class="at">breaks =</span> comp_order, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Expected cost ($M)"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">12.5</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">2.5</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"At a $2.5M demand, paying and restoring cost almost the same"</span>,</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Expected cost of each path at base inputs ($M)"</span>)</span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>**How to read the plot.** Each bar is one path, built from the costs we expect along it. The colored segments show where the money goes: lost operations while systems are down, a possible public leak of client data and, if we pay, the ransom itself, the sanctions penalty risk and the legal and filing costs of paying. The number at the end of each bar is the total. All figures are averages over what could go wrong.</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Three paths</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-two-paths</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: !expr paste0("Expected cost of three paths at base inputs and a ", fmt_m(D_BASE), " demand. The staged path assumes a failed restore is discovered after ", BASE$t_detect, " days.")</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: !expr paste0("Three horizontal stacked bars of expected cost. Restoring costs ", fmt_m(wa$C_refuse, 2), ", paying on day one costs ", fmt_m(wa$C_pay, 2), ", and restoring first while paying only if backups fail costs ", fmt_m(wa$C_staged, 2), ". Outage is the largest component of every path.")</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4.2</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>comp_order <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Outage"</span>, <span class="st">"Data leak"</span>, <span class="st">"Ransom"</span>, <span class="st">"Sanctions exposure"</span>, <span class="st">"Payment costs"</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>tp <span class="ot">&lt;-</span> wa<span class="sc">$</span>two_paths <span class="sc">|&gt;</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">component =</span> <span class="fu">factor</span>(COMPONENT_LABELS[component], <span class="at">levels =</span> <span class="fu">rev</span>(comp_order)),</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">path =</span> <span class="fu">factor</span>(path, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">unique</span>(path)))</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>totals <span class="ot">&lt;-</span> tp <span class="sc">|&gt;</span> <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">sum</span>(cost), <span class="at">.by =</span> path)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tp, <span class="fu">aes</span>(cost, path, <span class="at">fill =</span> component)) <span class="sc">+</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">if_else</span>(cost <span class="sc">&gt;=</span> <span class="fl">0.9</span>, <span class="fu">fmt_num</span>(cost, <span class="dv">1</span>), <span class="st">""</span>)),</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="fl">3.8</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> totals, <span class="fu">aes</span>(total, path, <span class="at">label =</span> <span class="fu">fmt_m</span>(total, <span class="dv">2</span>)), <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">4.2</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> COMPONENT_COLS, <span class="at">breaks =</span> comp_order, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Expected cost ($M)"</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">12.5</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">2.5</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_wrap</span>(<span class="dv">22</span>)) <span class="sc">+</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Restoring first and paying only if backups fail is cheapest"</span>,</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Expected cost of each path at base inputs ($M)"</span>)</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>**What the plot tells you.** Refusing costs <span class="in">`r fmt_m(wa$C_refuse, 2)`</span> and paying <span class="in">`r fmt_m(D_BASE)`</span> costs <span class="in">`r fmt_m(wa$C_pay, 2)`</span>, so the two are only <span class="in">`r fmt_m(wa$C_pay - wa$C_refuse, 2)`</span> apart. Paying shortens the outage, but it does not remove it: the crew's decryptor sometimes fails, and decryption itself takes days. Because the totals are so close, the right answer depends on the inputs, especially restore time, rather than on any rule of thumb.</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>**How to read the plot.** Each bar is one path, built from the costs we expect along it. The colored segments show where the money goes: lost operations while systems are down, a possible public leak of client data and, where a payment is made, the ransom, the sanctions penalty risk and the legal and filing costs of paying. The bottom bar starts restoring at once and pays only if the backups turn out to have failed, so its payment costs are small.</span>
 <span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>The firm's **walk-away point** is the largest demand that is still worth paying. At base inputs it is <span class="in">`r fmt_m(wa$R_base, 2)`</span>, just below the <span class="in">`r fmt_m(D_BASE)`</span> demand, so the firm should narrowly refuse. Each day cut from restore time lowers the walk-away point by about <span class="in">`r fmt_m(wa$slope, 2)`</span>.</span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="fu">## The inputs</span></span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-inputs</span></span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Model inputs: base values and the ranges used in the Monte Carlo."</span></span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">file.path</span>(PROJECT_ROOT, <span class="st">"data"</span>, <span class="st">"inputs.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>range_txt <span class="ot">&lt;-</span> <span class="cf">function</span>(spec) {</span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>  par <span class="ot">&lt;-</span> <span class="fu">unlist</span>(spec<span class="sc">$</span>par)</span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span>(spec<span class="sc">$</span>dist,</span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">tri =</span> <span class="fu">sprintf</span>(<span class="st">"Triangular: %g to %g, most likely %g"</span>, par[<span class="dv">1</span>], par[<span class="dv">3</span>], par[<span class="dv">2</span>]),</span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> <span class="fu">sprintf</span>(<span class="st">"Beta(%g, %g), mean %.2f"</span>, par[<span class="dv">1</span>], par[<span class="dv">2</span>], par[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(par)),</span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="st">"Fixed"</span>,</span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">ratio_of_p_np =</span> <span class="fu">sprintf</span>(<span class="st">"p&lt;sub&gt;np&lt;/sub&gt; × triangular(%g, %g, %g)"</span>, par[<span class="dv">1</span>], par[<span class="dv">2</span>], par[<span class="dv">3</span>])</span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span></span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">base =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(symbol, \(s) BASE[[s]]),</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>    <span class="at">range =</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(symbol, \(s) <span class="fu">range_txt</span>(INPUT_SPEC[[s]])),</span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(url), grounding, <span class="fu">paste0</span>(<span class="st">"["</span>, grounding, <span class="st">"]("</span>, url, <span class="st">")"</span>))</span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(label, meaning, unit, base, range, source) <span class="sc">|&gt;</span></span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_markdown</span>(<span class="at">columns =</span> <span class="fu">c</span>(label, range, source)) <span class="sc">|&gt;</span></span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> base, <span class="at">decimals =</span> <span class="dv">2</span>, <span class="at">drop_trailing_zeros =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">label =</span> <span class="st">"Symbol"</span>, <span class="at">meaning =</span> <span class="st">"Meaning"</span>, <span class="at">unit =</span> <span class="st">"Unit"</span>, <span class="at">base =</span> <span class="st">"Base"</span>,</span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>             <span class="at">range =</span> <span class="st">"Monte Carlo range"</span>, <span class="at">source =</span> <span class="st">"Grounding"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="st">"right"</span>, base) <span class="sc">|&gt;</span></span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>()</span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>**How to read the table.** Each row is one input to the cost model. The base column is the single value used for the worked example above. The range column is how uncertain we are: a triangular range gives the lowest, highest and most likely values, and a Beta range describes a probability with its average. The last column says where the value comes from; "Firm assumption" means it is set for this synthetic firm.</span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>**What the table tells you.** Most inputs are judgments that the firm would replace with its own figures, especially outage cost per day and restore time. Probabilities such as backup credibility and decryptor reliability are uncertain, which is why the site tests the whole range rather than one point. The Governance page lists who would own each assumption and what should trigger a review.</span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true" icon="false"}</span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a><span class="fu">## The walk-away formula</span></span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>Expected outage if we refuse, where backups work with probability $b$:</span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>$$E<span class="co">[</span><span class="ot">T</span><span class="co">]</span> = b\,T_r + (1-b)\,T_{fail}$$</span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>Expected cost of refusing:</span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>$$C_{refuse} = c\,E<span class="co">[</span><span class="ot">T</span><span class="co">]</span> + p_{np}K_{leak}$$</span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>Expected cost of paying demand $D$. The decryptor works with probability $q$; otherwise we fall back to restoring:</span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>$$C_{pay}(D) = D(1+s\kappa) + K_{pay} + c\,<span class="co">[</span><span class="ot">\,d_{pay} + q\,T_d + (1-q)\,E[T]\,</span><span class="co">]</span> + p_p K_{leak}$$</span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>Pay only if $C_{pay}(D) \le C_{refuse}$. Solving for $D$ gives the walk-away point:</span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>$$R^* = \frac{c\,<span class="co">[</span><span class="ot">\,q\,(E[T]-T_d) - d_{pay}\,</span><span class="co">]</span> + (p_{np}-p_p)\,K_{leak} - K_{pay}}{1+s\kappa}$$</span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>The demand $D$ does not appear in $R^*$; it only decides which side of the line we fall on. $R^*$ rises in a straight line with restore time, with slope $c\,q\,b/(1+s\kappa)$. If $R^* \le 0$, paying is never worth it.</span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## What the crew knows</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>**What the plot tells you.** Restoring costs <span class="in">`r fmt_m(wa$C_refuse, 2)`</span> and paying on day one <span class="in">`r fmt_m(wa$C_pay, 2)`</span>, about <span class="in">`r fmt_pct(abs(wa$C_pay / wa$C_refuse - 1))`</span> apart, well inside the model's uncertainty. Restoring first and paying only if backups fail costs <span class="in">`r fmt_m(wa$C_staged, 2)`</span>, less than either. Paying on day one shortens the outage but does not end it: the decryptor sometimes fails, and decryption itself takes days. The staged path wins because the ransom is paid only in the minority of incidents where backups fail.</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>The staged path wins because it turns a payment into a fallback for backup failure. With backup credibility of <span class="in">`r fmt_num(BASE$b, 2)`</span>, a payment comes into question in only <span class="in">`r fmt_pct(1 - BASE$b)`</span> of incidents, so backup credibility decides whether a payment is ever needed. The path stays cheapest even if a failed restore takes <span class="in">`r max(sbd$t_detect)`</span> days to discover (<span class="in">`r fmt_m(sbd$cost[sbd$t_detect == max(sbd$t_detect)], 2)`</span>), and is the cheapest of the three in <span class="in">`r fmt_pct(mc$summary$staged_cheapest_share)`</span> of simulated incidents. It assumes the firm can negotiate while restoring; leak deadlines or rising demands can remove that option.</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>The firm's **walk-away point** is the largest demand worth paying on day one, before any restore has been tried; the decision maps on this site describe that day-one choice. At the most likely values it is <span class="in">`r fmt_m(wa$R_base, 2)`</span>, just below the <span class="in">`r fmt_m(D_BASE)`</span> demand, so the firm is close to indifferent. Allowing for uncertainty in every input, paying a <span class="in">`r fmt_m(D_BASE)`</span> demand on day one is cheaper than restoring in <span class="in">`r fmt_pct(mc$summary$p_pay_at_base_demand)`</span> of simulated incidents: with today's restore times, this firm is often a rational payer. Each day cut from restore time lowers the walk-away point by about <span class="in">`r fmt_m(wa$slope, 2)`</span>. About <span class="in">`r fmt_m(wa$leak_part, 2)`</span> of it assumes that paying lowers the chance of a leak; if it does not, the walk-away point falls to <span class="in">`r fmt_m(wa$R_star_no_leak_benefit, 2)`</span>.</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## The inputs</span></span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-inputs</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Model inputs: base values and the ranges used in the Monte Carlo."</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">file.path</span>(PROJECT_ROOT, <span class="st">"data"</span>, <span class="st">"inputs.csv"</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>range_txt <span class="ot">&lt;-</span> <span class="cf">function</span>(spec) {</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>  par <span class="ot">&lt;-</span> <span class="fu">unlist</span>(spec<span class="sc">$</span>par)</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>  <span class="cf">switch</span>(spec<span class="sc">$</span>dist,</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">tri =</span> <span class="fu">sprintf</span>(<span class="st">"Triangular: %g to %g, most likely %g"</span>, par[<span class="dv">1</span>], par[<span class="dv">3</span>], par[<span class="dv">2</span>]),</span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">beta =</span> <span class="fu">sprintf</span>(<span class="st">"Beta(%g, %g), mean %.2f"</span>, par[<span class="dv">1</span>], par[<span class="dv">2</span>], par[<span class="dv">1</span>] <span class="sc">/</span> <span class="fu">sum</span>(par)),</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">fixed =</span> <span class="st">"Fixed"</span>,</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">ratio_of_p_np =</span> <span class="fu">sprintf</span>(<span class="st">"p&lt;sub&gt;np&lt;/sub&gt; × triangular(%g, %g, %g)"</span>, par[<span class="dv">1</span>], par[<span class="dv">2</span>], par[<span class="dv">3</span>])</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">base =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(symbol, \(s) BASE[[s]]),</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">range =</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(symbol, \(s) <span class="fu">range_txt</span>(INPUT_SPEC[[s]])),</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">if_else</span>(<span class="fu">is.na</span>(url), grounding, <span class="fu">paste0</span>(<span class="st">"["</span>, grounding, <span class="st">"]("</span>, url, <span class="st">")"</span>))</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(label, meaning, unit, base, range, source) <span class="sc">|&gt;</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_markdown</span>(<span class="at">columns =</span> <span class="fu">c</span>(label, range, source)) <span class="sc">|&gt;</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> base, <span class="at">decimals =</span> <span class="dv">2</span>, <span class="at">drop_trailing_zeros =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(<span class="at">label =</span> <span class="st">"Symbol"</span>, <span class="at">meaning =</span> <span class="st">"Meaning"</span>, <span class="at">unit =</span> <span class="st">"Unit"</span>, <span class="at">base =</span> <span class="st">"Base"</span>,</span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>             <span class="at">range =</span> <span class="st">"Monte Carlo range"</span>, <span class="at">source =</span> <span class="st">"Grounding"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="st">"right"</span>, base) <span class="sc">|&gt;</span></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt_board</span>()</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>**How to read the table.** Each row is one input to the cost model. The base column is the single value used for the worked example above. The range column is how uncertain we are: a triangular range gives the lowest, highest and most likely values, and a Beta range describes a probability with its average. The last column says where the value comes from; "Firm assumption" means it is set for this synthetic firm.</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>**What the table tells you.** Most inputs are judgments that the firm would replace with its own figures, especially outage cost per day and restore time. Probabilities such as backup credibility and decryptor reliability are uncertain, which is why the site tests the whole range rather than one point. The Governance page lists who would own each assumption and what should trigger a review.</span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true" icon="false"}</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## The walk-away formula</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>Expected outage if we refuse, where backups work with probability $b$:</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>$$E<span class="co">[</span><span class="ot">T</span><span class="co">]</span> = b\,T_r + (1-b)\,T_{fail}$$</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>Expected cost of refusing:</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>$$C_{refuse} = c\,E<span class="co">[</span><span class="ot">T</span><span class="co">]</span> + p_{np}K_{leak}$$</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>Expected cost of paying demand $D$. The decryptor works with probability $q$; otherwise we fall back to restoring:</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>$$C_{pay}(D) = D(1+s\kappa) + K_{pay} + c\,<span class="co">[</span><span class="ot">\,d_{pay} + q\,T_d + (1-q)\,E[T]\,</span><span class="co">]</span> + p_p K_{leak}$$</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>Pay only if $C_{pay}(D) \le C_{refuse}$. Solving for $D$ gives the walk-away point:</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>$$R^* = \frac{c\,<span class="co">[</span><span class="ot">\,q\,(E[T]-T_d) - d_{pay}\,</span><span class="co">]</span> + (p_{np}-p_p)\,K_{leak} - K_{pay}}{1+s\kappa}$$</span>
 <span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>The crew doesn't know our walk-away point, so it sets its demand from what it believes about firms like ours, mainly how long they take to restore. It picks the demand that maximizes its expected take: a higher demand earns more when paid but is refused more often. With the belief used here, its opening demand is <span class="in">`r fmt_m(rep$opening, 2)`</span>, in line with a median demand of $1.32M across all victims, who paid on average 85% of the initial demand (<span class="co">[</span><span class="ot">Sophos, State of Ransomware 2025</span><span class="co">](https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf)</span>), scaled up for a fintech holding client data.</span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>The demand reflects what the crew believes about our restore time, not what our data is worth. Visible resilience lowers the opening number.</span>
-<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## What moves the decision</span></span>
-<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-drivers</span></span>
-<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Share of the variation in the walk-away point, and in the pay-or-not decision, explained by each input on its own. Top six inputs in each panel; 200,000 simulated incidents."</span></span>
-<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: "Two panels of horizontal bars. For the walk-away point, expected outage time explains 69 percent, restore time 43 percent, backup credibility 17 percent, and outage cost, decryption time and rebuild time 8 percent or less. For the pay decision, expected outage time explains 39 percent, restore time 23 percent, the ransom demand 15 percent and backup credibility 9 percent."</span></span>
-<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4.6</span></span>
-<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>facet_lab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">R_star =</span> <span class="st">"Walk-away point"</span>, <span class="at">pay =</span> <span class="st">"Pay-or-not decision"</span>)</span>
-<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> sh <span class="sc">|&gt;</span></span>
-<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(share, <span class="at">n =</span> <span class="dv">6</span>, <span class="at">by =</span> target) <span class="sc">|&gt;</span></span>
-<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>    <span class="at">facet =</span> <span class="fu">factor</span>(facet_lab[target], <span class="at">levels =</span> facet_lab),</span>
-<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>    <span class="at">key =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(<span class="fu">paste</span>(DRIVER_LABELS[input], target, <span class="at">sep =</span> <span class="st">"___"</span>), share),</span>
-<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>    <span class="at">hl =</span> input <span class="sc">==</span> <span class="st">"E_T"</span></span>
-<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(share, key, <span class="at">fill =</span> hl)) <span class="sc">+</span></span>
-<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.65</span>) <span class="sc">+</span></span>
-<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">fmt_pct</span>(share)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">3.8</span>) <span class="sc">+</span></span>
-<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>facet, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> \(x) <span class="fu">sub</span>(<span class="st">"___.*"</span>, <span class="st">""</span>, x)) <span class="sc">+</span></span>
-<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">TRUE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#0166CC"</span>, <span class="st">`</span><span class="at">FALSE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#B8B8B8"</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Share of variation explained"</span>, <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(),</span>
-<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.85</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Restore time, not the ransom demand, moves the decision most"</span>,</span>
-<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"What moves the walk-away point, and whether we pay"</span>) <span class="sc">+</span></span>
-<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"lines"</span>), <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="dv">0</span>))</span>
-<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
-<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>**How to read the plot.** We simulated <span class="in">`r fmt_num(N_MC, 0)`</span> incidents, drawing every input from its range. Each bar shows how much of the spread in the result one input explains on its own. The left panel is the walk-away point; the right is the yes-or-no pay decision against a randomly drawn demand. Expected outage time (blue) combines restore time, backup credibility and rebuild time, so the bars overlap and do not add to 100%.</span>
-<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>**What the plot tells you.** Expected outage time explains <span class="in">`r fmt_pct(share_of("R_star", "E_T"))`</span> of the variation in the walk-away point; no other single cost input explains more than <span class="in">`r fmt_pct(max(sh$share[sh$target == "R_star" &amp; !sh$input %in% c("E_T", "T_r", "b")]))`</span>. For the pay decision itself, the demand explains <span class="in">`r fmt_pct(share_of("pay", "D"))`</span>, well behind expected outage time at <span class="in">`r fmt_pct(share_of("pay", "E_T"))`</span>. Restore time, not the size of the demand, is the lever that matters most. Better restore estimates would sharpen the decision more than better intelligence on the crew's demand.</span>
-<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## The regulatory clock</span></span>
-<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a>Paying adds legal exposure; it never removes disclosure. OFAC can impose civil penalties "based on strict liability", so a sanctions link that surfaces after payment is still a violation (<span class="co">[</span><span class="ot">OFAC, 2021</span><span class="co">](https://ofac.treasury.gov/media/912981/download)</span>). Firms regulated by New York's financial regulator, the Department of Financial Services (NYDFS), must report an extortion payment within 24 hours. Within 30 days they must explain in writing why it was necessary, which alternatives were considered and what sanctions diligence was done (<span class="co">[</span><span class="ot">23 NYCRR 500.17(c), ComplianceForge summary</span><span class="co">](https://complianceforge.com/ny-dfs-23-nycrr-500/23-nycrr-500-17-notices-to-superintendent)</span>; <span class="co">[</span><span class="ot">DFS filing instructions</span><span class="co">](https://www.dfs.ny.gov/system/files/documents/2026/07/Reporting-an-Extortion-Payment_1.pdf)</span>). A public company's Form 8-K, Item 1.05, is due "within four business days" of deciding an incident is material, whether or not it pays (<span class="co">[</span><span class="ot">SEC</span><span class="co">](https://www.sec.gov/corpfin/cybersecurity)</span>).</span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>The demand $D$ does not appear in $R^*$; it only decides which side of the line we fall on. $R^*$ rises in a straight line with restore time, with slope $c\,q\,b/(1+s\kappa)$. If $R^* \le 0$, paying is never worth it.</span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="fu">## What the crew knows</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>The crew doesn't know our walk-away point, so it sets its demand from what it believes about firms like ours, mainly how long they take to restore. It picks the demand that maximizes its expected take: a higher demand earns more when paid but is refused more often. With the belief used here, its opening demand is <span class="in">`r fmt_m(rep$opening, 2)`</span>. We set the crew's starting belief as a firm assumption at the high end of published figures: the median demand across all victims was $1.32M (<span class="co">[</span><span class="ot">Sophos, State of Ransomware 2025</span><span class="co">](https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf)</span>), and Coveware's median payment in Q3 2026 was $400K (<span class="co">[</span><span class="ot">Coveware, October 2026</span><span class="co">](https://coveware.com/2026/10/the-silent-ransom-group-leak-shows-why-paying-for-silence-fails/)</span>).</span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>The demand reflects what the crew believes about our restore time, not what our data is worth. Visible resilience lowers the opening number.</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## What moves the decision</span></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-drivers</span></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Share of the variation in the walk-away point, and in the pay-or-not decision, explained by each input on its own; 200,000 simulated incidents. First-order shares show ranking only; interactions are not shown."</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-alt: !expr paste0("Two panels of horizontal bars. Expected outage time explains ", fmt_pct(share_of("R_star", "E_T")), " of the walk-away point and ", fmt_pct(share_of("pay", "E_T")), " of the pay decision. Its components, restore time, backup credibility and rebuild time, are shown beneath it in light blue. The ransom demand explains ", fmt_pct(share_of("pay", "D")), " of the pay decision.")</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>facet_lab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">R_star =</span> <span class="st">"Walk-away point"</span>, <span class="at">pay =</span> <span class="st">"Pay-or-not decision"</span>)</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>comps <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"T_r"</span>, <span class="st">"b"</span>, <span class="st">"T_fail"</span>)</span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map</span>(<span class="fu">names</span>(facet_lab), \(tg) {</span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> sh <span class="sc">|&gt;</span> <span class="fu">filter</span>(target <span class="sc">==</span> tg)</span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>  others <span class="ot">&lt;-</span> x <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span>input <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"E_T"</span>, comps)) <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(share, <span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">filter</span>(x, input <span class="sc">==</span> <span class="st">"E_T"</span>), <span class="fu">filter</span>(x, input <span class="sc">%in%</span> comps) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(share)), others) <span class="sc">|&gt;</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">role =</span> <span class="fu">c</span>(<span class="st">"total"</span>, <span class="fu">rep</span>(<span class="st">"component"</span>, <span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">"other"</span>, <span class="dv">3</span>)),</span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab =</span> <span class="fu">if_else</span>(role <span class="sc">==</span> <span class="st">"component"</span>, <span class="fu">paste0</span>(<span class="st">"\u00b7 "</span>, DRIVER_LABELS[input]), DRIVER_LABELS[input]),</span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>           <span class="at">key =</span> <span class="fu">paste</span>(lab, tg, <span class="at">sep =</span> <span class="st">"___"</span>))</span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> purrr<span class="sc">::</span><span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">facet =</span> <span class="fu">factor</span>(facet_lab[target], <span class="at">levels =</span> facet_lab),</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>         <span class="at">key =</span> <span class="fu">factor</span>(key, <span class="at">levels =</span> <span class="fu">rev</span>(key)))</span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d, <span class="fu">aes</span>(share, key, <span class="at">fill =</span> role)) <span class="sc">+</span></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.65</span>) <span class="sc">+</span></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">fmt_pct</span>(share)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.15</span>, <span class="at">size =</span> <span class="fl">3.8</span>) <span class="sc">+</span></span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>facet, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> \(x) <span class="fu">sub</span>(<span class="st">"___.*"</span>, <span class="st">""</span>, x)) <span class="sc">+</span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">total =</span> <span class="st">"#0166CC"</span>, <span class="at">component =</span> <span class="st">"#9CC3EE"</span>, <span class="at">other =</span> <span class="st">"#B8B8B8"</span>), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="st">"Share of variation explained"</span>, <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>(),</span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.85</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Expected outage time moves the decision most when demands vary moderately"</span>,</span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Components of expected outage time shown in light blue"</span>) <span class="sc">+</span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing.x =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"lines"</span>), <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="dv">0</span>))</span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>::: {.reader-note}</span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a>**How to read the plot.** We simulated <span class="in">`r fmt_num(N_MC, 0)`</span> incidents, drawing every input from its range and the demand from a moderate spread. Each bar shows how much of the spread in the result one input explains on its own. The left panel is the walk-away point; the right is the yes-or-no pay decision. Expected outage time (dark blue) combines the three light-blue inputs beneath it, so those bars overlap it; read the chart as a ranking, not as parts of a whole.</span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>**What the plot tells you.** Expected outage time explains <span class="in">`r fmt_pct(share_of("R_star", "E_T"))`</span> of the variation in the walk-away point, and restore time alone <span class="in">`r fmt_pct(share_of("R_star", "T_r"))`</span>. In the pay decision, expected outage time explains <span class="in">`r fmt_pct(share_of("pay", "E_T"))`</span> and the demand <span class="in">`r fmt_pct(share_of("pay", "D"))`</span>. That ranking depends on how widely demands vary: if they vary as much as published payments do, the demand comes first (see the <span class="co">[</span><span class="ot">Governance</span><span class="co">](governance.qmd#sensitivity)</span> page). Either way, restore time sets the threshold the demand is tested against.</span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## The regulatory clock</span></span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>Paying adds legal exposure; it never removes disclosure. OFAC can impose civil penalties "based on strict liability", so a sanctions link that surfaces after payment is still a violation (<span class="co">[</span><span class="ot">OFAC, 2021</span><span class="co">](https://ofac.treasury.gov/media/912981/download)</span>). As an NYDFS-covered entity, the firm must report an extortion payment within 24 hours. Within 30 days it must explain in writing why it was necessary, which alternatives were considered and what sanctions diligence was done (<span class="co">[</span><span class="ot">23 NYCRR 500.17(c), ComplianceForge summary</span><span class="co">](https://complianceforge.com/ny-dfs-23-nycrr-500/23-nycrr-500-17-notices-to-superintendent)</span>; <span class="co">[</span><span class="ot">DFS filing instructions</span><span class="co">](https://www.dfs.ny.gov/system/files/documents/2026/07/Reporting-an-Extortion-Payment_1.pdf)</span>). The firm is not listed, but its listed clients run their own clock: if a client judges the incident material to it, that client's Form 8-K, Item 1.05, is due "within four business days" of the determination, whether or not anyone pays (<span class="co">[</span><span class="ot">SEC</span><span class="co">](https://www.sec.gov/corpfin/cybersecurity)</span>).</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -19,10 +19,15 @@ main_20 <- function() {
 
   refuse <- cost_refuse_parts(BASE)
   pay <- cost_pay_parts(BASE, D_BASE)
+  staged <- cost_staged_parts(BASE, D_BASE)
   two_paths <- dplyr::bind_rows(
     tibble::tibble(path = "Restore", component = names(refuse), cost = unlist(refuse)),
-    tibble::tibble(path = paste0("Pay ", fmt_m(D_BASE)), component = names(pay), cost = unlist(pay))
+    tibble::tibble(path = paste0("Pay ", fmt_m(D_BASE), " on day one"), component = names(pay), cost = unlist(pay)),
+    tibble::tibble(path = "Restore first, pay only if backups fail", component = names(staged), cost = unlist(staged))
   )
+  staged_by_detect <- tibble::tibble(t_detect = c(1, 2, 7)) |>
+    dplyr::mutate(cost = purrr::map_dbl(t_detect, \(t) cost_staged(modifyList(BASE, list(t_detect = t)), D_BASE)))
+  leak_part <- (BASE$p_np - BASE$p_p) * BASE$K_leak / (1 + BASE$s * BASE$kappa)
 
   profiles <- purrr::imap(PROFILES, \(p, nm) tibble::tibble(
     profile = nm, T_r = p$T_r, b = p$b, E_T = expected_T(p), R_star = walk_away(p),
@@ -32,7 +37,10 @@ main_20 <- function() {
   out <- list(
     ref = ref, boundaries = boundaries, two_paths = two_paths, profiles = profiles,
     R_base = walk_away(BASE), slope = walk_away_slope(BASE), T0 = never_pay_restore(BASE),
-    C_refuse = cost_refuse(BASE), C_pay = cost_pay(BASE, D_BASE), base = BASE
+    C_refuse = cost_refuse(BASE), C_pay = cost_pay(BASE, D_BASE), C_staged = cost_staged(BASE, D_BASE),
+    staged_by_detect = staged_by_detect, leak_part = leak_part,
+    R_star_no_leak_benefit = walk_away(modifyList(BASE, list(p_p = BASE$p_np))),
+    R_star_at_means = walk_away(input_means()), base = BASE
   )
   save_result(out, "walkaway")
   invisible(out)

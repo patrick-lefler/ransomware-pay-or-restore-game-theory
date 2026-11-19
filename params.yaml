@@ -11,12 +11,14 @@ inputs:
   T_d:    {base: 6,    dist: tri,   par: [3, 6, 12],         status: "assumption"}
   d_pay:  {base: 3,    dist: tri,   par: [1, 3, 6],          status: "assumption"}
   s:      {base: 0.10, dist: beta,  par: [2, 18],            status: "assumption; sanctions risk per OFAC 2021 advisory"}
-  kappa:  {base: 1.0,  dist: fixed, par: [1.0],              status: "assumption; OFAC liability is strict"}
+  kappa:  {base: 1.0,  dist: fixed, par: [1.0],              status: "illustrative simplification; OFAC liability is strict"}
   K_pay:  {base: 0.50, dist: tri,   par: [0.2, 0.5, 1.5],    status: "assumption"}
   K_leak: {base: 4,    dist: tri,   par: [1, 4, 10],         status: "assumption"}
   p_np:   {base: 0.80, dist: tri,   par: [0.60, 0.80, 0.95], status: "assumption"}
   # p_p is drawn as p_np x ratio; base p_p = 0.80 x 0.75 = 0.60
-  p_p:    {base: 0.60, dist: ratio_of_p_np, par: [0.50, 0.75, 0.95], status: "assumption; re-extortion after payment is common"}
+  p_p:    {base: 0.60, dist: ratio_of_p_np, par: [0.50, 0.75, 0.95], status: "assumption; re-extortion data as directional support only"}
+  # Staged path only: days before a failed restore is discovered. Does not enter the walk-away point.
+  t_detect: {base: 2,  dist: tri,   par: [1, 2, 7],          status: "assumption"}
 
 monte_carlo:
   seed: 20261118
@@ -25,6 +27,7 @@ monte_carlo:
   stability_seeds: 5
   demand_median: 2.0      # pay decision: D ~ lognormal(log median, sdlog)
   demand_sdlog: 0.6
+  demand_sdlog_grid: [0.6, 1.0, 1.4]   # sensitivity of the pay-decision shares to demand spread
   # Market calibration row: restore-time range rescaled so its median is this many days; b ~ Beta(9, 1)
   market_T_r_median: 5
   market_b_par: [9, 1]
@@ -49,6 +52,7 @@ reputation:
   eta_base: 1.0
   eta_table: [0, 0.25, 0.5, 1.0]
   eta_fine: {from: 0, to: 1.5, by: 0.05}
+  discount_rate: 0.08     # present-value costs for the credibility test; the slider grid stays undiscounted
 
 profiles:
   resilient: {T_r: 4,  b: 0.90}

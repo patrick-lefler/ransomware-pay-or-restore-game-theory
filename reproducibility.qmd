@@ -27,7 +27,7 @@ Rscript -e 'testthat::test_dir("tests/testthat")'
 quarto render
 ```
 
-The rendered site is written to `docs/`. Run `R/run_all.R` with `Rscript` from a terminal, not with `source()` in an R console: it ends with `quit()`, which would close your session. It exits with an error status if any diagnostic fails. The sliders need a web server: open the site through GitHub Pages or a local server (for example `python3 -m http.server -d docs`), not directly from disk.
+The rendered site is written to `docs/`. Run `R/run_all.R` with `Rscript` from a terminal, not with `source()` in an R console: it ends with `quit()`, which would close your session. It exits with an error status if any diagnostic fails. To look at the site locally, run `quarto preview`, which renders it and opens it in your browser. The sliders need a web server, so they don't work when a page is opened straight from disk; on GitHub Pages they work as is.
 
 ## Pipeline {#pipeline}
 
@@ -37,12 +37,12 @@ The rendered site is written to `docs/`. Run `R/run_all.R` with `Rscript` from a
 |:-----------------|:-----------------------------------|:-----------------------|
 | `R/00_params.R` | Reads `params.yaml` into constants, the base case and the three firm profiles; sets the project paths | `BASE`, `PROFILES`, `INPUT_SPEC`, seeds |
 | `R/01_utils.R` | Closed-form costs and walk-away point, triangular and Beta samplers, formatters, result read/write helpers | Shared functions |
-| `R/20_walkaway.R` | Reference cases, decision-map boundaries, the two-paths cost components and firm profiles | `walkaway.rds` |
-| `R/30_mc_drivers.R` | Monte Carlo over all inputs; first-order variance shares for the walk-away point and the pay decision, on five seeds | `mc_drivers.rds` |
+| `R/20_walkaway.R` | Reference cases, decision-map boundaries, the cost components of the three paths, the leak-term sensitivity and firm profiles | `walkaway.rds` |
+| `R/30_mc_drivers.R` | Monte Carlo over all inputs; first-order variance shares for the walk-away point and the pay decision, on five seeds and at three demand spreads | `mc_drivers.rds` |
 | `R/31_bargaining.R` | The crew's belief grid, its best demand and the Bayesian update after a payment or refusal | Shared functions |
-| `R/32_reputation.R` | 10-year repeated game for every attack rate on the slider, and the targeting-response sweep | `reputation.rds`, `reputation_grid.rds` |
+| `R/32_reputation.R` | 10-year repeated game for every attack rate on the slider, the targeting-response sweep and the pay-once credibility test in present value | `reputation.rds`, `reputation_grid.rds` |
 | `R/35_sensitivity.R` | One-at-a-time swings and the market-calibration run | `sensitivity.rds` |
-| `R/80_diagnostics.R` | The ten checks shown on the Governance page, including the JavaScript–R parity check | `diagnostics.rds` |
+| `R/80_diagnostics.R` | The checks shown on the Governance page, including the JavaScript–R parity check and the discounting and deviate-once checks | `diagnostics.rds` |
 | `R/run_all.R` | Runs all of the above | All results |
 
 `assets/js/walkaway.js` holds the walk-away formula used by the decision-map slider; the parity diagnostic runs this same file in R through the `V8` package. Every page sources `R/00_params.R`, `R/01_utils.R` and `R/90_theme.R` (labels, colors and the plot and table styles) in a hidden first chunk. `R/99_wordcount.R` is an internal prose-length check whose output is printed to the terminal only.
@@ -115,7 +115,7 @@ tibble(
 
 ## Tests {#tests}
 
-Two layers of checks guard the results. Unit tests in `tests/testthat/` check the closed-form model against the seven reference cases and the worked example from the project outline, the indifference condition, the samplers, and the crew's opening demand. They run again each time this page is rendered, and the table below shows the results. The ten pipeline diagnostics (`r sum(diag$result == "Pass")` of `r nrow(diag)` passing in this build) are shown on the [Governance](governance.qmd#diagnostics) page.
+Two layers of checks guard the results. Unit tests in `tests/testthat/` check the closed-form model against the seven reference cases and the worked example from the project outline, the indifference condition, the staged-path reference values, the samplers, the crew's opening demand and the share of incidents in which paying the base demand is cheaper. They run again each time this page is rendered, and the table below shows the results. The pipeline diagnostics (`r sum(diag$result == "Pass")` of `r nrow(diag)` passing in this build) are shown on the [Governance](governance.qmd#diagnostics) page.
 
 ```{r}
 #| label: tbl-tests
@@ -152,7 +152,7 @@ The code on this site is released under the [MIT License](license.qmd). The proj
 
 ## Software environment {#environment}
 
-The site was built with R and Quarto. The pages load `dplyr`, `ggplot2` and `gt`, and the scripts also call `purrr`, `tibble`, `tidyr`, `readr`, `forcats`, `scales`, `yaml`, `V8`, `testthat` and `sessioninfo`. The two sliders use Observable JS, which is built into Quarto. Package versions are pinned in `renv.lock`; run `renv::restore()` to install them.
+The site was built with R and Quarto. The pages load `dplyr`, `ggplot2` and `gt`, and the scripts also call `purrr`, `tibble`, `tidyr`, `readr`, `scales`, `yaml`, `V8`, `testthat` and `sessioninfo`. The two sliders use Observable JS, which is built into Quarto. Package versions are pinned in `renv.lock`; run `renv::restore()` to install them.
 
 ::: {.callout-note icon=false collapse="true"}
 ## Full R session information

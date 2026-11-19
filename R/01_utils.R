@@ -21,6 +21,25 @@ cost_pay_parts <- function(p, D) {
 }
 cost_pay <- function(p, D) purrr::reduce(cost_pay_parts(p, D), `+`)
 
+# Staged path: start restoring at once. Backups work with prob b. Otherwise the failure is found after
+# t_detect days, and the firm then takes the cheaper of paying (decryptor works with prob q, else rebuild)
+# and rebuilding. Components are split the same way as the other two paths.
+cost_staged_parts <- function(p, D) {
+  pay_out <- p$c * (p$t_detect + p$d_pay + p$q * p$T_d + (1 - p$q) * p$T_fail)
+  pay_tot <- pay_out + D * (1 + p$s * p$kappa) + p$K_pay + p$p_p * p$K_leak
+  rebuild_tot <- p$c * p$T_fail + p$p_np * p$K_leak
+  pays <- as.numeric(pay_tot <= rebuild_tot)
+  f <- 1 - p$b
+  list(
+    outage = p$b * p$c * p$T_r + f * (pays * pay_out + (1 - pays) * p$c * p$T_fail),
+    leak = p$b * p$p_np * p$K_leak + f * (pays * p$p_p + (1 - pays) * p$p_np) * p$K_leak,
+    ransom = f * pays * D,
+    sanctions = f * pays * D * p$s * p$kappa,
+    fixed = f * pays * p$K_pay
+  )
+}
+cost_staged <- function(p, D) purrr::reduce(cost_staged_parts(p, D), `+`)
+
 walk_away <- function(p) {
   (p$c * (p$q * (expected_T(p) - p$T_d) - p$d_pay) + (p$p_np - p$p_p) * p$K_leak - p$K_pay) /
     (1 + p$s * p$kappa)
@@ -51,6 +70,16 @@ q_input <- function(spec, u) {
     fixed = rep(par[1], length(u)),
     ratio_of_p_np = qtri(u, par[1], par[2], par[3])
   )
+}
+
+# Mean of each input distribution (p_p = mean p_np x mean ratio, drawn independently)
+input_means <- function(spec = INPUT_SPEC) {
+  m <- purrr::map(spec, \(s) {
+    par <- unlist(s$par)
+    switch(s$dist, tri = , ratio_of_p_np = sum(par) / 3, beta = par[1] / sum(par), fixed = par[1])
+  })
+  m$p_p <- m$p_np * m$p_p
+  m
 }
 
 # Draw n input sets. p_p = p_np x ratio. Optional overrides replace whole columns.

@@ -4,7 +4,7 @@ A 500-person fintech firm (the same firm as the Defender–Attacker study) is hi
 
 All values are synthetic and illustrative. Not legal, investment or security advice.
 
-Medium rQuarto project (5 rendered pages: Summary, The Game, Map & Reputation, Governance, Reproducibility). Specification: `project_spec.md`, on top of the v2 project outline.
+Medium rQuarto project (5 rendered pages: Summary, The Game, Map & Reputation, Governance, and Reproducibility under a "Technical appendix" sidebar section). Specification: `project_spec.md`, on top of the v2 project outline.
 
 ## Key results (base case)
 
@@ -12,18 +12,21 @@ Medium rQuarto project (5 rendered pages: Summary, The Game, Map & Reputation, G
 |---|---|
 | Walk-away point at base (10-day restore, backup credibility 0.80) | $2.39M |
 | Change in walk-away point per restore day | about $0.31M |
-| Cost of refusing vs paying a $2.5M demand | $10.70M vs $10.83M |
-| Share of walk-away variation explained by expected outage time | 69% (pay decision: 39%; the demand itself: 15%) |
+| Cost of refusing vs paying a $2.5M demand on day one vs restoring first and paying only if backups fail | $10.70M vs $10.83M vs $9.23M |
+| Share of simulated incidents in which paying $2.5M on day one is cheaper | 64% |
+| Walk-away point at input means; without the leak benefit of paying | $3.77M; $1.66M |
+| Share of walk-away variation explained by expected outage time | 69% (pay decision: 39% vs 15% for the demand at demand log-sd 0.6; the demand leads at log-sd 1.0 and above) |
 | Crew's opening demand | $2.53M |
-| 10-year cost at a 15% attack rate, typical firm: pay when worth it vs never pay | $15.6M vs $13.2M |
-| Break-even targeting response (η) for never pay: typical / fragile firm | 0.24 / 0.59 |
+| 10-year cost at a 15% attack rate, our firm: pay when worth it vs never pay | $15.6M vs $13.2M |
+| Credibility test, fragile firm, present value at 8%: pay once then never vs never pay | $16.2M vs $14.0M at η = 1 (credible); $13.5M vs $16.7M at η = 0 (not credible) |
+| Break-even targeting response (η) for never pay: our firm / fragile firm | 0.24 / 0.59 |
 | Simulated pay share: this firm's ranges vs market-typical restores | 66% vs 9% |
 
 ## Reproduce
 
 ```sh
 Rscript -e 'renv::restore()'           # R >= 4.3, Quarto >= 1.5
-Rscript R/run_all.R                    # all analyses + 10 diagnostics (about 12 s)
+Rscript R/run_all.R                    # all analyses + 12 diagnostics (about 14 s)
 Rscript -e 'testthat::test_dir("tests/testthat")'
 quarto render                          # writes docs/
 ```
@@ -32,7 +35,7 @@ Run `R/run_all.R` from a terminal with `Rscript`, not with `source()` in an R se
 
 `freeze: auto` re-executes a page only when its own `.qmd` changes. After rerunning `R/run_all.R` or editing a script, delete `_freeze/` or render each page explicitly.
 
-The sliders need a web server (GitHub Pages, or `python3 -m http.server -d docs`); browsers block the Observable JS modules when a page is opened from disk.
+To view the site locally, run `quarto preview`. The sliders need a web server, so they don't work when a page is opened straight from disk; on GitHub Pages they work as is.
 
 ## Layout
 
@@ -64,11 +67,23 @@ The sliders need a web server (GitHub Pages, or `python3 -m http.server -d docs`
 - **Diagnostic 5 (attack-rate grid).** Replaced the "≈ 10 × p₀ within 10%" rule, which the outline's own prototype numbers fail: year-1 attack probability equals p₀; never-pay attacks ≤ 10 × p₀ (plus 3 standard errors); cost and attacks rise with p₀.
 - **Firm's per-incident walk-away point.** R*_t = R* × exp(0.4 z), matching the crew's incident-noise model; a firm with R* ≤ 0 never pays. Paying saves (1+sκ)(R*_t − D) against the refusal cost.
 - **Market calibration.** The base restore-time triangle (3, 10, 30) has a median of 13.6 days, not 10. The market row rescales it so the median is 5 days (range 1.1–11.1), with b ~ Beta(9, 1).
-- **Policy label.** "Rational" is shown as "Pay when worth it" for board readers.
+- **Policy label.** "Rational" is shown as "Pay when worth it" for board readers. The "typical" profile is shown as "Our firm" (internal key `typical` unchanged).
 - **Static fallbacks.** Shown inside `<noscript>`, not `.content-hidden`. In HTML output, `.content-hidden` would hide them from non-JS readers too.
 - **Citations corrected after verification (2026-11-19).** Re-extortion figure is 37% (The Register, Proofpoint data), not "over a third". The Cybereason figures (78%, 63%) are dated February 2024. The Coveware Q2 2026 page does not state 19% in its text, so the site says "a new record low" and cites the verified 23% for Q3 2025. The NYDFS 24-hour and 30-day deadlines are cited to 23 NYCRR 500.17(c), not to the DFS filing instructions.
 
+## Review revisions (2026-11-19)
+
+Implemented the independent review's fix list (P1–P3), with these owner decisions and deviations:
+
+- **Staged path (P1-2, option A).** `cost_staged()` adds "restore first, pay only if backups fail" with `t_detect` (base 2 days, triangular 1–7). The decision maps and the walk-away point remain the day-one choice.
+- **Credibility (P1-5).** New `deviate_once` policy and present-value costs at an 8% discount rate. Result: the fragile firm's no-pay policy is credible at η = 1, not "unlikely to survive" as the first draft said; it is not credible at η = 0. The slider grid stays undiscounted.
+- **Reader notes (P3-1).** Kept at about 75 words per paragraph (owner decision), not cut to 100 per note; sentences that restated tables were removed.
+- **Calibration (P2-1).** The Q2 2026 Coveware page states no overall payment rate in its text (only "a new record low"), so the site does not quote 19%. It cites 23% (Q3 2025) and "nearly 80% resolved without payment" (Q3 2026).
+- **Regulatory status (P2-4).** The firm is a privately held, NYDFS-licensed company with listed clients.
+- **Related work (P2-6).** No URL was available for the fund-operations study, so the reference was removed.
+- **Sidebar (P3-6).** Reproducibility sits under a "Technical appendix" section (owner approved, overriding the flat-sidebar convention).
+- **New diagnostics.** Discounting (present value ≤ undiscounted) and deviate-once at η = 0 (never costs more than never paying). New unit tests cover the staged reference values and the base-demand pay share.
+
 ## Open items
 
-- **Fund-operations study link.** The "Related work" note on the Summary page names the ransomware fund-operations study but has no URL; add it when available.
 - **Prototype differences.** At a 25% attack rate, the fragile firm's 10-year cost under "pay when worth it" is $53.0M against $58.7M in the outline's prototype; every other figure is within Monte Carlo error, and all directional findings hold.

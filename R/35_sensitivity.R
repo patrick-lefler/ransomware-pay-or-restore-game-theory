@@ -8,7 +8,7 @@ INPUT_NAMES <- c(c = "Outage cost per day", T_r = "Restore time", b = "Backup cr
                  p_np = "Leak probability, refuse", p_p = "Leak probability, pay")
 
 main_35 <- function() {
-  vars <- setdiff(names(INPUT_SPEC), "kappa")
+  vars <- setdiff(names(INPUT_SPEC), c("kappa", "t_detect"))  # t_detect does not enter R*
   oat <- purrr::map(vars, \(v) {
     val <- q_input(INPUT_SPEC[[v]], c(0.1, 0.9))
     if (v == "p_p") val <- BASE$p_np * val

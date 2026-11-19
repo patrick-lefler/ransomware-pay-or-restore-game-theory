@@ -53,3 +53,21 @@ test_that("crew's opening demand is about $2.5M and beliefs stay normalized", {
   expect_equal(sum(b1$w), 1, tolerance = 1e-12)
   expect_lt(best_demand(b1)$D, best_demand(b0)$D)
 })
+
+test_that("staged path matches reference values and is never worse with instant detection", {
+  expect_equal(cost_staged(BASE, 2.5), 9.22, tolerance = 0.01, scale = 1)
+  expect_equal(cost_staged(modifyList(BASE, list(t_detect = 1)), 2.5), 9.12, tolerance = 0.01, scale = 1)
+  expect_equal(cost_staged(modifyList(BASE, list(t_detect = 7)), 2.5), 9.72, tolerance = 0.015, scale = 1)
+  p0 <- modifyList(BASE, list(t_detect = 0))
+  for (D in c(0.5, 2.5, 6, 15)) {
+    expect_lte(cost_staged(p0, D), min(cost_refuse(p0), cost_pay(p0, D)) + 1e-12)
+  }
+})
+
+test_that("paying the base demand is cheaper in most simulated incidents", {
+  source(file.path(root, "R", "30_mc_drivers.R"))
+  sim <- simulate_mc(SEED_MC, n = 50000)
+  share <- mean(sim$R_star >= D_BASE)
+  expect_gt(share, 0.55)
+  expect_lt(share, 0.72)
+})
