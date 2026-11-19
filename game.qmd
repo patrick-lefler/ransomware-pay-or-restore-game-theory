@@ -1,0 +1,162 @@
+---
+title: "The Game"
+subtitle: "Pay or Restore? How a ransomware incident plays out as a bargaining game"
+---
+
+```{r setup}
+#| include: false
+source("R/00_params.R"); source("R/01_utils.R"); source("R/90_theme.R")
+library(dplyr); library(ggplot2); library(gt)
+wa <- read_result("walkaway")
+mc <- read_result("mc_drivers")
+rep <- read_result("reputation")
+sh <- mc$shares
+share_of <- \(tgt, v) sh$share[sh$target == tgt & sh$input == v]
+pay_parts <- cost_pay_parts(BASE, D_BASE)
+ref_parts <- cost_refuse_parts(BASE)
+```
+
+*All money is in $M and all values are illustrative. The firm is synthetic.*
+
+## The setup
+
+A ransomware crew has encrypted the production platform of a 500-person fintech software firm and copied its client data. The crew posts a single demand. The firm then chooses between two paths: pay the demand, or refuse and restore from backups.
+
+Each side knows different things. The firm knows its own restore time and how much it trusts its backups. The crew doesn't; it can only guess from what it has seen of firms like ours. The crew wants the largest payment it can get, and the firm wants the cheaper path.
+
+The data theft is treated separately from the encryption, because paying does not reliably buy silence. Coveware puts it bluntly: "threat actors' promises to delete stolen data cannot be verified" ([Coveware, October 2026](https://coveware.com/2026/10/the-silent-ransom-group-leak-shows-why-paying-for-silence-fails/)). Whichever path we choose, some chance of a public leak remains.
+
+## Two paths, nearly the same price
+
+```{r}
+#| label: fig-two-paths
+#| fig-cap: "Expected cost of restoring versus paying a $2.5M demand, at base inputs."
+#| fig-alt: "Two horizontal stacked bars. Restore costs about 10.7 million dollars, made of 7.5 million outage and 3.2 million data leak. Paying 2.5 million costs about 10.8 million, made of 5.2 million outage, 2.4 million leak, 2.5 million ransom, 0.25 million sanctions exposure and 0.5 million payment costs."
+#| fig-height: 3.6
+comp_order <- c("Outage", "Data leak", "Ransom", "Sanctions exposure", "Payment costs")
+tp <- wa$two_paths |>
+  mutate(
+    component = factor(COMPONENT_LABELS[component], levels = rev(comp_order)),
+    path = factor(path, levels = rev(unique(path)))
+  )
+totals <- tp |> summarise(total = sum(cost), .by = path)
+ggplot(tp, aes(cost, path, fill = component)) +
+  geom_col(width = 0.6, color = "white", linewidth = 0.6) +
+  geom_text(aes(label = if_else(cost >= 0.9, fmt_num(cost, 1), "")),
+            position = position_stack(vjust = 0.5), size = 3.8, color = "white", fontface = "bold") +
+  geom_text(data = totals, aes(total, path, label = fmt_m(total, 2)), inherit.aes = FALSE,
+            hjust = -0.15, size = 4.2, fontface = "bold") +
+  scale_fill_manual(values = COMPONENT_COLS, breaks = comp_order, name = NULL) +
+  scale_x_continuous("Expected cost ($M)", limits = c(0, 12.5), breaks = seq(0, 10, 2.5), expand = c(0, 0)) +
+  labs(y = NULL,
+       title = "At a $2.5M demand, paying and restoring cost almost the same",
+       subtitle = "Expected cost of each path at base inputs ($M)")
+```
+
+::: {.reader-note}
+**How to read the plot.** Each bar is one path, built from the costs we expect along it. The colored segments show where the money goes: lost operations while systems are down, a possible public leak of client data and, if we pay, the ransom itself, the sanctions penalty risk and the legal and filing costs of paying. The number at the end of each bar is the total. All figures are averages over what could go wrong.
+
+**What the plot tells you.** Refusing costs `r fmt_m(wa$C_refuse, 2)` and paying `r fmt_m(D_BASE)` costs `r fmt_m(wa$C_pay, 2)`, so the two are only `r fmt_m(wa$C_pay - wa$C_refuse, 2)` apart. Paying shortens the outage, but it does not remove it: the crew's decryptor sometimes fails, and decryption itself takes days. Because the totals are so close, the right answer depends on the inputs, especially restore time, rather than on any rule of thumb.
+:::
+
+The firm's **walk-away point** is the largest demand that is still worth paying. At base inputs it is `r fmt_m(wa$R_base, 2)`, just below the `r fmt_m(D_BASE)` demand, so the firm should narrowly refuse. Each day cut from restore time lowers the walk-away point by about `r fmt_m(wa$slope, 2)`.
+
+## The inputs
+
+```{r}
+#| label: tbl-inputs
+#| tbl-cap: "Model inputs: base values and the ranges used in the Monte Carlo."
+meta <- readr::read_csv(file.path(PROJECT_ROOT, "data", "inputs.csv"), show_col_types = FALSE)
+range_txt <- function(spec) {
+  par <- unlist(spec$par)
+  switch(spec$dist,
+    tri = sprintf("Triangular: %g to %g, most likely %g", par[1], par[3], par[2]),
+    beta = sprintf("Beta(%g, %g), mean %.2f", par[1], par[2], par[1] / sum(par)),
+    fixed = "Fixed",
+    ratio_of_p_np = sprintf("p<sub>np</sub> × triangular(%g, %g, %g)", par[1], par[2], par[3])
+  )
+}
+meta |>
+  mutate(
+    base = purrr::map_dbl(symbol, \(s) BASE[[s]]),
+    range = purrr::map_chr(symbol, \(s) range_txt(INPUT_SPEC[[s]])),
+    source = if_else(is.na(url), grounding, paste0("[", grounding, "](", url, ")"))
+  ) |>
+  select(label, meaning, unit, base, range, source) |>
+  gt() |>
+  fmt_markdown(columns = c(label, range, source)) |>
+  fmt_number(columns = base, decimals = 2, drop_trailing_zeros = TRUE) |>
+  cols_label(label = "Symbol", meaning = "Meaning", unit = "Unit", base = "Base",
+             range = "Monte Carlo range", source = "Grounding") |>
+  cols_align("right", base) |>
+  gt_board()
+```
+
+::: {.reader-note}
+**How to read the table.** Each row is one input to the cost model. The base column is the single value used for the worked example above. The range column is how uncertain we are: a triangular range gives the lowest, highest and most likely values, and a Beta range describes a probability with its average. The last column says where the value comes from; "Firm assumption" means it is set for this synthetic firm.
+
+**What the table tells you.** Most inputs are judgments that the firm would replace with its own figures, especially outage cost per day and restore time. Probabilities such as backup credibility and decryptor reliability are uncertain, which is why the site tests the whole range rather than one point. The Governance page lists who would own each assumption and what should trigger a review.
+:::
+
+::: {.callout-note collapse="true" icon="false"}
+## The walk-away formula
+
+Expected outage if we refuse, where backups work with probability $b$:
+$$E[T] = b\,T_r + (1-b)\,T_{fail}$$
+
+Expected cost of refusing:
+$$C_{refuse} = c\,E[T] + p_{np}K_{leak}$$
+
+Expected cost of paying demand $D$. The decryptor works with probability $q$; otherwise we fall back to restoring:
+$$C_{pay}(D) = D(1+s\kappa) + K_{pay} + c\,[\,d_{pay} + q\,T_d + (1-q)\,E[T]\,] + p_p K_{leak}$$
+
+Pay only if $C_{pay}(D) \le C_{refuse}$. Solving for $D$ gives the walk-away point:
+$$R^* = \frac{c\,[\,q\,(E[T]-T_d) - d_{pay}\,] + (p_{np}-p_p)\,K_{leak} - K_{pay}}{1+s\kappa}$$
+
+The demand $D$ does not appear in $R^*$; it only decides which side of the line we fall on. $R^*$ rises in a straight line with restore time, with slope $c\,q\,b/(1+s\kappa)$. If $R^* \le 0$, paying is never worth it.
+:::
+
+## What the crew knows
+
+The crew doesn't know our walk-away point, so it sets its demand from what it believes about firms like ours, mainly how long they take to restore. It picks the demand that maximizes its expected take: a higher demand earns more when paid but is refused more often. With the belief used here, its opening demand is `r fmt_m(rep$opening, 2)`, in line with a median demand of $1.32M across all victims, who paid on average 85% of the initial demand ([Sophos, State of Ransomware 2025](https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf)), scaled up for a fintech holding client data.
+
+The demand reflects what the crew believes about our restore time, not what our data is worth. Visible resilience lowers the opening number.
+
+## What moves the decision
+
+```{r}
+#| label: fig-drivers
+#| fig-cap: "Share of the variation in the walk-away point, and in the pay-or-not decision, explained by each input on its own. Top six inputs in each panel; 200,000 simulated incidents."
+#| fig-alt: "Two panels of horizontal bars. For the walk-away point, expected outage time explains 69 percent, restore time 43 percent, backup credibility 17 percent, and outage cost, decryption time and rebuild time 8 percent or less. For the pay decision, expected outage time explains 39 percent, restore time 23 percent, the ransom demand 15 percent and backup credibility 9 percent."
+#| fig-height: 4.6
+facet_lab <- c(R_star = "Walk-away point", pay = "Pay-or-not decision")
+d <- sh |>
+  slice_max(share, n = 6, by = target) |>
+  mutate(
+    facet = factor(facet_lab[target], levels = facet_lab),
+    key = forcats::fct_reorder(paste(DRIVER_LABELS[input], target, sep = "___"), share),
+    hl = input == "E_T"
+  )
+ggplot(d, aes(share, key, fill = hl)) +
+  geom_col(width = 0.65) +
+  geom_text(aes(label = fmt_pct(share)), hjust = -0.15, size = 3.8) +
+  facet_wrap(~facet, scales = "free_y") +
+  scale_y_discrete(labels = \(x) sub("___.*", "", x)) +
+  scale_fill_manual(values = c(`TRUE` = "#0166CC", `FALSE` = "#B8B8B8"), guide = "none") +
+  scale_x_continuous("Share of variation explained", labels = scales::label_percent(),
+                     limits = c(0, 0.85), expand = c(0, 0)) +
+  labs(y = NULL,
+       title = "Restore time, not the ransom demand, moves the decision most",
+       subtitle = "What moves the walk-away point, and whether we pay") +
+  theme(panel.spacing.x = unit(2, "lines"), strip.text = element_text(face = "bold", hjust = 0))
+```
+
+::: {.reader-note}
+**How to read the plot.** We simulated `r fmt_num(N_MC, 0)` incidents, drawing every input from its range. Each bar shows how much of the spread in the result one input explains on its own. The left panel is the walk-away point; the right is the yes-or-no pay decision against a randomly drawn demand. Expected outage time (blue) combines restore time, backup credibility and rebuild time, so the bars overlap and do not add to 100%.
+
+**What the plot tells you.** Expected outage time explains `r fmt_pct(share_of("R_star", "E_T"))` of the variation in the walk-away point; no other single cost input explains more than `r fmt_pct(max(sh$share[sh$target == "R_star" & !sh$input %in% c("E_T", "T_r", "b")]))`. For the pay decision itself, the demand explains `r fmt_pct(share_of("pay", "D"))`, well behind expected outage time at `r fmt_pct(share_of("pay", "E_T"))`. Restore time, not the size of the demand, is the lever that matters most. Better restore estimates would sharpen the decision more than better intelligence on the crew's demand.
+:::
+
+## The regulatory clock
+
+Paying adds legal exposure; it never removes disclosure. OFAC can impose civil penalties "based on strict liability", so a sanctions link that surfaces after payment is still a violation ([OFAC, 2021](https://ofac.treasury.gov/media/912981/download)). Firms regulated by New York's financial regulator, the Department of Financial Services (NYDFS), must report an extortion payment within 24 hours. Within 30 days they must explain in writing why it was necessary, which alternatives were considered and what sanctions diligence was done ([23 NYCRR 500.17(c), ComplianceForge summary](https://complianceforge.com/ny-dfs-23-nycrr-500/23-nycrr-500-17-notices-to-superintendent); [DFS filing instructions](https://www.dfs.ny.gov/system/files/documents/2026/07/Reporting-an-Extortion-Payment_1.pdf)). A public company's Form 8-K, Item 1.05, is due "within four business days" of deciding an incident is material, whether or not it pays ([SEC](https://www.sec.gov/corpfin/cybersecurity)).

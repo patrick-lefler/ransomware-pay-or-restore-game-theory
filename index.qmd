@@ -1,0 +1,107 @@
+---
+title: "Pay or Restore?"
+subtitle: "A Ransomware Bargaining Game for the Board: Summary"
+author: Patrick Lefler
+date: November 19, 2026
+---
+
+```{r setup}
+#| include: false
+source("R/00_params.R"); source("R/01_utils.R"); source("R/90_theme.R")
+library(dplyr); library(ggplot2); library(gt)
+wa <- read_result("walkaway")
+mc <- read_result("mc_drivers")
+rep <- read_result("reputation")
+sh <- mc$shares
+share_of <- \(tgt, v) sh$share[sh$target == tgt & sh$input == v]
+g <- rep$grid |> filter(abs(p0 - P$reputation$p0_base) < 1e-9)
+cost_of <- \(f, pol) g$cost_10y[g$firm == f & g$policy == pol]
+fr <- wa$profiles |> filter(profile == "fragile")
+ref <- wa$ref
+R_of <- \(cs) ref$R_star[ref$case == cs]
+```
+
+*All money is in $M and all values are illustrative. The firm is synthetic.*
+
+## Introduction
+
+::: {.board-question}
+> "If we're hit, should we pay, and how do we decide before it happens?"
+:::
+
+This site works through that question for a 500-person fintech software firm, the same firm as our Defender–Attacker study. A ransomware crew has encrypted the firm's production platform and copied its client data. The firm must choose between paying the crew's demand and restoring from backups. We model that choice as a bargaining game in which the crew does not know how badly we need to pay, and learns from what we do.
+
+The answer, in three sentences:
+
+1. Every firm has a **walk-away point**: the largest ransom worth paying, after allowing for a decryptor that may fail, sanctions exposure, the costs of paying, and the leak risk that remains either way.
+2. That point is set mostly by **how long it takes to restore**, not by the size of the demand: each day cut from restore time lowers it by about `r fmt_m(wa$slope, 2)`.
+3. Resilience therefore does two jobs: it lowers the cost of an outage, and it makes a "we don't pay" policy **credible**, which crews learn over repeated incidents.
+
+```{r}
+#| label: fig-hero
+#| fig-cap: "Decision map. Below a line, paying is cheaper than restoring; above it, restoring is cheaper. The shading shows the typical case. The three lines are three levels of backup credibility, the probability that backups restore cleanly."
+#| fig-alt: "A chart with restore time from 1 to 30 days across and ransom demand from 0 to 8 million dollars up. Three rising lines mark the walk-away point for weak, typical and strong backups. Weak backups sit highest. Our firm, at a 10-day restore and a 2.5 million dollar demand, sits just above the typical line, in the don't-pay region."
+#| fig-height: 5.6
+lab_x <- 15
+labs_df <- wa$boundaries |>
+  filter(abs(T_r - lab_x) < 1e-9) |>
+  mutate(label = c("Weak backups (0.60)", "Typical backups (0.80)", "Strong backups (0.95)")[match(b, c(0.6, 0.8, 0.95))])
+decision_map(wa$boundaries, 0.8) +
+  geom_line(data = wa$boundaries, aes(T_r, R_star, group = b, linewidth = b == 0.8), color = COL_LINE) +
+  scale_linewidth_manual(values = c(`TRUE` = 1.3, `FALSE` = 0.6), guide = "none") +
+  geom_label(data = labs_df, aes(T_r, R_star, label = label), fill = "white", label.size = 0,
+             size = 3.7, label.padding = unit(0.15, "lines")) +
+  annotate("point", x = 10, y = D_BASE, size = 4, color = "white") +
+  annotate("point", x = 10, y = D_BASE, size = 3) +
+  annotate("text", x = 9.4, y = D_BASE + 0.45, label = "Our firm today", hjust = 1, fontface = "bold", size = 4) +
+  annotate("text", x = 29, y = 0.4, label = "Pay", hjust = 1, fontface = "bold", color = "#7a5a12", size = 5) +
+  annotate("text", x = 2, y = 7.5, label = "Don't pay", hjust = 0, fontface = "bold", color = COL_NOPAY, size = 5) +
+  labs(title = "Restore time, not ransom size, decides whether paying makes sense",
+       subtitle = "Walk-away point by restore time, for three levels of backup credibility")
+```
+
+::: {.reader-note}
+**How to read the plot.** Restore time runs across the bottom and the crew's demand runs up the side. Each line is our walk-away point at one level of backup credibility. A demand below the line is worth paying; a demand above it is not. The shaded areas show the pay (amber) and don't-pay (blue) regions for typical backups. The black dot is our firm today: a 10-day restore and a `r fmt_m(D_BASE)` demand.
+
+**What the plot tells you.** All three lines climb steeply with restore time, so the restore time decides more than the demand does. Our firm sits just above its line: the walk-away point is `r fmt_m(wa$R_base, 2)`, so it should narrowly refuse. With weak backups the same firm would pay up to `r fmt_m(R_of("Base, weak backups"), 2)`, and with strong ones only up to `r fmt_m(R_of("Base, strong backups"), 2)`. Moving the dot left, by restoring faster, does more than any negotiation over the demand.
+:::
+
+## Three findings
+
+**Restore time drives the decision.** Across `r fmt_num(N_MC, 0)` simulated incidents, expected outage time explains `r fmt_pct(share_of("R_star", "E_T"))` of the variation in the walk-away point. In the yes-or-no pay decision, it explains `r fmt_pct(share_of("pay", "E_T"))`, against `r fmt_pct(share_of("pay", "D"))` for the size of the demand. Cutting restore from 10 to 5 days lowers the walk-away point from `r fmt_m(wa$R_base, 2)` to `r fmt_m(R_of("Fast restore"), 2)`.
+
+**Paying is a poor fallback.** The decryptor may fail, decryption itself takes days, the stolen data may leak anyway, a sanctions link can surface after payment, and regulators must be told either way. At base, paying a `r fmt_m(D_BASE)` demand costs `r fmt_m(wa$C_pay, 2)` in expectation, against `r fmt_m(wa$C_refuse, 2)` for restoring. The ransom buys a shorter outage, not an end to the incident.
+
+**A credible refusal lowers future demands, and credibility requires resilience.** Crews learn from what we do. Over 10 years at a `r fmt_pct(P$reputation$p0_base)` annual attack rate, never paying costs the typical firm `r fmt_m(cost_of("typical", "never"))` against `r fmt_m(cost_of("typical", "rational"))` for paying case by case. But a fragile firm with a 21-day restore saves `r fmt_m(fr$in_moment_saving)` by paying the first demand, so its "never pay" policy is unlikely to survive the first incident. Only a firm that can restore quickly can keep that promise. This result depends on crews favoring firms that have paid before, which is the model's most important assumption.
+
+## Decide before it happens
+
+```{r}
+#| label: tbl-policy
+#| tbl-cap: "Four decisions the board can make before an incident."
+tibble::tribble(
+  ~Decision, ~`What to set`, ~`Why it matters`,
+  "1. Walk-away rule", "Who can invoke a payment, and the walk-away point they must test the demand against",
+    "The walk-away point, not the size of the demand, decides whether paying is rational.",
+  "2. Restore-time target", "A target for the platform, for example under 5 days, tested at least yearly",
+    paste0("Each restore day is worth about ", fmt_m(wa$slope, 2), " of walk-away point; below about ", fmt_num(wa$T0, 1), " days no demand is worth paying."),
+  "3. Pre-cleared steps", "Sanctions screening, law-enforcement contact, and the 24-hour NYDFS payment notice",
+    "Payment delay and sanctions risk raise the cost of paying; preparation shortens both.",
+  "4. Default policy", "An internal default of \"we don't pay\", with the narrow exceptions written down",
+    "A refusal lowers the next demand, but only a policy the firm can afford to keep is believed."
+) |>
+  gt() |>
+  cols_width(Decision ~ px(180)) |>
+  tab_style(cell_text(weight = "bold"), cells_body(columns = Decision)) |>
+  gt_board()
+```
+
+::: {.reader-note}
+**How to read the table.** Each row is one decision the board can take now, before any incident. The middle column says what to set, and the last column links it to a finding from this analysis. The four rows follow the order of an incident: who decides, how fast we can recover, what must already be cleared with regulators and law enforcement, and what the firm's default answer is.
+
+**What the table tells you.** The most important decision is the restore-time target, because it moves the walk-away point more than anything else and makes the no-pay default believable. The other three turn a decision made under pressure into one made in advance. None of them requires predicting the size of the next demand. Each can be rehearsed in a tabletop exercise, so the board can check that the decisions hold before a real incident tests them.
+:::
+
+::: {.side-note}
+**Related work.** This study pairs with two others on the same firm. The [Defender–Attacker study](https://patrick-lefler.com/rQuarto_defender_attacker_game_theory_2026-11-05/) shows how a crew chooses which asset to attack. The ransomware fund-operations study covers the cost of an outage in more detail. Outage cost here is set at `r fmt_m(BASE$c)` per day for this study alone.
+:::

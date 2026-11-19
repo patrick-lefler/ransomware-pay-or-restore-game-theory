@@ -3,10 +3,16 @@ project:
   output-dir: docs
   render:
     - index.qmd
+    - game.qmd
+    - map-reputation.qmd
+    - governance.qmd
+    - reproducibility.qmd
     - license.qmd
+  resources:
+    - assets/js/walkaway.js
 
 website:
-  title: "Ransomware Pay or Restore Game Theory"
+  title: "Pay or Restore?"
   favicon: assets/images/favicon.svg
   search: false
   page-navigation: true
@@ -16,7 +22,15 @@ website:
     style: floating
     contents:
       - href: index.qmd
-        text: Overview
+        text: Summary
+      - href: game.qmd
+        text: The Game
+      - href: map-reputation.qmd
+        text: Map & Reputation
+      - href: governance.qmd
+        text: Governance
+      - href: reproducibility.qmd
+        text: Reproducibility
   page-footer:
     center: "© 2026 Patrick Lefler ⦁ [MIT License](license.qmd) ⦁ Built with R & Quarto"
 
@@ -24,7 +38,8 @@ format:
   html:
     code-copy: true
     code-fold: true
-    code-overflow: true
+    code-overflow: wrap
+    code-summary: "Display code"
     code-tools: true
     df-print: paged
     fig-align: center 

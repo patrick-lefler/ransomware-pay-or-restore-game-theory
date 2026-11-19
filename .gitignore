@@ -1,0 +1,11 @@
+.Rproj.user/
+.Rhistory
+.RData
+.DS_Store
+.quarto/
+**/*.quarto_ipynb
+renv/library/
+renv/staging/
+_freeze/
+
+/.quarto/

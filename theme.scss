@@ -1,0 +1,48 @@
+/*-- scss:defaults --*/
+
+/*-- scss:rules --*/
+/* Sidebar header holds only the logo: full sidebar width, keep aspect ratio */
+#quarto-sidebar .sidebar-header { padding: 0 0 0.5rem 0; }
+#quarto-sidebar .sidebar-logo-link { display: block; }
+#quarto-sidebar .sidebar-logo {
+  width: 100%;
+  max-width: 100%;
+  max-height: none;
+  height: auto;
+  padding: 0;
+}
+
+#quarto-sidebar .sidebar-menu-container::before {
+  content: "In this project";
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0.3rem 0 0.4rem;
+}
+
+/* How-to-read paragraphs under every table and plot */
+.reader-note { font-size: 0.95rem; margin-top: 0.4rem; color: #333; }
+
+/* Short related-work and context notes (count toward the prose budget) */
+.side-note {
+  font-size: 0.92rem;
+  background: #F6F7F9;
+  border-left: 4px solid #0166CC;
+  padding: 0.6rem 0.9rem;
+  margin: 1rem 0;
+}
+
+.slider-sentence {
+  background: #F2F2F2;
+  border-left: 4px solid #0166CC;
+  padding: 0.6rem 0.9rem;
+  margin: 0.8rem 0;
+}
+
+.board-question blockquote {
+  font-size: 1.25rem;
+  font-style: italic;
+  border-left: 4px solid #F2C46D;
+  padding-left: 1rem;
+  color: #333;
+}

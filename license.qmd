@@ -1,0 +1,6 @@
+---
+title: "License"
+toc: false
+---
+
+{{< include LICENSE >}}

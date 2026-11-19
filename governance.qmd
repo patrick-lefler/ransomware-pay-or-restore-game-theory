@@ -1,0 +1,142 @@
+---
+title: "Governance"
+subtitle: "Pay or Restore? Assumptions, sensitivity, limitations and checks"
+---
+
+```{r setup}
+#| include: false
+source("R/00_params.R"); source("R/01_utils.R"); source("R/90_theme.R")
+library(dplyr); library(gt)
+wa <- read_result("walkaway")
+sens <- read_result("sensitivity")
+diag <- read_result("diagnostics")
+rep <- read_result("reputation")
+cal <- sens$calib
+bp <- P$bargaining
+```
+
+*All money is in $M and all values are illustrative.*
+
+This page records what the analysis assumes, how much the answer moves when those assumptions change, and the checks that the numbers are computed correctly. It is the place to start before using any figure from this site in a real decision.
+
+## Assumptions register
+
+```{r}
+#| label: tbl-assumptions
+#| tbl-cap: "Assumptions register. Each assumption has an owner and a trigger for review."
+rng <- \(v) paste(unlist(INPUT_SPEC[[v]]$par)[c(1, 3)], collapse = "–")
+values <- c(
+  c = sprintf("$%gM per day (range %s)", BASE$c, rng("c")),
+  T_r = sprintf("%g days (range %s)", BASE$T_r, rng("T_r")),
+  b = sprintf("%.2f (Beta(8, 2))", BASE$b),
+  q = sprintf("%.2f (Beta(17, 3))", BASE$q),
+  s = sprintf("%.2f (Beta(2, 18)); penalty %g × ransom", BASE$s, BASE$kappa),
+  `p_np|p_p` = sprintf("%.2f if we refuse; %.2f if we pay", BASE$p_np, BASE$p_p),
+  prior = sprintf("Median $%gM, log-sd %g; incident-to-incident log-sd %g", bp$prior_median, bp$prior_sdlog, bp$incident_sdlog),
+  eta = sprintf("%g (tested %g to %g)", P$reputation$eta_base, min(ETA_FINE), max(ETA_FINE)),
+  p0 = sprintf("%s a year (%s to %s on the slider)", fmt_pct(P$reputation$p0_base), fmt_pct(min(P0_GRID)), fmt_pct(max(P0_GRID))),
+  posted = "One take-it-or-leave-it demand per incident",
+  crew = sprintf("One crew over %d years", P$reputation$years)
+)
+readr::read_csv(file.path(PROJECT_ROOT, "data", "assumptions_register.csv"), show_col_types = FALSE) |>
+  mutate(value = values[param]) |>
+  select(id, assumption, value, basis, owner, review_trigger) |>
+  gt() |>
+  cols_label(id = "ID", assumption = "Assumption", value = "Value", basis = "Basis",
+             owner = "Owner", review_trigger = "Review trigger") |>
+  cols_width(id ~ px(50), value ~ px(200)) |>
+  gt_board()
+```
+
+::: {.reader-note}
+**How to read the table.** Each row is one assumption the results depend on. The value column gives the number used and, where relevant, the range tested. The basis says whether it is a firm judgment, a simplification, or anchored to a published source. The owner is the executive who should sign off on the value, and the review trigger is the event that should prompt an update.
+
+**What the table tells you.** Almost every input is a judgment that the firm would replace with its own figures. The two that matter most are restore time (A2) and backup credibility (A3), both of which a restore test can measure directly. The targeting response (A8) and the attack rate (A8b) drive the reputation result and have the weakest evidence behind them.
+:::
+
+## Sensitivity
+
+```{r}
+#| label: tbl-sensitivity
+#| tbl-cap: !expr paste0("Walk-away point when one input moves to its 10th or 90th percentile, all others at base. Base walk-away point ", fmt_m(wa$R_base, 2), ".")
+sens$oat |>
+  select(label, low, high, R_low, R_high, swing) |>
+  gt() |>
+  cols_label(label = "Input", low = "Low value", high = "High value",
+             R_low = "Walk-away at low ($M)", R_high = "Walk-away at high ($M)", swing = "Swing ($M)") |>
+  fmt_number(columns = c(low, high), n_sigfig = 2) |>
+  fmt_number(columns = c(R_low, R_high, swing), decimals = 2) |>
+  tab_spanner("Input range", c(low, high)) |>
+  gt_board()
+```
+
+::: {.reader-note}
+**How to read the table.** Each row moves one input from a low value to a high value: the points below which 10% and 90% of its range fall. Everything else stays at base. The next two columns give the walk-away point at each end, and the swing is the gap between them. Rows are sorted with the biggest swing at the top.
+
+**What the table tells you.** Restore time moves the walk-away point by `r fmt_m(sens$oat$swing[1], 2)`, more than any other input, followed by backup credibility at `r fmt_m(sens$oat$swing[sens$oat$input == "b"], 2)`. Sanctions risk moves it least. Better information on restore time and backup quality, for example from a full restore test, is the most valuable input the board can buy. Even the smallest swing, for sanctions risk, is `r fmt_m(min(sens$oat$swing), 2)`, so no input here should be treated as settled.
+:::
+
+```{r}
+#| label: tbl-calibration
+#| tbl-cap: "Share of simulated incidents in which paying is the cheaper path, under this firm's ranges and under market-typical restore times."
+cal |>
+  gt() |>
+  cols_label(case = "Ranges", T_r_median = "Median restore (days)", T_r_range = "Restore range (days)",
+             b_mean = "Average backup credibility", R_median = "Median walk-away ($M)", pay_share = "Pay share") |>
+  fmt_number(columns = T_r_median, decimals = 1) |>
+  fmt_number(columns = c(b_mean, R_median), decimals = 2) |>
+  fmt_percent(columns = pay_share, decimals = 0) |>
+  gt_board()
+```
+
+::: {.reader-note}
+**How to read the table.** Each row is a Monte Carlo run of `r fmt_num(N_MC, 0)` simulated incidents, each with its own inputs and a random demand. The first row uses this firm's ranges. The second shrinks restore times so that the median is `r P$monte_carlo$market_T_r_median` days and makes backups work about 90% of the time. The last column is the share of incidents in which paying is cheaper than restoring.
+
+**What the table tells you.** With this firm's ranges, paying is the cheaper path in `r fmt_pct(cal$pay_share[1])` of incidents; with market-typical restores, in `r fmt_pct(cal$pay_share[2])`. Coveware reported that 23% of victims paid in Q3 2025, which sits between the two. Restore time alone moves the pay share by a factor of `r round(cal$pay_share[1] / cal$pay_share[2])`. The model's high pay share reflects this firm's slow restores, not a bias toward paying: a firm that restores like the market would rarely pay.
+:::
+
+The simulated pay share is high because this firm restores slowly: its median restore time is `r fmt_num(cal$T_r_median[1], 1)` days, against roughly a week for most victims ([Sophos 2025](https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf)). The market payment rate of 23% in Q3 2025 ([Coveware](https://coveware.com/2025/10/insider-threats-loom-while-ransom-payment-rates-plummet/)), which fell to a new record low in Q2 2026 ([Coveware](https://coveware.com/2026/07/adverse-cyber-extortions-are-more-common-than-commonly-advised/)), is consistent with the model once restore times match the market.
+
+## Limitations
+
+- **Synthetic firm.** Every cost and probability is illustrative; a real decision needs the firm's own outage cost, restore-test results and leak exposure.
+- **Posted demand.** The crew names one price. Negotiated discounts exist, so treating the demand as final overstates the cost of paying.
+- **No cyber insurance.** Insurance would cover part of the outage and possibly the ransom, which shifts the walk-away point.
+- **One crew.** The model has a single crew that learns from our history. Several crews, or crews that share intelligence, would change how fast reputation builds.
+- **Leak cost is fixed.** It does not depend on the number or sensitivity of the records taken.
+- **The targeting response is uncertain.** The reputation result holds only above about `r fmt_num(max(rep$break_even$eta_star), 2)`; see the table on the [Decision Map & Reputation](map-reputation.qmd#the-assumption-everything-rests-on) page.
+
+## Diagnostics
+
+```{r}
+#| label: tbl-diagnostics
+#| tbl-cap: "Checks run by the pipeline on every build."
+diag |>
+  gt() |>
+  cols_label(check = "Check", result = "Result", detail = "Detail") |>
+  tab_style(cell_text(color = "#1a7f37", weight = "bold"), cells_body(columns = result, rows = result == "Pass")) |>
+  tab_style(cell_text(color = "#b42318", weight = "bold"), cells_body(columns = result, rows = result != "Pass")) |>
+  gt_board()
+```
+
+::: {.reader-note}
+**How to read the table.** Each row is one automatic check that runs every time the analysis is rebuilt. The result column shows whether it passed, and the detail column gives the evidence: the size of any error, the number of cases checked, or the values compared. A failure stops the build, so a published page should never show one.
+
+**What the table tells you.** `r sum(diag$result == "Pass")` of `r nrow(diag)` checks pass. The formula matches an event-by-event simulation, the interactive map uses exactly the same formula as the R code, the simulation results move smoothly as the attack rate changes, and the main ranking of drivers does not depend on the random seed. Together they show that the numbers follow from the stated assumptions; they cannot show that the assumptions are right.
+:::
+
+To rebuild everything, run `Rscript R/run_all.R` and then `quarto render`; the [Reproducibility](reproducibility.qmd) page has the full steps.
+
+## References
+
+- Coveware (2025). Insider threats loom while ransom payment rates plummet. <https://coveware.com/2025/10/insider-threats-loom-while-ransom-payment-rates-plummet/>
+- Coveware (2026, July 29). Adverse cyber extortions are more common than commonly advised. <https://coveware.com/2026/07/adverse-cyber-extortions-are-more-common-than-commonly-advised/>
+- Coveware (2026, October 28). The Silent Ransom Group leak shows why paying for silence fails. <https://coveware.com/2026/10/the-silent-ransom-group-leak-shows-why-paying-for-silence-fails/>
+- ComplianceForge. 23 NYCRR 500.17: Notices to the Superintendent. <https://complianceforge.com/ny-dfs-23-nycrr-500/23-nycrr-500-17-notices-to-superintendent>
+- Hunton Andrews Kurth (2021, September 24). OFAC's updated advisory on ransomware payments. <https://www.hunton.com/insights/legal/ofacs-updated-advisory-on-ransomware-payments>
+- Infosecurity Magazine (2024, February 23). 78% of organizations suffer repeat ransomware attacks after paying. <https://www.infosecurity-magazine.com/news/orgs-repeat-ransomware-paying/>
+- New York State Department of Financial Services (2026). Instructions for reporting an extortion payment pursuant to 23 NYCRR 500.17(c)(1). <https://www.dfs.ny.gov/system/files/documents/2026/07/Reporting-an-Extortion-Payment_1.pdf>
+- Sophos (2025). The State of Ransomware 2025. <https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf>
+- The Register (2026, July 22). Greedy ransomware crews return for seconds after victims cough up first extortion payments. <https://www.theregister.com/security/2026/07/22/over-a-third-of-ransomware-victims-re-extorted-after-paying/5276218>
+- U.S. Department of the Treasury, OFAC (2021, September 21). Updated advisory on potential sanctions risks for facilitating ransomware payments. <https://ofac.treasury.gov/media/912981/download>
+- U.S. Securities and Exchange Commission (2023). Cybersecurity risk management, strategy, governance, and incident disclosure: Small entity compliance guide. <https://www.sec.gov/corpfin/cybersecurity>
