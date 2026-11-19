@@ -105,7 +105,20 @@ main_80 <- function() {
   d10 <- chk("Belief normalization", rep$belief_sum_err < 1e-12,
              sprintf("Max |sum of weights − 1| = %.1e over %d belief states", rep$belief_sum_err, rep$n_nodes))
 
-  diag <- dplyr::bind_rows(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10)
+  # 11 Discounting
+  dv <- rep$deviation
+  d11 <- chk("Discounting", all(dv$cost_10y_pv <= dv$cost_10y + 1e-12),
+             sprintf("Present-value cost at or below the undiscounted cost for all %d policy runs (discount rate %s)",
+                     nrow(dv), fmt_pct(P$reputation$discount_rate)))
+
+  # 12 Deviate-once at eta = 0
+  e0 <- dv |> dplyr::filter(eta == 0) |>
+    dplyr::summarise(gap = cost_10y[policy == "deviate_once"] - cost_10y[policy == "never"], .by = firm)
+  d12 <- chk("Deviate once with no targeting response", all(e0$gap <= 1e-9),
+             sprintf("With η = 0, paying once costs no more than never paying: %s",
+                     paste(sprintf("%s %s", e0$firm, fmt_m(e0$gap, 2)), collapse = "; ")))
+
+  diag <- dplyr::bind_rows(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12)
   save_result(diag, "diagnostics")
   invisible(diag)
 }

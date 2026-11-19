@@ -4,9 +4,9 @@ A2,Restore time from backups,T_r,"Firm assumption, set against Sophos 2025 (53% 
 A3,Backup credibility,b,Firm assumption,CISO,Every restore test; any backup failure
 A4,Decryptor works,q,Firm assumption,CISO,Incident-response retainer briefing on the active crew
 A5,Sanctions nexus,s,Firm assumption; OFAC 2021 advisory on sanctions risk,General Counsel,New OFAC designations or guidance
-A6,Leak probabilities,p_np|p_p,"Firm assumption; 37% of payers re-extorted (The Register, Proofpoint data)",CISO,New industry data on leaks after payment
-A7,Crew's prior belief,prior,"Firm assumption, consistent with a $1.32M median demand (Sophos 2025)",CISO,Threat-intelligence update on demand levels
-A8,Targeting response,eta,Firm assumption; direction supported by repeat-attack data (Cybereason 2024),Chief Risk Officer,Any evidence on how crews pick repeat targets
+A6,Leak probabilities,p_np|p_p,"Firm assumption; re-extortion after payment (The Register, Proofpoint data) as directional support",CISO,New industry data on leaks after payment
+A7,Crew's prior belief,prior,"Firm assumption at the high end of published figures (Sophos 2025 median demand $1.32M; Coveware Q3 2026 median payment $400K)",CISO,Threat-intelligence update on demand levels
+A8,Targeting response,eta,Firm assumption; direction suggested but not measured by repeat-attack surveys,Chief Risk Officer,Any evidence on how crews pick repeat targets
 A8b,Annual attack rate,p0,"Illustrative; no sourced base rate, so readers set it on page 3",Chief Risk Officer,Threat-intelligence or insurer loss data
 A9,Posted demand (no haggling),posted,Simplification; negotiated discounts make this conservative,Incident-response lead,Policy review
 A10,Single crew,crew,Simplification; one crew learns from our history,Chief Risk Officer,Evidence of shared intelligence among crews

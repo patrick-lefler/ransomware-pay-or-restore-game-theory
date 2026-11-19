@@ -5,7 +5,7 @@ COL_LINE <- "#3A3A3A"
 COL_REF <- "#9A9A9A"
 POLICY_COLS <- c(never = "#0166CC", rational = "#C2571A")     # validated: CVD ΔE 26
 POLICY_LABELS <- c(never = "Never pay", rational = "Pay when worth it")
-FIRM_LABELS <- c(resilient = "Resilient", typical = "Typical", fragile = "Fragile")
+FIRM_LABELS <- c(resilient = "Resilient", typical = "Our firm", fragile = "Fragile")
 COMPONENT_LABELS <- c(outage = "Outage", leak = "Data leak", ransom = "Ransom",
                       sanctions = "Sanctions exposure", fixed = "Payment costs")
 COMPONENT_COLS <- c(Outage = "#2a78d6", `Data leak` = "#eb6834", Ransom = "#1baf7a",

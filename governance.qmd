@@ -12,6 +12,10 @@ sens <- read_result("sensitivity")
 diag <- read_result("diagnostics")
 rep <- read_result("reputation")
 cal <- sens$calib
+mc <- read_result("mc_drivers")
+be <- rep$break_even
+be_of <- \(f) be$eta_star[be$firm == f]
+oat3 <- sens$oat[3, ]
 bp <- P$bargaining
 ```
 
@@ -73,7 +77,7 @@ sens$oat |>
 ::: {.reader-note}
 **How to read the table.** Each row moves one input from a low value to a high value: the points below which 10% and 90% of its range fall. Everything else stays at base. The next two columns give the walk-away point at each end, and the swing is the gap between them. Rows are sorted with the biggest swing at the top.
 
-**What the table tells you.** Restore time moves the walk-away point by `r fmt_m(sens$oat$swing[1], 2)`, more than any other input, followed by backup credibility at `r fmt_m(sens$oat$swing[sens$oat$input == "b"], 2)`. Sanctions risk moves it least. Better information on restore time and backup quality, for example from a full restore test, is the most valuable input the board can buy. Even the smallest swing, for sanctions risk, is `r fmt_m(min(sens$oat$swing), 2)`, so no input here should be treated as settled.
+**What the table tells you.** Restore time moves the walk-away point by `r fmt_m(sens$oat$swing[1], 2)`, more than any other input, followed by backup credibility at `r fmt_m(sens$oat$swing[sens$oat$input == "b"], 2)`. Better information on both, for example from a full restore test, is the most valuable input the board can buy. `r oat3$label`, which the crew's tooling sets, is the third-largest swing: even after paying, the platform stays down for about `r BASE$d_pay + BASE$T_d` days at base.
 :::
 
 ```{r}
@@ -90,12 +94,36 @@ cal |>
 ```
 
 ::: {.reader-note}
-**How to read the table.** Each row is a Monte Carlo run of `r fmt_num(N_MC, 0)` simulated incidents, each with its own inputs and a random demand. The first row uses this firm's ranges. The second shrinks restore times so that the median is `r P$monte_carlo$market_T_r_median` days and makes backups work about 90% of the time. The last column is the share of incidents in which paying is cheaper than restoring.
+**How to read the table.** Each row is a Monte Carlo run of `r fmt_num(N_MC, 0)` simulated incidents, each with its own inputs and a random demand. The first row uses this firm's ranges. The second shrinks restore times so that the median is `r P$monte_carlo$market_T_r_median` days and makes backups work about `r fmt_pct(cal$b_mean[2])` of the time. The last column is the share of incidents in which paying is cheaper than restoring.
 
-**What the table tells you.** With this firm's ranges, paying is the cheaper path in `r fmt_pct(cal$pay_share[1])` of incidents; with market-typical restores, in `r fmt_pct(cal$pay_share[2])`. Coveware reported that 23% of victims paid in Q3 2025, which sits between the two. Restore time alone moves the pay share by a factor of `r round(cal$pay_share[1] / cal$pay_share[2])`. The model's high pay share reflects this firm's slow restores, not a bias toward paying: a firm that restores like the market would rarely pay.
+**What the table tells you.** With this firm's ranges, paying is the cheaper path in `r fmt_pct(cal$pay_share[1])` of incidents; with faster restores and stronger backups, in `r fmt_pct(cal$pay_share[2])`. Reported market payment rates lie between the two runs, so the model brackets the market rather than matching it. The high first figure reflects this firm's slow restores: the same model with market-like recovery pays far less often.
 :::
 
-The simulated pay share is high because this firm restores slowly: its median restore time is `r fmt_num(cal$T_r_median[1], 1)` days, against roughly a week for most victims ([Sophos 2025](https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf)). The market payment rate of 23% in Q3 2025 ([Coveware](https://coveware.com/2025/10/insider-threats-loom-while-ransom-payment-rates-plummet/)), which fell to a new record low in Q2 2026 ([Coveware](https://coveware.com/2026/07/adverse-cyber-extortions-are-more-common-than-commonly-advised/)), is consistent with the model once restore times match the market.
+The simulated pay share is high because this firm restores slowly: its median restore time is `r fmt_num(cal$T_r_median[1], 1)` days, against roughly a week for most victims ([Sophos 2025](https://assets.sophos.com/X24WTUEQ/at/9brgj5n44hqvgsp5f5bqcps/sophos-state-of-ransomware-2025.pdf)). At the base demand of `r fmt_m(D_BASE)`, paying on day one is cheaper in `r fmt_pct(mc$summary$p_pay_at_base_demand)` of draws. The market payment rate was 23% in Q3 2025 ([Coveware](https://coveware.com/2025/10/insider-threats-loom-while-ransom-payment-rates-plummet/)), fell to a new record low in Q2 2026 ([Coveware](https://coveware.com/2026/07/adverse-cyber-extortions-are-more-common-than-commonly-advised/)), and nearly 80% of Q3 2026 incidents were resolved without payment ([Coveware](https://coveware.com/2026/10/the-silent-ransom-group-leak-shows-why-paying-for-silence-fails/)). That rate lies between the two runs, about `r round(0.23 / cal$pay_share[2], 1)` times the market-calibration figure. Observed payment rates also reflect insurance, law-enforcement involvement and corporate policy, which this model leaves out.
+
+```{r}
+#| label: tbl-demand-spread
+#| tbl-cap: "Share of the variation in the pay-or-not decision explained by each input, as the spread of demands widens. The median demand and all other draws are held fixed."
+sbs <- mc$shares_by_sdlog
+sbs |>
+  filter(input %in% c("E_T", "T_r", "b", "D")) |>
+  mutate(input = factor(input, levels = c("E_T", "T_r", "b", "D"))) |>
+  select(sdlog, pay_share, input, share) |>
+  tidyr::pivot_wider(names_from = input, values_from = share) |>
+  gt() |>
+  cols_label(sdlog = "Demand spread (log-sd)", pay_share = "Pay share", E_T = "Expected outage time",
+             T_r = "Restore time", b = "Backup credibility", D = "Ransom demand") |>
+  tab_spanner("Share of variation in the pay decision", c(E_T, T_r, b, D)) |>
+  fmt_number(columns = sdlog, decimals = 1) |>
+  fmt_percent(columns = c(pay_share, E_T, T_r, b, D), decimals = 0) |>
+  gt_board()
+```
+
+::: {.reader-note}
+**How to read the table.** Each row reruns the `r fmt_num(N_MC, 0)` simulated incidents with demands spread more or less widely around the same median. The first column measures that spread: `r fmt_num(min(sbs$sdlog), 1)` is the site's moderate assumption, and `r fmt_num(max(sbs$sdlog), 1)` is closer to the spread of published payments across all victims. The next column is how often paying is cheaper. The rest show how much of the yes-or-no decision each input explains on its own.
+
+**What the table tells you.** The ranking flips as demands vary more widely. At the moderate spread, expected outage time explains `r fmt_pct(sbs$share[sbs$sdlog == min(sbs$sdlog) & sbs$input == "E_T"])` of the decision and the demand `r fmt_pct(sbs$share[sbs$sdlog == min(sbs$sdlog) & sbs$input == "D"])`; at the widest, the demand explains `r fmt_pct(sbs$share[sbs$sdlog == max(sbs$sdlog) & sbs$input == "D"])`. What holds at every spread is structural: restore time sets the walk-away point, and the demand only tests it. The pay share also falls as demands spread out, because more of them land far above the walk-away point.
+:::
 
 ## Limitations
 
@@ -104,7 +132,12 @@ The simulated pay share is high because this firm restores slowly: its median re
 - **No cyber insurance.** Insurance would cover part of the outage and possibly the ransom, which shifts the walk-away point.
 - **One crew.** The model has a single crew that learns from our history. Several crews, or crews that share intelligence, would change how fast reputation builds.
 - **Leak cost is fixed.** It does not depend on the number or sensitivity of the records taken.
-- **The targeting response is uncertain.** The reputation result holds only above about `r fmt_num(max(rep$break_even$eta_star), 2)`; see the table on the [Decision Map & Reputation](map-reputation.qmd#the-assumption-everything-rests-on) page.
+- **The targeting response is uncertain.** The reputation result holds only if crews favor known payers: above about `r fmt_num(be_of("typical"), 2)` for our firm and `r fmt_num(be_of("fragile"), 2)` for the fragile firm; see the [Decision Map & Reputation](map-reputation.qmd#the-assumption-everything-rests-on) page.
+- **The crew learns about our walk-away point, not our policy.** A firm that never pays looks like one with a low walk-away point, so its demand keeps falling instead of the crew moving on.
+- **The staged path needs time.** Restoring first and paying only if backups fail assumes the firm can negotiate while restoring; leak deadlines or rising demands can remove that option.
+- **Sanctions are a cost, not a bar.** A known sanctions link would rule out payment entirely rather than add a penalty.
+- **Outage cost is constant per day.** In practice client churn accelerates after the first week, which would make restore time matter even more.
+- **The decryptor works fully or not at all.** Partial decryption would leave some restore effort even after paying.
 
 ## Diagnostics
 
