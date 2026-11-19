@@ -1,0 +1,53 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - index.qmd
+    - license.qmd
+
+website:
+  title: "Ransomware Pay or Restore Game Theory"
+  favicon: assets/images/favicon.svg
+  search: false
+  page-navigation: true
+  sidebar:
+    logo: assets/images/logo.svg
+    logo-alt: "Seeking Eureka"
+    style: floating
+    contents:
+      - href: index.qmd
+        text: Overview
+  page-footer:
+    center: "© 2026 Patrick Lefler ⦁ [MIT License](license.qmd) ⦁ Built with R & Quarto"
+
+format:
+  html:
+    code-copy: true
+    code-fold: true
+    code-overflow: true
+    code-tools: true
+    df-print: paged
+    fig-align: center 
+    fig-width: 10
+    fig-height: 6
+    highlight-style: arrow
+    lightbox: true
+    linkcolor: "#0166CC"
+    number-sections: false
+    page-layout: full
+    smooth-scroll: true
+    theme: [sandstone, theme.scss]
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    toc-title: "contents"
+
+execute:
+  echo: true
+  freeze: auto
+  warning: false
+  message: false
+
+knitr:
+  opts_chunk:
+    comment: "#>"
